@@ -1,0 +1,22 @@
+.btn-edit-circle {
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  width: 80px;
+  cursor: pointer;
+ font-size: 35px;
+ 
+  border-radius: 50%;
+  background-color:#00db6e;
+}
+.btn-edit-circle:hover{
+    background-color:#21db00;
+
+}
+.btn-edit{
+    position: fixed !important;
+    z-index: 100000000;
+    bottom: 0;
+    right:0;
+}

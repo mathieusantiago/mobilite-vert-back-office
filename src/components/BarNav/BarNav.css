@@ -1,0 +1,16 @@
+.burgerBtn{
+    border-radius: 10%;
+}
+
+.burgerBtn:hover{
+    border: 2px solid forestgreen !important;
+    border-radius: 10%; 
+}
+
+.PersonCircle{
+    size: 80px;
+}
+
+.dropdown-menu[data-bs-popper] {
+    left: -60px !important;
+}

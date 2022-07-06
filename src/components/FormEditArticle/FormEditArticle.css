@@ -1,0 +1,17 @@
+
+
+.nav-link {
+  width: 320px !important;
+  color: rgb(0, 0, 0) !important;
+}
+
+.nav-tabs .nav-link.active {
+  border-color: #909294 #909294 #fff !important;
+}
+
+.toastsPosition{
+  position: fixed !important;
+  display: flex;
+  z-index: 1;
+  right: 40%;
+}

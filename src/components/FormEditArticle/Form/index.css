@@ -1,0 +1,17 @@
+.boxGalerie {
+  height: 400px;
+  position: relative;
+}
+
+.btnGalerie {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  width: 180px !important;
+}
+
+.imgArticle {
+  width: 504px;
+  height: 344px;
+  object-fit: cover;
+}

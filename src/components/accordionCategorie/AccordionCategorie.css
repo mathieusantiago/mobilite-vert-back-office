@@ -1,0 +1,34 @@
+.test3{
+    margin: 0 !important;
+    padding: 0 !important;
+}
+.pencilIcon{
+    cursor: pointer !important;
+}
+
+.pencilIcon:hover{
+    fill: red;
+}
+
+.accordion-button:not(.collapsed) {
+    color: #000000 !important;
+    background-color: #ffffff !important;
+    box-shadow: inset 0 -1px 0 rgb(0 0 0 / 13%);
+}
+
+.toastsPosition{
+    position: absolute !important;
+    display: flex;
+    z-index: 1;
+    right: 40%;
+}
+
+.btnSubCat{
+    position: absolute;
+    right: 60px;
+    width: 82px;
+}
+.btnSubCatswitch{
+    position: absolute;
+    right: 188px;
+}

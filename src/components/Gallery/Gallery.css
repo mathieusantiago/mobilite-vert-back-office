@@ -1,0 +1,14 @@
+.img {
+  width: 220px;
+  height: 130px;
+  object-fit: cover;
+}
+
+.iconsGallery{
+  font-size:20px;
+}
+
+.iconsGallery:hover{
+  font-size:20px;
+  fill:red;
+} 
