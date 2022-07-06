@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Container, Row, Card, Form} from "react-bootstrap";
+import { Container, Row, Card, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { Trash, Check2Circle, AspectRatio } from "react-bootstrap-icons";
 import "./Gallery.css";
@@ -14,13 +14,14 @@ const Gallery = (props) => {
   const [pictureId, setPictureId] = useState(null);
   const [deleteState, setDeleteState] = useState("");
   const [scope, setScope] = useState("");
+  const [dataGalleryPicture, setDataGalleryPicture] = useState([]);
 
   const handleShowDelete = () => setShowModalDelete(true);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  
+
   useEffect(() => {
-    console.log('gallery', scope)
+    console.log("gallery", dataGalleryPicture);
     setScope(params.get("scope"));
     getPictureInfo();
   }, [props.state, deleteState]);
@@ -61,7 +62,7 @@ const Gallery = (props) => {
           />
         );
       },
-      center: true
+      center: true,
     },
     {
       name: "Titre",
@@ -69,7 +70,7 @@ const Gallery = (props) => {
         return <Card.Text>{row.nom}</Card.Text>;
       },
       sortable: true,
-      center: true
+      center: true,
     },
     {
       name: "Description",
@@ -77,7 +78,7 @@ const Gallery = (props) => {
         return <Card.Text>{row.description}</Card.Text>;
       },
       sortable: true,
-      center: true
+      center: true,
     },
     {
       name: "SEO",
@@ -85,7 +86,7 @@ const Gallery = (props) => {
         return <Card.Text>{row.seo}</Card.Text>;
       },
       sortable: true,
-      center: true
+      center: true,
     },
     {
       name: "Date de création",
@@ -93,7 +94,7 @@ const Gallery = (props) => {
         return <Card.Text>{row.createdAt.split("T")[0]}</Card.Text>;
       },
       sortable: true,
-      center: true
+      center: true,
     },
     {
       name: "Actions",
@@ -107,30 +108,43 @@ const Gallery = (props) => {
                 setPictureId(row._id);
               }}
             />
-            {scope !== 'article'?'':
-            <>
-            <Check2Circle
-              className="iconsGallery me-3"
-              onClick={() => {
-                storePicture(row._id);
-              }}
-            />
-            <AspectRatio   className="iconsGallery"
-              onClick={() => {
-                storePicture(row._id);
-              }} />
-            </> 
-            }
+            {scope !== "article" ? (
+              ""
+            ) : (
+              <>
+                <Check2Circle
+                  className="iconsGallery me-3"
+                  onClick={() => {
+                    storePicture(row._id);
+                  }}
+                />
+                <AspectRatio className="iconsGallery" />
+              </>
+            )}
+            {scope !== "articleGallery" ? (
+              ""
+            ) : (
+              <>
+                <AspectRatio className="iconsGallery" />
+              </>
+            )}
           </div>
         );
       },
-      center: true
+      center: true,
     },
   ];
 
   return (
     <Container fluid>
       <Row className="mt-4">
+        {dataGalleryPicture.length === 0 ? (
+          ""
+        ) : (
+          <div className="d-flex justify-content-end">
+            <Button variant="outline-primary">Ajouter la selection</Button>
+          </div>
+        )}
         {scope !== "articleGallery" ? (
           <DataTable
             pagination
@@ -150,7 +164,7 @@ const Gallery = (props) => {
             striped
             selectableRows
             selectableRowsComponent={Form.Check}
-            onSelectedRowsChange={(e) => console.log(e)}
+            onSelectedRowsChange={(e) =>{ setDataGalleryPicture(e);props.setDisplayBtn(true)}}
           />
         )}
       </Row>
