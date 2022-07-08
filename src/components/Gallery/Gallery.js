@@ -48,6 +48,18 @@ const Gallery = (props) => {
     );
     navigate("/editarticle");
   };
+
+  const storeGallery = ()=> {
+    console.log(dataGalleryPicture.selectedCount)
+    if(dataGalleryPicture.selectedCount !== 0){
+      sessionStorage.setItem(
+        "galleryPicture",
+        JSON.stringify(dataGalleryPicture.selectedRows)
+      );
+      navigate("/editarticle");
+    }
+  }
+
   //set data table
   const columns = [
     {
@@ -142,7 +154,7 @@ const Gallery = (props) => {
           ""
         ) : (
           <div className="d-flex justify-content-end">
-            <Button variant="outline-primary">Ajouter la selection</Button>
+            <Button variant="outline-primary" onClick={storeGallery}>Ajouter la selection</Button>
           </div>
         )}
         {scope !== "articleGallery" ? (

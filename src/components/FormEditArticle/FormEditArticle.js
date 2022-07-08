@@ -101,6 +101,7 @@ const FormEditArticle = (props) => {
           tilteSeo: tilteSeo || "",
           contentSeo: contentSeo || "",
           mainPicture: sessionStorage.getItem("mainPicture") || "",
+          galleryPicture: JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
         },
         withCredentials: true,
       })
