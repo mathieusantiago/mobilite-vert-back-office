@@ -12,6 +12,7 @@ const ListeArticle = (props) => {
   const handleRedirect = () => {
     sessionStorage.removeItem("dataArticle");
     sessionStorage.removeItem("mainPicture");
+    sessionStorage.removeItem("galleryPicture");
     navigate("/article");
   };
 

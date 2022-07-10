@@ -1,0 +1,14 @@
+.iconTrash {
+  fill: rgb(246, 246, 246);
+  font-size: 20px;
+}
+
+.imgGallery {
+  width: 275px;
+  height: 159px;
+  object-fit: cover;
+}
+
+.contentGalleryDescription{
+    height: 80px;
+}

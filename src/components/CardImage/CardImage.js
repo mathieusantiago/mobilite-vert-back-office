@@ -1,32 +1,52 @@
 import React, { useState, useEffect } from "react";
 import { Button, Card, Container, Row } from "react-bootstrap";
-
+import { Trash } from "react-bootstrap-icons";
+import "./CardImage.css"
 const CardImage = (props) => {
   const [dataGalleri, setDataGalleri] = useState([]);
+  const [state, setState] = useState(false);
 
-  useEffect(() => {
-    setDataGalleri(JSON.parse(sessionStorage.getItem("galleryPicture")));
-  }, []);
-//urlPicture
+
+  useEffect(
+    () => {
+      setDataGalleri(JSON.parse(sessionStorage.getItem("galleryPicture")));
+      setState(false)
+    },
+    [state]
+  );
+
+  const deletePicture = (key) => {
+    console.log("test");
+    dataGalleri.splice(key, 1);
+    sessionStorage.setItem("galleryPicture", JSON.stringify(dataGalleri));
+    setState(true)
+  };
+  //urlPicture
   return (
     <div>
       <Container>
         <Row>
-        {dataGalleri?dataGalleri.map((data) => {
-          console.log(data);
-          return (
-              <Card className="mb-5 me-3" style={{ width: "18rem" }}>
-                <Card.Img variant="top" src={data.urlPicture} />
-                <Card.Body>
-                  <Card.Title>{data.nom}</Card.Title>
-                  <Card.Text>
-                    {data.description}
-                  </Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
-                </Card.Body>
-              </Card>
-          );
-        }):""}
+          {dataGalleri
+            ? dataGalleri.map((data, key) => {
+                console.log("test", data);
+                return (
+                  <Card className="mb-5 me-3" style={{ width: "18rem" }}>
+                    <Card.Img variant="top" className="imgGallery" src={data.urlPicture} />
+                    <Card.Body>
+                      {key}
+                      <Card.Title>{data.nom}</Card.Title>
+                      <Card.Text className="contentGalleryDescription">{data.description}</Card.Text>
+                      <Button
+                        variant="danger"
+                        onClick={() => deletePicture(key)}
+                      >
+                       <Trash className="iconTrash"/>
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                );
+              })
+            : ""}
         </Row>
       </Container>
     </div>
