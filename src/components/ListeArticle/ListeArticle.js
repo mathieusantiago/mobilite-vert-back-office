@@ -1,19 +1,29 @@
-import React, {useEffect, useState} from "react";
-import { Button, Col, Pagination, Row } from "react-bootstrap";
+import React, { useEffect, useState } from "react";
+import { Button, Col, Row } from "react-bootstrap";
 import { ChevronLeft } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
-import axios from 'axios'
-
+import Piging from "./Paging";
+import axios from "axios";
 import "./ListeArticle.css";
+
 const ListeArticle = (props) => {
   const navigate = useNavigate();
   const [dataArticle, setDataArticle] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [articlePerPage] = useState(10);
 
   const handleRedirect = () => {
     sessionStorage.removeItem("dataArticle");
     sessionStorage.removeItem("mainPicture");
     navigate("/article");
   };
+
+  const indexOfLastArticle = currentPage * articlePerPage;
+  const indexOfFirstArticle = indexOfLastArticle - articlePerPage;
+  const currentArticle = dataArticle.slice(
+    indexOfFirstArticle,
+    indexOfLastArticle
+  );
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -28,10 +38,18 @@ const ListeArticle = (props) => {
         .catch((err) => {
           console.log("No data article", err);
         });
-        props.setNewState(false)
+      props.setNewState(false);
     };
     fetchArticle();
   }, [props.newState]);
+
+  const paginate = (pageNumbre) => {
+    console.log("test", pageNumbre);
+    const maxPage = Math.ceil(dataArticle.length / articlePerPage);
+    if (pageNumbre <= maxPage && pageNumbre >= 1) {
+      setCurrentPage(pageNumbre);
+    }
+  };
 
   return (
     <Row className="ms-3">
@@ -40,12 +58,13 @@ const ListeArticle = (props) => {
           ""
         ) : (
           <p className="fs-3  bg-gray pt-2 pb-2 chevron-left text-light">
-            <ChevronLeft onClick={handleRedirect} /> {dataArticle.length} Article
+            <ChevronLeft onClick={handleRedirect} /> {dataArticle.length}{" "}
+            Article
           </p>
         )}
 
         <div className="bg-light">
-          {dataArticle.map((data) => {
+          {currentArticle.map((data) => {
             return (
               <div className="text-dark ms-2 border">
                 <Row>
@@ -76,16 +95,11 @@ const ListeArticle = (props) => {
         </div>
       </div>
       <div className="d-flex justify-content-center">
-        <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination>
+        <Piging
+          paginate={paginate}
+          articlePerPage={articlePerPage}
+          totalArticle={dataArticle}
+        />
       </div>
     </Row>
   );
