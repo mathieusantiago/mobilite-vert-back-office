@@ -155,7 +155,7 @@ const FormEditArticle = (props) => {
       </div>
       <Container>
         <Row>
-          <div className="p-1 bg-secondary text-light">
+          <div className="p-1 bg-green text-light">
             <p className="fs-3 m-2 pt-1 text-light chevron-left">
               Création d'un article
             </p>

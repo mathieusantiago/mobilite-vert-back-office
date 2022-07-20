@@ -32,7 +32,6 @@ const AccordionCategorie = (props) => {
   const toggleShowSubToasts = () => setShowToasts(!showToasts);
   const handleShowDelete = () => setShowModalDelete(true);
   const toggleShowToasts = () => setShowToasts(!showToasts);
-  console.log("dataCategorie",dataCategorie)
   useEffect(() => {
     const fetchCategorie = async () => {
       await axios({
@@ -63,8 +62,16 @@ const AccordionCategorie = (props) => {
     setShowModalCategorie();
     setShowModalCategorie(false);
   };
+
+  const sortableOptions = {
+  animation: 150,
+  fallbackOnBody: false,
+  swapThreshold: 0.65,
+  ghostClass: "ghost",
+
+};
   return (
-    <div>
+    <div className="borderGreen">
       <div className="toastsPosition">
         <Toasts
           showToasts={showToasts}
@@ -75,14 +82,14 @@ const AccordionCategorie = (props) => {
       {props.index === "dashBoard" ? (
         ""
       ) : (
-        <div className="bg-secondary text-light pt-3 pb-3 ps-3">
+        <div className="bg-green text-light pt-3 pb-3 ps-3">
           <Button onClick={() => setShowModalCategorie(true)} variant="primary">
             Ajouter à la racine
           </Button>
         </div>
       )}
       <>
-        <ReactSortable list={dataCategorie} setList={setDataCategorie}>
+        <ReactSortable list={dataCategorie} setList={setDataCategorie} {...sortableOptions}>
           {dataCategorie
             ? dataCategorie.map((categorie, index) => {
                 categorie.order = index;

@@ -5,7 +5,7 @@ import axios from "axios";
 import "./ArticleTable.css";
 import ModalDelete from "../../modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
-import { Trash, PencilSquare } from "react-bootstrap-icons";
+import { Trash, PencilSquare, Eye } from "react-bootstrap-icons";
 
 import { useNavigate } from "react-router-dom";
 import AddBtn from "../../AddBtn/AddBtn";
@@ -16,7 +16,6 @@ const ArticleTable = (props) => {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [articleId, setArticleId] = useState("");
   const handleShowDelete = () => setShowModalDelete(true);
-  
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -39,7 +38,7 @@ const ArticleTable = (props) => {
     {
       name: "ID",
       selector: (row) => row._id,
-      center:true,
+      center: true,
       sortable: false,
     },
     {
@@ -47,13 +46,13 @@ const ArticleTable = (props) => {
       selector: (row) => {
         return (
           <div>
-            <Button variant="outline-primary" size="sm">
+            <Button className="bordered-bleu" size="sm">
               {row.profil_name}
             </Button>
           </div>
         );
       },
-      center:true,
+      center: true,
       sortable: false,
     },
     {
@@ -65,45 +64,62 @@ const ArticleTable = (props) => {
           </div>
         );
       },
-      center:true,
+      center: true,
       sortable: true,
     },
     {
       name: "Catégorie",
       selector: (row) => row.categories,
-      center:true,
+      center: true,
       sortable: true,
     },
     {
       name: "createDate",
       selector: (row) => row.createdAt.split("T")[0],
-      center:true,
+      center: true,
       sortable: true,
     },
     {
       name: "updateDate",
       selector: (row) => row.updatedAt.split("T")[0],
-      center:true,
+      center: true,
       sortable: true,
+      width: "100px",
     },
     {
       name: "status",
       selector: (row) => {
         return (
           <div>
-            <Button variant="outline-primary" size="sm">
-              {row.status}
-            </Button>
+            {row.status === "Draft" ? (
+              <Button variant="outline-danger" size="sm">
+                {row.status}
+              </Button>
+            ) : (
+              <Button className="bordered-bleu" size="sm">
+                {row.status}
+              </Button>
+            )}
           </div>
         );
       },
-      center:true,
+      center: true,
       sortable: true,
+      width: "100px",
     },
     {
       selector: (row) => (
         <div>
           <Row>
+            <Col
+              variant="light"
+              className="btnTable pe-3"
+              onClick={() => {
+                navigate("/editarticle");
+              }}
+            >
+              <Eye />
+            </Col>
             <Col
               variant="light"
               className="btnTable"
@@ -116,10 +132,10 @@ const ArticleTable = (props) => {
 
             <Col
               variant="light"
-              className="btnTable"
+              className="btnTable pe-3"
               onClick={() => {
                 handleShowDelete();
-                setArticleId(row._id)
+                setArticleId(row._id);
               }}
             >
               <Trash />
@@ -129,8 +145,8 @@ const ArticleTable = (props) => {
       ),
       name: "Action",
       button: true,
-      width: "100px",
-      center:true,
+      width: "150px",
+      center: true,
     },
   ];
   return (
@@ -139,23 +155,28 @@ const ArticleTable = (props) => {
         {props.index === "dashBoard" ? (
           ""
         ) : (
-          <div className="bg-secondary text-light p-1">
+          <div className="bg-green text-light p-1">
             <p className="fs-3 m-2 pt-1">{dataArticle.length} Article</p>
             <AddBtn scope="addArticle" />
           </div>
         )}
-
-        <DataTable
-          pagination
-          columns={columns}
-          data={dataArticle}
-          dense={false}
-          responsive={true}
-          striped
-        />
+        <div className="borderGreen">
+          <DataTable
+            pagination
+            columns={columns}
+            data={dataArticle}
+            dense={false}
+            responsive={true}
+            striped
+          />
+        </div>
       </Container>
 
-      <ModalDelete scope="article" showModalDelete={showModalDelete} setShowModalDelete={setShowModalDelete} />
+      <ModalDelete
+        scope="article"
+        showModalDelete={showModalDelete}
+        setShowModalDelete={setShowModalDelete}
+      />
     </>
   );
 };

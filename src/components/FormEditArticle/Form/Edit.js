@@ -86,7 +86,7 @@ const Edit = (props) => {
         </Col>
         <Col sm={5}>
           <div className="border me-3 boxGalerie">
-            <div className="p-1 bg-secondary text-light">
+            <div className="p-1 bg-green text-light">
               <p className="fs-3 m-0 pt-1 text-light">Création d'un article</p>
             </div>
             <img src={getStoreMainPicture()} alt="" className="imgArticle" />

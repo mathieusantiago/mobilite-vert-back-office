@@ -54,11 +54,11 @@ const ListeArticle = (props) => {
 
   return (
     <Row className="ms-3">
-      <div className="p-1  text-light">
+      <div className="borderGreen text-light">
         {props.index === "dashBoard" ? (
           ""
         ) : (
-          <p className="fs-3  bg-gray pt-2 pb-2 chevron-left text-light">
+          <p className="fs-3 bg-green pt-2 pb-2 chevron-left text-light">
             <ChevronLeft onClick={handleRedirect} /> {dataArticle.length}{" "}
             Article
           </p>

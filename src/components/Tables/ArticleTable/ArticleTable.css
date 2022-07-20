@@ -1,18 +1,36 @@
-.headerTable{
-    height: 55px;
+.headerTable {
+  height: 55px;
 }
 
-
-
-.rdt_TableRow:hover{
-    background-color: rgb(236, 236, 236)
+.bg-green {
+  border: 2px solid var(--green);
 }
 
-.btnTable:hover{
-   color: red;
+.borderGreen {
+  padding: 0 !important;
+  border-radius: 5px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }
-.btnTable{
-    font-size: 20px;
-    cursor: pointer;
-    padding: 8px;
+
+.rdt_TableRow:hover {
+  background-color: rgb(236, 236, 236);
+}
+
+.btnTable:hover {
+  color: red;
+}
+.btnTable {
+  font-size: 20px;
+  cursor: pointer;
+}
+.bordered-bleu{
+    border-color: var(--bleu) !important;
+    background-color:#fff !important;
+    color: var(--bleu) !important;
+}
+.bordered-bleu:hover{
+    border-color: var(--bleu) !important;
+    color: #fff !important;
+    background-color: var(--bleu) !important;
 }

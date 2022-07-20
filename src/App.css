@@ -1,11 +1,15 @@
+:root {
+  --green: #2ece90;
+  --bleu: #24A59B;
+  --pink: #865166;
+  --bleu-dark: #16131E;
+  --red: #DC3D53;
+}
 *{
   color: black;
+  border-radius: 3px;
 }
 
 .logo-greenMove{
   width: 100px;
-}
-*{
-  border-radius: 3px;
-
 }

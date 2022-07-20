@@ -15,3 +15,7 @@
   height: 344px;
   object-fit: cover;
 }
+
+.bg-green {
+  background-color: var(--green);
+}
