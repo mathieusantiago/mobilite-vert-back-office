@@ -7,3 +7,12 @@
     height: 521px;
     object-fit: cover;
 }
+
+.previewModalBody{
+    background-color: #dfdfdf;
+}
+
+.previewModalHeader{
+    background-color: #dfdfdf;
+
+}

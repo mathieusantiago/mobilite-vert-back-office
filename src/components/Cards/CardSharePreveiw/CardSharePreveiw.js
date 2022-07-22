@@ -2,6 +2,8 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import "./CardSharePreveiw.css";
 const CardSharePreveiw = (props) => {
+  const date = new Date(props.updatedAt);
+
   return (
     <div>
       <p className="text-center bold">
@@ -15,13 +17,13 @@ const CardSharePreveiw = (props) => {
           src={props.mainPicture ? props.mainPicture : ""}
         />
         <Card.Body>
-          <Card.Text>{props.categories}</Card.Text>
+          <Card.Text><a href="#" className="text-primary">{props.categories}</a></Card.Text>
           <Card.Text>{props.article_title}</Card.Text>
           <Card.Text>{props.contentSeo}</Card.Text>
 
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Publillé le : {props.updatedAt}</small>
+          <small className="text-muted">Publillé le : {date.toLocaleDateString('fr-FR').substring(0, 10)}</small>
         </Card.Footer>
       </Card>
     </div>

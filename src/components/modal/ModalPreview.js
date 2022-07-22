@@ -2,6 +2,7 @@ import React from "react";
 import { Modal, Card, CardGroup, Container, Row, Col } from "react-bootstrap";
 import CardMainPreveiw from "../Cards/CardMainPreveiw/CardMainPreveiw";
 import CardSharePreveiw from "../Cards/CardSharePreveiw/CardSharePreveiw";
+import PreviewArticle from "../PreviewArticle/PreviewArticle";
 import "./index.css";
 const ModalPreview = (props) => {
   console.log("test", props.dataArticleById);
@@ -13,13 +14,13 @@ const ModalPreview = (props) => {
         fullscreen={true}
         className="modalPreview"
       >
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="previewModalHeader">
           <Modal.Title id="example-custom-modal-styling-title">
             Prévisualisation de l'article :{" "}
             {props.dataArticleById.article_title}
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="previewModalBody">
           <Row>
             <Col className="d-flex justify-content-center">
               <CardMainPreveiw
@@ -42,33 +43,13 @@ const ModalPreview = (props) => {
           </Row>
 
           <Container>
-            <div className="mt-5 border p-3">
-              <p className="text-center bold">
-                Prévisualisation de l'article
-              </p>
-              <img
-                src={
-                  props.dataArticleById.mainPicture
-                    ? props.dataArticleById.mainPicture
-                    : ""
-                }
-                alt=""
-                className="imgMainArticle"
-              />
-              <div
-                className="pb-3"
-
-                dangerouslySetInnerHTML={{
-                  __html: props.dataArticleById.chapo,
-                }}
-              ></div>
-              <div
-                className="pb-3"
-                dangerouslySetInnerHTML={{
-                  __html: props.dataArticleById.content_article,
-                }}
-              ></div>
-            </div>
+            <PreviewArticle
+              content_article={props.dataArticleById.content_article}
+              chapo={props.dataArticleById.chapo}
+              mainPicture={props.dataArticleById.mainPicture}
+              updatedAt={props.dataArticleById.updatedAt}
+              author={props.dataArticleById.author}
+            />
           </Container>
         </Modal.Body>
       </Modal>
