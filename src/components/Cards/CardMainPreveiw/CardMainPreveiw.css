@@ -1,0 +1,9 @@
+.mainCards {
+  width: 600px !important;
+}
+
+.imgMainPreview {
+  width: 598px;
+  height: 364px;
+  object-fit: cover;
+}

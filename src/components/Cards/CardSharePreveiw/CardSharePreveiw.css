@@ -1,0 +1,9 @@
+.shareCards {
+  width: 890px !important;
+}
+
+.imgSharePreview {
+  width: 888px;
+  height: 364px;
+  object-fit: cover;
+}

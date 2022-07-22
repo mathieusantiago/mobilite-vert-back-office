@@ -6,6 +6,7 @@ import "./ArticleTable.css";
 import ModalDelete from "../../modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
 import { Trash, PencilSquare, Eye } from "react-bootstrap-icons";
+import ModlaPreview from "../../modal/ModalPreview";
 
 import { useNavigate } from "react-router-dom";
 import AddBtn from "../../AddBtn/AddBtn";
@@ -13,9 +14,11 @@ import AddBtn from "../../AddBtn/AddBtn";
 const ArticleTable = (props) => {
   const navigate = useNavigate();
   const [dataArticle, setDataArticle] = useState([]);
+  const [dataArticleById, setDataArticleById] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
-  const [articleId, setArticleId] = useState("");
+  const [setArticleId] = useState("");
   const handleShowDelete = () => setShowModalDelete(true);
+  const [showModalPreview, setShowModalPreview] = useState(false);
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -33,6 +36,20 @@ const ArticleTable = (props) => {
     };
     fetchArticle();
   }, []);
+
+  const getArticleById = async (id) => {
+    await axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}api/article/${id}`,
+      withCredentials: true,
+    })
+      .then((res) => {
+        setDataArticleById(res.data);
+      })
+      .catch((err) => {
+        console.log("No data article", err);
+      });
+  };
 
   const columns = [
     {
@@ -115,7 +132,8 @@ const ArticleTable = (props) => {
               variant="light"
               className="btnTable pe-3"
               onClick={() => {
-                navigate("/editarticle");
+                setShowModalPreview(true);
+                getArticleById(row._id);
               }}
             >
               <Eye />
@@ -176,6 +194,11 @@ const ArticleTable = (props) => {
         scope="article"
         showModalDelete={showModalDelete}
         setShowModalDelete={setShowModalDelete}
+      />
+      <ModlaPreview
+        setShowModalPreview={setShowModalPreview}
+        showModalPreview={showModalPreview}
+        dataArticleById={dataArticleById}
       />
     </>
   );

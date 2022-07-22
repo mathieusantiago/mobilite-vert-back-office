@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import CardImage from "../../CardImage/CardImage";
+import CardImage from "../../Cards/CardImage/CardImage";
 import { Link } from "react-router-dom";
 
 import "./index.css";

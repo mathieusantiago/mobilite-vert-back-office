@@ -1,0 +1,9 @@
+.modalPreview{
+    z-index: 100000000 !important;
+}
+
+.imgMainArticle{
+    width: 1260px;
+    height: 521px;
+    object-fit: cover;
+}
