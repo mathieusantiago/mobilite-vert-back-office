@@ -14,7 +14,7 @@ import ModalDelete from "../modal/ModalDelete";
 import axios from "axios";
 import Toasts from "../Toasts/Toasts";
 import { ReactSortable } from "react-sortablejs";
-
+import AddBtn from "../AddBtn/AddBtn";
 const AccordionCategorie = (props) => {
   const [categorieId, setCategorieId] = useState("");
   const [subCategorieId, setSubCategorieId] = useState(null);
@@ -25,11 +25,13 @@ const AccordionCategorie = (props) => {
   const [categorieData, setCategorieData] = useState(null);
   const [dataCategorie, setDataCategorie] = useState([]);
   const [scope, setScope] = useState(null);
+  const [save, setSave] = useState(false);
 
   const [showToasts, setShowToasts] = useState(false);
   const [contentToasts, setContentToasts] = useState("");
 
   const toggleShowSubToasts = () => setShowToasts(!showToasts);
+  const toggleShowOrderoasts = () => setShowToasts(!showToasts);
   const handleShowDelete = () => setShowModalDelete(true);
   const toggleShowToasts = () => setShowToasts(!showToasts);
   useEffect(() => {
@@ -48,6 +50,7 @@ const AccordionCategorie = (props) => {
     };
     setDeleteState();
     fetchCategorie();
+    setSave(false);
   }, [showModalCategorie, showModalSubCategorie, deleteState]);
 
   const modalDefault = (e) => {
@@ -64,12 +67,11 @@ const AccordionCategorie = (props) => {
   };
 
   const sortableOptions = {
-  animation: 150,
-  fallbackOnBody: false,
-  swapThreshold: 0.65,
-  ghostClass: "ghost",
-
-};
+    animation: 150,
+    fallbackOnBody: false,
+    swapThreshold: 0.65,
+    ghostClass: "ghost",
+  };
   return (
     <div className="borderGreen">
       <div className="toastsPosition">
@@ -89,7 +91,15 @@ const AccordionCategorie = (props) => {
         </div>
       )}
       <>
-        <ReactSortable list={dataCategorie} setList={setDataCategorie} {...sortableOptions}>
+        <ReactSortable
+          list={dataCategorie}
+          setList={setDataCategorie}
+          {...sortableOptions}
+          onChange={() => {
+            setSave(true);
+            setScope("changeOrderCatégorie");
+          }}
+        >
           {dataCategorie
             ? dataCategorie.map((categorie, index) => {
                 categorie.order = index;
@@ -142,6 +152,12 @@ const AccordionCategorie = (props) => {
                             <Form.Check
                               type="switch"
                               defaultChecked={categorie.state}
+                              value={categorie.state}
+                              onChange={(e) => {
+                                categorie.state = e.target.checked;
+                                setSave(true);
+                                setScope("changecheckedCatégorie");
+                              }}
                             />
                           </div>
                         </Accordion.Header>
@@ -176,6 +192,12 @@ const AccordionCategorie = (props) => {
                                         <Form.Check
                                           type="switch"
                                           defaultChecked={type.status}
+                                          value={type.state}
+                                          onChange={(e) => {
+                                            type.status = e.target.checked;
+                                            setSave(true);
+                                            setScope("changecheckedSubCatégorie");
+                                          }}
                                         />
                                       </Form>
                                     </Col>
@@ -187,6 +209,16 @@ const AccordionCategorie = (props) => {
                         </Accordion.Body>
                       </Accordion.Item>
                     </Accordion>
+                    {save === true ? (
+                      <AddBtn
+                        scope={scope}
+                        dataCategorie={dataCategorie}
+                        toggleShowOrderoasts={toggleShowOrderoasts}
+                        setContentToasts={setContentToasts}
+                      />
+                    ) : (
+                      ""
+                    )}
                   </div>
                 );
               })
