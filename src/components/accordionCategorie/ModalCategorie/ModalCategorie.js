@@ -28,6 +28,8 @@ const ModalCategorie = (props) => {
           categorie_type: [],
           description: DataDescription,
           state,
+          order:0
+
         },
         withCredentials: true,
       })

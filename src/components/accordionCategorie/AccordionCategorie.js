@@ -196,7 +196,9 @@ const AccordionCategorie = (props) => {
                                           onChange={(e) => {
                                             type.status = e.target.checked;
                                             setSave(true);
-                                            setScope("changecheckedSubCatégorie");
+                                            setScope(
+                                              "changecheckedSubCatégorie"
+                                            );
                                           }}
                                         />
                                       </Form>
@@ -209,22 +211,24 @@ const AccordionCategorie = (props) => {
                         </Accordion.Body>
                       </Accordion.Item>
                     </Accordion>
-                    {save === true ? (
-                      <AddBtn
-                        scope={scope}
-                        dataCategorie={dataCategorie}
-                        toggleShowOrderoasts={toggleShowOrderoasts}
-                        setContentToasts={setContentToasts}
-                      />
-                    ) : (
-                      ""
-                    )}
                   </div>
                 );
               })
             : ""}
         </ReactSortable>
       </>
+      {save === true ? (
+        <AddBtn
+          scope={scope}
+          dataCategorie={dataCategorie}
+          toggleShowOrderoasts={toggleShowOrderoasts}
+          setContentToasts={setContentToasts}
+          setSave={setSave}
+          
+        />
+      ) : (
+        ""
+      )}
       <ModalDelete
         subCategorieId={subCategorieId}
         showModalDelete={showModalDelete}

@@ -67,7 +67,7 @@ const ListeArticle = (props) => {
         <div className="bg-light">
           {currentArticle.map((data) => {
             return (
-              <div className="text-dark ms-2 border">
+              <div className="text-dark ms-2 border" key={data.profil_name}>
                 <Row>
                   <Col>
                     <Button variant="secondary" size="sm">

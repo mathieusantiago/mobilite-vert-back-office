@@ -146,7 +146,7 @@ const ArticleTable = (props) => {
               variant="light"
               className="btnTable"
               onClick={() => {
-                navigate("/editarticle");
+                navigate("/editarticle?scope=edit");
               }}
             >
               <PencilSquare />

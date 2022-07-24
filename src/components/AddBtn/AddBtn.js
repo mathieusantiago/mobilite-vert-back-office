@@ -55,6 +55,7 @@ const AddBtn = (props) => {
       .then((res) => {
         props.setContentToasts(toastContent);
         props.toggleShowOrderoasts();
+        props.setSave(false)
       })
       .catch((err) => {
         console.log(err);

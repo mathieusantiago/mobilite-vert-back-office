@@ -27,7 +27,7 @@ const Edit = (props) => {
     const data = sessionStorage.getItem("mainPicture");
     return data; 
   };
-
+  console.log('test', props)
   return (
     <div>
       <Row>

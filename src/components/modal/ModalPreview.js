@@ -5,6 +5,7 @@ import CardSharePreveiw from "../Cards/CardSharePreveiw/CardSharePreveiw";
 import PreviewArticle from "../PreviewArticle/PreviewArticle";
 import "./index.css";
 const ModalPreview = (props) => {
+  console.log(props.dataArticleById)
   return (
     <div>
       <Modal
@@ -37,6 +38,7 @@ const ModalPreview = (props) => {
                 categories={props.dataArticleById.categories}
                 mainPicture={props.dataArticleById.mainPicture}
                 contentSeo={props.dataArticleById.contentSeo}
+                secondaryPicture={props.dataArticleById.secondaryPicture}
               />
             </Col>
           </Row>
@@ -49,6 +51,7 @@ const ModalPreview = (props) => {
               mainPicture={props.dataArticleById.mainPicture}
               updatedAt={props.dataArticleById.updatedAt}
               author={props.dataArticleById.author}
+              galleryPicture={props.dataArticleById.galleryPicture}
             />
           </Container>
         </Modal.Body>

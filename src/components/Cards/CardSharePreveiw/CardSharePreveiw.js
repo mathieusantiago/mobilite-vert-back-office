@@ -14,7 +14,7 @@ const CardSharePreveiw = (props) => {
         <Card.Img
           className="imgSharePreview"
           variant="top"
-          src={props.mainPicture ? props.mainPicture : ""}
+          src={props.secondaryPicture ? props.secondaryPicture : props.mainPicture}
         />
         <Card.Body>
           <Card.Text><a href="#" className="text-primary">{props.categories}</a></Card.Text>
