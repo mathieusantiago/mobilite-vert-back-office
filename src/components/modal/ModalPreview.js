@@ -5,7 +5,6 @@ import CardSharePreveiw from "../Cards/CardSharePreveiw/CardSharePreveiw";
 import PreviewArticle from "../PreviewArticle/PreviewArticle";
 import "./index.css";
 const ModalPreview = (props) => {
-  console.log("test", props.dataArticleById);
   return (
     <div>
       <Modal
@@ -46,6 +45,7 @@ const ModalPreview = (props) => {
             <PreviewArticle
               content_article={props.dataArticleById.content_article}
               chapo={props.dataArticleById.chapo}
+              content_subarticle={props.dataArticleById.content_subarticle}
               mainPicture={props.dataArticleById.mainPicture}
               updatedAt={props.dataArticleById.updatedAt}
               author={props.dataArticleById.author}

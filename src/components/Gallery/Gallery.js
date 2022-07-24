@@ -21,7 +21,6 @@ const Gallery = (props) => {
   const params = new URLSearchParams(location.search);
 
   useEffect(() => {
-    console.log("gallery", dataGalleryPicture);
     setScope(params.get("scope"));
     getPictureInfo();
   }, [props.state, deleteState]);
@@ -33,7 +32,6 @@ const Gallery = (props) => {
       withCredentials: true,
     })
       .then((res) => {
-        console.log(res.data);
         setDataPicture(res.data);
       })
       .catch((err) => {
@@ -49,16 +47,24 @@ const Gallery = (props) => {
     navigate("/editarticle");
   };
 
-  const storeGallery = ()=> {
-    console.log(dataGalleryPicture.selectedCount)
-    if(dataGalleryPicture.selectedCount !== 0){
+  const storeSecondaryPicture = (_id) => {
+    dataPicture.filter((e) => e._id === _id);
+    sessionStorage.setItem(
+      "secondaryPicture",
+      dataPicture.filter((e) => e._id === _id)[0].urlPicture
+    );
+    navigate("/editarticle");
+  };
+
+  const storeGallery = () => {
+    if (dataGalleryPicture.selectedCount !== 0) {
       sessionStorage.setItem(
         "galleryPicture",
         JSON.stringify(dataGalleryPicture.selectedRows)
       );
       navigate("/editarticle");
     }
-  }
+  };
 
   //set data table
   const columns = [
@@ -133,6 +139,19 @@ const Gallery = (props) => {
                 <AspectRatio className="iconsGallery" />
               </>
             )}
+            {scope !== "secondaryArticle" ? (
+              ""
+            ) : (
+              <>
+                <Check2Circle
+                  className="iconsGallery me-3"
+                  onClick={() => {
+                    storeSecondaryPicture(row._id);
+                  }}
+                />
+                <AspectRatio className="iconsGallery" />
+              </>
+            )}
             {scope !== "articleGallery" ? (
               ""
             ) : (
@@ -154,7 +173,9 @@ const Gallery = (props) => {
           ""
         ) : (
           <div className="d-flex justify-content-end">
-            <Button variant="outline-primary" onClick={storeGallery}>Ajouter la selection</Button>
+            <Button variant="outline-primary" onClick={storeGallery}>
+              Ajouter la selection
+            </Button>
           </div>
         )}
         {scope !== "articleGallery" ? (
@@ -176,7 +197,10 @@ const Gallery = (props) => {
             striped
             selectableRows
             selectableRowsComponent={Form.Check}
-            onSelectedRowsChange={(e) =>{ setDataGalleryPicture(e);props.setDisplayBtn(true)}}
+            onSelectedRowsChange={(e) => {
+              setDataGalleryPicture(e);
+              props.setDisplayBtn(true);
+            }}
           />
         )}
       </Row>

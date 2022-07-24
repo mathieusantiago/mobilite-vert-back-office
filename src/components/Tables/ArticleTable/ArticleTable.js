@@ -57,6 +57,8 @@ const ArticleTable = (props) => {
       selector: (row) => row._id,
       center: true,
       sortable: false,
+      width: "100px",
+
     },
     {
       name: "",
@@ -83,12 +85,14 @@ const ArticleTable = (props) => {
       },
       center: true,
       sortable: true,
+
     },
     {
       name: "Catégorie",
       selector: (row) => row.categories,
       center: true,
       sortable: true,
+
     },
     {
       name: "createDate",

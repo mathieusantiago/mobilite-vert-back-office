@@ -48,31 +48,29 @@ const FormEditArticle = (props) => {
   }, [submitted, props.categorie]);
 
   const getDataStore = () => {
-    const test = JSON.parse(sessionStorage.getItem("dataArticle"));
-    console.log("getDataStore");
-
-    if (test !== null) {
-      setCategorie(test.categorie);
-      setSelectedCategorie(test.selectedCategorie);
-      setSelectedSubCategorie(test.selectedSubCategorie);
-      setTitle(test.title);
-      setChapo(test.chapo);
-      setArticle(test.article);
-      setSubArticle(test.subArticle);
-      setTags(test.tags);
-      setAuthor(test.author);
-      setStatus(test.status);
-      setPutInOne(test.putInOne);
-      setNotDisplayHomepage(test.notDisplayHomepage);
-      setWithoutPub(test.withoutPub);
-      setPresTitle(test.presTitle);
-      setPresChapo(test.presChapo);
-      setPresArticle(test.presArticle);
-      setPresCategorie(test.presCategorie);
-      setTilteSeo(test.tilteSeo);
-      setContentSeo(test.contentSeo);
+    const data = JSON.parse(sessionStorage.getItem("dataArticle"));
+    if (data !== null) {
+      setCategorie(data.categorie);
+      setSelectedCategorie(data.selectedCategorie);
+      setSelectedSubCategorie(data.selectedSubCategorie);
+      setTitle(data.title);
+      setChapo(data.chapo);
+      setArticle(data.article);
+      setSubArticle(data.subArticle);
+      setTags(data.tags);
+      setAuthor(data.author);
+      setStatus(data.status);
+      setPutInOne(data.putInOne);
+      setNotDisplayHomepage(data.notDisplayHomepage);
+      setWithoutPub(data.withoutPub);
+      setPresTitle(data.presTitle);
+      setPresChapo(data.presChapo);
+      setPresArticle(data.presArticle);
+      setPresCategorie(data.presCategorie);
+      setTilteSeo(data.tilteSeo);
+      setContentSeo(data.contentSeo);
     }
-    return test;
+    return data;
   };
 
   const posteArticle = () => {
@@ -101,6 +99,7 @@ const FormEditArticle = (props) => {
           tilteSeo: tilteSeo || "",
           contentSeo: contentSeo || "",
           mainPicture: sessionStorage.getItem("mainPicture") || "",
+          secondaryPicture: sessionStorage.getItem("secondaryPicture") || "",
           galleryPicture: JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
         },
         withCredentials: true,
@@ -112,6 +111,8 @@ const FormEditArticle = (props) => {
           SetSubmitted(false);
           sessionStorage.removeItem("dataArticle");
           sessionStorage.removeItem("mainPicture");
+          sessionStorage.removeItem("galleryPicture");
+          sessionStorage.removeItem("secondaryPicture");
           window.location = "/article";
         })
         .catch((err) => {
@@ -209,6 +210,7 @@ const FormEditArticle = (props) => {
                     presChapo={presChapo}
                     setPresArticle={setPresArticle}
                     presArticle={presArticle}
+                    storeDataArticle={storeDataArticle}
                   />
                 </Tab>
                 <Tab eventKey="SEO" title="SEO">
@@ -221,7 +223,7 @@ const FormEditArticle = (props) => {
                   />
                 </Tab>
                 <Tab eventKey="GALERIE" title="GALERIE">
-                  <Galerie scope={scope} />
+                  <Galerie scope={scope}  storeDataArticle={storeDataArticle}/>
                 </Tab>
               </Tabs>
             </div>

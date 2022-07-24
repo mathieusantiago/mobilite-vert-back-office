@@ -16,6 +16,7 @@ const ListeArticle = (props) => {
     sessionStorage.removeItem("dataArticle");
     sessionStorage.removeItem("mainPicture");
     sessionStorage.removeItem("galleryPicture");
+    sessionStorage.removeItem("secondaryPicture");
     navigate("/article");
   };
 
@@ -45,7 +46,6 @@ const ListeArticle = (props) => {
   }, [props.newState]);
 
   const paginate = (pageNumbre) => {
-    console.log("test", pageNumbre);
     const maxPage = Math.ceil(dataArticle.length / articlePerPage);
     if (pageNumbre <= maxPage && pageNumbre >= 1) {
       setCurrentPage(pageNumbre);

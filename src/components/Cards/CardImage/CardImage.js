@@ -16,7 +16,6 @@ const CardImage = (props) => {
   );
 
   const deletePicture = (key) => {
-    console.log("test");
     dataGalleri.splice(key, 1);
     sessionStorage.setItem("galleryPicture", JSON.stringify(dataGalleri));
     setState(true)
@@ -28,7 +27,6 @@ const CardImage = (props) => {
         <Row>
           {dataGalleri
             ? dataGalleri.map((data, key) => {
-                console.log("test", data);
                 return (
                   <Card className="mb-5 me-3" style={{ width: "18rem" }}>
                     <Card.Img variant="top" className="imgGallery" src={data.urlPicture} />

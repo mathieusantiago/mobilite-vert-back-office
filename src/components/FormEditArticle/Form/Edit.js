@@ -24,8 +24,8 @@ const Edit = (props) => {
   }, []);
 
   const getStoreMainPicture = () => {
-    const test = sessionStorage.getItem("mainPicture");
-    return test; 
+    const data = sessionStorage.getItem("mainPicture");
+    return data; 
   };
 
   return (

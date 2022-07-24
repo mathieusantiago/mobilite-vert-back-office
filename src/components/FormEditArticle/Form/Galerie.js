@@ -12,7 +12,7 @@ const Galerie = (props) => {
           <div className="ms-5 mt-4 mb-5">
             <CardImage />
             <Link to="/medialibrary?scope=articleGallery">
-              <Button variant="primary">Ajouter un média</Button>
+              <Button variant="primary" onClick={() => props.storeDataArticle()}>Ajouter un média</Button>
             </Link>
           </div>
         </Col>

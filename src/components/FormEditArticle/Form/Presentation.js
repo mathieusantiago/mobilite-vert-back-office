@@ -1,9 +1,18 @@
 import React from "react";
 import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
 import "./index.css";
-import RichEdit from '../../RichEdit/RichEdit'
+import RichEdit from "../../RichEdit/RichEdit";
+import { Link } from "react-router-dom";
 
 const Presentation = (props) => {
+  const getStoreSecondaryPicture = () => {
+    const data = sessionStorage.getItem("secondaryPicture");
+    return data;
+  };
+  const addDataStorage = () => {
+    const data = sessionStorage.setItem("presData");
+    return data;
+  };
   return (
     <div>
       <Row>
@@ -33,9 +42,20 @@ const Presentation = (props) => {
             <div className="p-1 bg-green text-light">
               <p className="fs-3 m-0 pt-1 text-light">Création d'un article</p>
             </div>
-            <Button className="btnGalerie" variant="primary">
-              Librairie de médias
-            </Button>
+            <img
+              src={getStoreSecondaryPicture()}
+              alt=""
+              className="imgArticle"
+            />
+            <Link to="/medialibrary?scope=secondaryArticle">
+              <Button
+                className="btnGalerie"
+                variant="primary"
+                onClick={() => props.storeDataArticle()}
+              >
+                Librairie de médias
+              </Button>
+            </Link>
           </div>
         </Col>
         <Col>
@@ -102,7 +122,10 @@ const Presentation = (props) => {
             </Form.Floating>
           </div>
           <div className="ms-5 mt-4 mb-5">
-            <RichEdit value={props.presArticle} setValue={props.setPresArticle}/>
+            <RichEdit
+              value={props.presArticle}
+              setValue={props.setPresArticle}
+            />
 
             {/* <FloatingLabel
               controlId="floatingTextareaArticle3"

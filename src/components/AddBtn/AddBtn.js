@@ -13,7 +13,6 @@ const AddBtn = (props) => {
         navigate("/editarticle", { state: props.scope });
         break;
       case "changeOrderCatégorie":
-        console.log("item");
         for (let dataCat of props.dataCategorie) {
           const toastContent =
             "Modification de l'ordre des catégories enregistré";
@@ -21,7 +20,6 @@ const AddBtn = (props) => {
         }
         break;
       case "changecheckedCatégorie":
-        console.log("item");
         for (let dataCat of props.dataCategorie) {
           const toastContent =
             "désactivation/activation de la catégorie enregistré";
