@@ -104,7 +104,7 @@ const AccordionCategorie = (props) => {
             ? dataCategorie.map((categorie, index) => {
                 categorie.order = index;
                 return (
-                  <div key={categorie.id}>
+                  <div key={categorie._id}>
                     <Accordion
                       className="test1"
                       defaultActiveKey={
@@ -165,7 +165,7 @@ const AccordionCategorie = (props) => {
                           <ListGroup className="ms-5">
                             {categorie.categorie_type.map((type) => {
                               return (
-                                <ListGroup.Item key={type.name_type}>
+                                <ListGroup.Item key={type._id}>
                                   <Row>
                                     <Col>{type.name_type}</Col>
                                     <Col className="d-flex justify-content-end">
@@ -224,7 +224,6 @@ const AccordionCategorie = (props) => {
           toggleShowOrderoasts={toggleShowOrderoasts}
           setContentToasts={setContentToasts}
           setSave={setSave}
-          
         />
       ) : (
         ""

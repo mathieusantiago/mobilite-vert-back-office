@@ -1,5 +1,5 @@
 import React from "react";
-import { Dropdown, Offcanvas } from "react-bootstrap";
+import { Offcanvas } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import "./Aside.css";
 import {
@@ -15,7 +15,6 @@ import {
 
 const Aside = (props) => {
   const handleClose = () => props.setAsideState(false);
-
   return (
     <>
       <Offcanvas show={props.asideState} onHide={handleClose}>
@@ -30,7 +29,6 @@ const Aside = (props) => {
           </Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
-          <Dropdown.Divider />
           <p>Editorial</p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/article">
@@ -56,7 +54,6 @@ const Aside = (props) => {
               Newsletters
             </Link>
           </p>
-          <Dropdown.Divider />
           <p>Référentiel produit</p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
@@ -88,42 +85,44 @@ const Aside = (props) => {
               Fiches Occasion
             </Link>
           </p>
-          <Dropdown.Divider />
           <p className="list-group" onClick={handleClose}>
             <Link to="/medialibrary" className="ms-3">
               <Images className="me-2" />
               Librairie des médias
             </Link>
           </p>
-          <Dropdown.Divider />
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <Calendar3 className="me-2" />
               Événements
             </Link>
           </p>
-          <Dropdown.Divider />
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <List className="me-2" />
               Navigation
             </Link>
           </p>
-          <Dropdown.Divider />
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <PersonRolodex className="me-2" />
-              Membre
-            </Link>
-          </p>
-          <Dropdown.Divider />
+
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <ExclamationSquareFill className="me-2" />
               Commentaire
             </Link>
           </p>
-          <Dropdown.Divider />
+          <p>Administrateur</p>
+          <p className="list-group" onClick={handleClose}>
+            <Link className="ms-3" to="/membre">
+              <PersonRolodex className="me-2" />
+              Membre
+            </Link>
+          </p>
+          <p className="list-group" onClick={handleClose}>
+            <Link className="ms-3" to="/role">
+              <PersonRolodex className="me-2" />
+              Role
+            </Link>
+          </p>
         </Offcanvas.Body>
       </Offcanvas>
     </>

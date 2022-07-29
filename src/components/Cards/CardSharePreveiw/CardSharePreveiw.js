@@ -14,16 +14,23 @@ const CardSharePreveiw = (props) => {
         <Card.Img
           className="imgSharePreview"
           variant="top"
-          src={props.secondaryPicture ? props.secondaryPicture : props.mainPicture}
+          src={
+            props.secondaryPicture ? props.secondaryPicture : props.mainPicture
+          }
         />
         <Card.Body>
-          <Card.Text><a href="#" className="text-primary">{props.categories}</a></Card.Text>
+          <Card.Text>
+            <a href="#" className="text-primary">
+              {props.categories}
+            </a>
+          </Card.Text>
           <Card.Text>{props.article_title}</Card.Text>
           <Card.Text>{props.contentSeo}</Card.Text>
-
         </Card.Body>
         <Card.Footer>
-          <small className="text-muted">Publillé le : {date.toLocaleDateString('fr-FR').substring(0, 10)}</small>
+          <small className="text-muted">
+            Publillé le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
+          </small>
         </Card.Footer>
       </Card>
     </div>

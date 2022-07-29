@@ -12,14 +12,14 @@ const FormComent = (props) => {
 
   useEffect(() => {
     if (uid !== null) {
-      window.location = "/dashboard"
+      window.location = "/dashboard";
     }
-  })
+  });
   const handleSubmit = (event) => {
     event.preventDefault();
     const emailError = document.querySelector(".email.error");
     const passWordError = document.querySelector(".password.error");
-    
+
     axios({
       method: "post",
       url: `${process.env.REACT_APP_API_URL}api/user/login`,

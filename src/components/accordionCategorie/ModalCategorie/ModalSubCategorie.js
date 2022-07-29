@@ -14,7 +14,7 @@ const ModalCategorie = (props) => {
     setId(props.categorieId);
     setSubCategorieId(props.subCategorieId);
     setData(props.categorieData);
-  });
+  }, [props.categorieId, props.subCategorieId, props.categorieData]);
 
   const handleCategorieSubmit = (event) => {
     event.preventDefault();
@@ -102,7 +102,10 @@ const ModalCategorie = (props) => {
               />
             </Form>
             <div className="mt-4">
-              <FloatingLabel controlId="floatingTextareadescription" label="Description*">
+              <FloatingLabel
+                controlId="floatingTextareadescription"
+                label="Description*"
+              >
                 <Form.Control
                   as="textarea"
                   style={{ height: "100px" }}

@@ -3,10 +3,11 @@ import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
 import "./index.css";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import RichEdit from '../../RichEdit/RichEdit'
+import RichEdit from "../../RichEdit/RichEdit";
 
 const Edit = (props) => {
   useEffect(() => {
+    console.log("test");
     const getCategory = async () => {
       await axios({
         method: "get",
@@ -21,13 +22,13 @@ const Edit = (props) => {
         });
     };
     getCategory();
-  }, []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.selectedCategorie]);
 
   const getStoreMainPicture = () => {
-    const data = sessionStorage.getItem("mainPicture");
-    return data; 
+    const data = sessionStorage.getItem("mainPicture") || props.mainPicture;
+    return data;
   };
-  console.log('test', props)
   return (
     <div>
       <Row>
@@ -36,12 +37,23 @@ const Edit = (props) => {
             <FloatingLabel controlId="floatingSelect" label="Profil*">
               <Form.Select
                 onChange={(e) => props.setSelectedCategorie(e.target.value)}
-                aria-label="Floating label select example" value={props.selectedCategorie}
+                aria-label="Floating label select example"
+                value={props.selectedCategorie}
               >
                 <option>""Select category""</option>;
-                {props.categorie.map((element) => {
-                  return <option>{element.categorie_name}</option>;
-                })}
+                {new URL(window.location.href).searchParams.get("state") ===
+                "edit"
+                  ? props.categorie.map((element) => {
+                      return (
+                        <option
+                          value={element.categorie_name}
+                          key={element._id}
+                        >
+                          {element.categorie_name}
+                        </option>
+                      );
+                    })
+                  : ""}
               </Form.Select>
             </FloatingLabel>
           </div>
@@ -61,7 +73,11 @@ const Edit = (props) => {
                   .filter((e) => e.categorie_name === props.selectedCategorie)
                   .map((res) => {
                     return res.categorie_type.map((c) => {
-                      return <option>{c.name_type}</option>;
+                      return (
+                        <option value={c.name_type} key={c._id}>
+                          {c.name_type}
+                        </option>
+                      );
                     });
                   })}
               </Form.Select>
@@ -72,16 +88,15 @@ const Edit = (props) => {
               <Form.Control
                 id="floatingInputCustom"
                 type="text"
-                onChange={(e) => props.setTitle(e.target.value)}
-                value={props.title}
-
+                onChange={(e) => props.setArticle_title(e.target.value)}
+                defaultValue={props.article_title}
               />
               <label htmlFor="floatingInputCustom">Titre*</label>
             </Form.Floating>
           </div>
 
           <div className="ms-5 mt-4">
-          <RichEdit value={props.chapo} setValue={props.setChapo}/>
+            <RichEdit value={props.chapo} setValue={props.setChapo} />
           </div>
         </Col>
         <Col sm={5}>
@@ -94,7 +109,7 @@ const Edit = (props) => {
               <Button
                 className="btnGalerie"
                 variant="primary"
-                onClick={() =>  props.storeDataArticle()}
+                onClick={() => props.storeDataArticle()}
               >
                 Librairie de médias
               </Button>
@@ -103,10 +118,16 @@ const Edit = (props) => {
         </Col>
         <Col>
           <div className="ms-5 mt-4 me-5">
-          <RichEdit value={props.article} setValue={props.setArticle}/>
+            <RichEdit
+              value={props.content_article}
+              setValue={props.setContent_article}
+            />
           </div>
           <div className="ms-5 mt-4 me-5">
-          <RichEdit value={props.subArticle} setValue={props.setSubArticle}/>
+            <RichEdit
+              value={props.content_subarticle}
+              setValue={props.setContent_subarticle}
+            />
           </div>
           <div className="ms-5 mt-4">
             <Form.Floating className="mb-3">
@@ -115,8 +136,7 @@ const Edit = (props) => {
                 type="text"
                 placeholder="name@example.com"
                 onChange={(e) => props.setTags(e.target.value)}
-                value={props.tags}
-
+                defaultValue={props.tags}
               />
               <label htmlFor="floatingInputCustom">Tags</label>
             </Form.Floating>
@@ -129,8 +149,7 @@ const Edit = (props) => {
                 type="text"
                 placeholder="name@example.com"
                 onChange={(e) => props.setAuthor(e.target.value)}
-                value={props.author}
-
+                defaultValue={props.author}
               />
               <label htmlFor="floatingInputCustom">Signature</label>
             </Form.Floating>

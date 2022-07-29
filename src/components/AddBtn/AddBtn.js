@@ -26,13 +26,13 @@ const AddBtn = (props) => {
           updateCategorie(dataCat, dataCat._id, toastContent);
         }
         break;
-        case "changecheckedSubCatégorie":
-          for (let dataCat of props.dataCategorie) {
-            const toastContent =
-              "désactivation/activeation de la catégorie enregistré";
-            updateCategorie(dataCat, dataCat._id, toastContent);
-          }
-          break;
+      case "changecheckedSubCatégorie":
+        for (let dataCat of props.dataCategorie) {
+          const toastContent =
+            "désactivation/activeation de la catégorie enregistré";
+          updateCategorie(dataCat, dataCat._id, toastContent);
+        }
+        break;
       default:
         break;
     }
@@ -55,7 +55,7 @@ const AddBtn = (props) => {
       .then((res) => {
         props.setContentToasts(toastContent);
         props.toggleShowOrderoasts();
-        props.setSave(false)
+        props.setSave(false);
       })
       .catch((err) => {
         console.log(err);

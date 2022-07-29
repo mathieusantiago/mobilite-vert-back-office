@@ -15,7 +15,6 @@ const ModalDelete = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     event.stopPropagation();
-
     switch (props.scope) {
       case "subArticle":
         url = `${process.env.REACT_APP_API_URL}api/subcategorie/${id}/${subId}`;
@@ -27,6 +26,14 @@ const ModalDelete = (props) => {
         break;
       case "picture":
         url = `${process.env.REACT_APP_API_URL}api/gallery/${id}`;
+        method = "delete";
+        break;
+      case "contentArticle":
+        url = `${process.env.REACT_APP_API_URL}api/article/${id}`;
+        method = "delete";
+        break;
+      case "deleteRole":
+        url = `${process.env.REACT_APP_API_URL}api/role/${id}`;
         method = "delete";
         break;
       default:

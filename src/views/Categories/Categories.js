@@ -3,7 +3,6 @@ import { Container } from "react-bootstrap";
 import AccordionCategorie from "../../components/accordionCategorie/AccordionCategorie";
 
 const Categories = (props) => {
-
   return (
     <div>
       <Container>

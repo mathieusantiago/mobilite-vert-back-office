@@ -4,11 +4,11 @@
   object-fit: cover;
 }
 
-.iconsGallery{
-  font-size:20px;
+.iconsGallery {
+  font-size: 20px;
 }
 
-.iconsGallery:hover{
-  font-size:20px;
-  fill:red;
-} 
+.iconsGallery:hover {
+  font-size: 20px;
+  fill: red;
+}

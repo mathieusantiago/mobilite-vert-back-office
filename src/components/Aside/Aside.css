@@ -1,15 +1,15 @@
-a{
-    color: black !important;
-    text-decoration: none !important;
+a {
+  color: black !important;
+  text-decoration: none !important;
 }
 
 .offcanvas-start {
-    width: 290px !important;
+  width: 290px !important;
 }
-.list-group:hover{
-    background-color:rgb(230, 230, 230)
+.list-group:hover {
+  background-color: rgb(230, 230, 230);
 }
 
-.list-group{
-    padding:10px;
+.list-group {
+  padding: 10px;
 }

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
 import axios from "axios";
 import "./FormEditArticle.css";
 import Edit from "./Form/Edit";
@@ -14,18 +13,18 @@ import Toasts from "../Toasts/Toasts";
 const FormEditArticle = (props) => {
   const [key, setKey] = useState("EDITER");
   const [submitted, SetSubmitted] = useState(false);
-  const scope = useLocation().state;
   //edit
   const [categorie, setCategorie] = useState([]);
   const [selectedCategorie, setSelectedCategorie] = useState("");
   const [selectedSubCategorie, setSelectedSubCategorie] = useState("");
-  const [title, setTitle] = useState();
+  const [article_title, setArticle_title] = useState();
   const [chapo, setChapo] = useState();
-  const [article, setArticle] = useState();
-  const [subArticle, setSubArticle] = useState();
+  const [content_article, setContent_article] = useState();
+  const [content_subarticle, setContent_subarticle] = useState();
   const [tags, setTags] = useState();
   const [author, setAuthor] = useState();
   const [status, setStatus] = useState("");
+  const [mainPicture, setMainPicture] = useState("");
   //pres
   const [putInOne, setPutInOne] = useState(false);
   const [notDisplayHomepage, setNotDisplayHomepage] = useState(false);
@@ -34,43 +33,76 @@ const FormEditArticle = (props) => {
   const [presChapo, setPresChapo] = useState("");
   const [presArticle, setPresArticle] = useState("");
   const [presCategorie, setPresCategorie] = useState("");
+  const [secondaryPicture, setSecondaryPicture] = useState("");
   //soe
   const [tilteSeo, setTilteSeo] = useState("");
   const [contentSeo, setContentSeo] = useState("");
+  //gallery
+  const [galleryPicture, setGalleryPicture] = useState([]);
   //toasts
   const [showToasts, setShowToasts] = useState(false);
   const [contentToasts, setContentToasts] = useState("");
-  const toggleShowToasts = () => setShowToasts(!showToasts);
+
+  const toggleShowToasts = () => {
+    setShowToasts(!showToasts);
+  };
 
   useEffect(() => {
     getDataStore();
     posteArticle();
-  }, [submitted, props.categorie]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [submitted, props.categorie, galleryPicture]);
+
+  const sortData = (data) => {
+    setSelectedCategorie(data.profil_name);
+    setSelectedSubCategorie(data.categories);
+    setArticle_title(data.article_title);
+    setChapo(data.chapo);
+    setContent_article(data.content_article);
+    setContent_subarticle(data.content_subarticle);
+    setTags(data.tags);
+    setAuthor(data.author);
+    setStatus(data.status);
+    setPutInOne(data.putInOne);
+    setNotDisplayHomepage(data.notDisplayHomepage);
+    setWithoutPub(data.withoutPub);
+    setPresTitle(data.presTitle);
+    setPresChapo(data.presChapo);
+    setPresArticle(data.presArticle);
+    setPresCategorie(data.presCategorie);
+    setTilteSeo(data.tilteSeo);
+    setContentSeo(data.contentSeo);
+    setMainPicture(data.mainPicture);
+    setSecondaryPicture(data.secondaryPicture);
+    setGalleryPicture(data.galleryPicture);
+  };
+
+  const fetchArticle = async (_id) => {
+    await axios({
+      method: "get",
+      url: `${process.env.REACT_APP_API_URL}api/article/${_id}`,
+      withCredentials: true,
+    })
+      .then((res) => {
+        sortData(res.data);
+      })
+      .catch((err) => {
+        console.log("No data article", err);
+      });
+  };
 
   const getDataStore = () => {
-    const data = JSON.parse(sessionStorage.getItem("dataArticle"));
-    if (data !== null) {
-      setCategorie(data.categorie);
-      setSelectedCategorie(data.selectedCategorie);
-      setSelectedSubCategorie(data.selectedSubCategorie);
-      setTitle(data.title);
-      setChapo(data.chapo);
-      setArticle(data.article);
-      setSubArticle(data.subArticle);
-      setTags(data.tags);
-      setAuthor(data.author);
-      setStatus(data.status);
-      setPutInOne(data.putInOne);
-      setNotDisplayHomepage(data.notDisplayHomepage);
-      setWithoutPub(data.withoutPub);
-      setPresTitle(data.presTitle);
-      setPresChapo(data.presChapo);
-      setPresArticle(data.presArticle);
-      setPresCategorie(data.presCategorie);
-      setTilteSeo(data.tilteSeo);
-      setContentSeo(data.contentSeo);
+    if (new URL(window.location.href).searchParams.get("state")) {
+      const _id = new URL(window.location.href).searchParams.get("id");
+      fetchArticle(_id);
+    } else {
+      const data = JSON.parse(sessionStorage.getItem("dataArticle"));
+      if (data !== null) {
+        setCategorie(data.categorie);
+        sortData(data);
+      }
+      return data;
     }
-    return data;
   };
 
   const posteArticle = () => {
@@ -80,13 +112,13 @@ const FormEditArticle = (props) => {
         url: `${process.env.REACT_APP_API_URL}api/article`,
         data: {
           profil_name: selectedCategorie,
-          article_title: title || "",
+          article_title: article_title || "",
           status: status || "",
           editing_id: "62aadd63ebc163f0d6e9c69e" || "",
           chapo: chapo || "",
-          content_article: article || "",
+          content_article: content_article || "",
           categories: selectedSubCategorie || "",
-          content_subarticle: subArticle || "",
+          content_subarticle: content_subarticle || "",
           tags: tags || "",
           signatur: author || "",
           putInOne: putInOne || false,
@@ -100,7 +132,8 @@ const FormEditArticle = (props) => {
           contentSeo: contentSeo || "",
           mainPicture: sessionStorage.getItem("mainPicture") || "",
           secondaryPicture: sessionStorage.getItem("secondaryPicture") || "",
-          galleryPicture: JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
+          galleryPicture:
+            JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
         },
         withCredentials: true,
       })
@@ -126,10 +159,10 @@ const FormEditArticle = (props) => {
       categorie,
       selectedCategorie,
       selectedSubCategorie,
-      title,
+      article_title,
       chapo,
-      article,
-      subArticle,
+      content_article,
+      content_subarticle,
       tags,
       author,
       status,
@@ -170,31 +203,30 @@ const FormEditArticle = (props) => {
                 <Tab eventKey="EDITER" title="ÉDITER">
                   <Edit
                     SetSubmitted={SetSubmitted}
-                    scope={scope}
                     selectedCategorie={selectedCategorie}
                     setSelectedCategorie={setSelectedCategorie}
                     categorie={categorie}
                     setCategorie={setCategorie}
                     setSelectedSubCategorie={setSelectedSubCategorie}
                     selectedSubCategorie={selectedSubCategorie}
-                    setTitle={setTitle}
-                    title={title}
+                    setArticle_title={setArticle_title}
+                    article_title={article_title}
                     setChapo={setChapo}
                     chapo={chapo}
-                    setArticle={setArticle}
-                    article={article}
-                    setSubArticle={setSubArticle}
-                    subArticle={subArticle}
+                    setContent_article={setContent_article}
+                    content_article={content_article}
+                    setContent_subarticle={setContent_subarticle}
+                    content_subarticle={content_subarticle}
                     setTags={setTags}
                     tags={tags}
                     setAuthor={setAuthor}
                     author={author}
                     storeDataArticle={storeDataArticle}
+                    mainPicture={mainPicture}
                   />
                 </Tab>
                 <Tab eventKey="PRESENTATION" title="PRÉSENTATION">
                   <Presentation
-                    scope={scope}
                     categorie={categorie}
                     setPresCategorie={setPresCategorie}
                     presCategorie={presCategorie}
@@ -211,11 +243,11 @@ const FormEditArticle = (props) => {
                     setPresArticle={setPresArticle}
                     presArticle={presArticle}
                     storeDataArticle={storeDataArticle}
+                    secondaryPicture={secondaryPicture}
                   />
                 </Tab>
                 <Tab eventKey="SEO" title="SEO">
                   <Seo
-                    scope={scope}
                     setTilteSeo={setTilteSeo}
                     setContentSeo={setContentSeo}
                     tilteSeo={tilteSeo}
@@ -223,7 +255,10 @@ const FormEditArticle = (props) => {
                   />
                 </Tab>
                 <Tab eventKey="GALERIE" title="GALERIE">
-                  <Galerie scope={scope}  storeDataArticle={storeDataArticle}/>
+                  <Galerie
+                    storeDataArticle={storeDataArticle}
+                    galleryPicture={galleryPicture}
+                  />
                 </Tab>
               </Tabs>
             </div>

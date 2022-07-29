@@ -6,11 +6,8 @@ import { Link } from "react-router-dom";
 
 const Presentation = (props) => {
   const getStoreSecondaryPicture = () => {
-    const data = sessionStorage.getItem("secondaryPicture");
-    return data;
-  };
-  const addDataStorage = () => {
-    const data = sessionStorage.setItem("presData");
+    const data =
+      sessionStorage.getItem("secondaryPicture") || props.secondaryPicture;
     return data;
   };
   return (
@@ -31,7 +28,9 @@ const Presentation = (props) => {
               >
                 <option>""Select category""</option>;
                 {props.categorie.map((element) => {
-                  return <option>{element.categorie_name}</option>;
+                  return (
+                    <option key={element._id}>{element.categorie_name}</option>
+                  );
                 })}
               </Form.Select>
             </FloatingLabel>

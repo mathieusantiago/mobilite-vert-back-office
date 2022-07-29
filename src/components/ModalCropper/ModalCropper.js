@@ -68,7 +68,7 @@ const ModalCropper = (props) => {
         urlPicture: urlPicture,
         seo: seo,
         description: description,
-        nom: nom
+        nom: nom,
       },
       withCredentials: true,
     })
@@ -76,7 +76,7 @@ const ModalCropper = (props) => {
         setImage("");
         setCropData("");
         setCropper("");
-        props.setState(true)
+        props.setState(true);
         props.setLgShow(false);
       })
       .catch((err) => {
@@ -162,7 +162,7 @@ const ModalCropper = (props) => {
                         id="inputPassword5"
                         aria-describedby="passwordHelpBlock"
                         placeholder="Nom"
-                        onChange={(e)=> setNom(e.target.value)}
+                        onChange={(e) => setNom(e.target.value)}
                       />
                     </span>
                   </p>
@@ -177,8 +177,7 @@ const ModalCropper = (props) => {
                       as="textarea"
                       rows={1}
                       placeholder="Description court"
-                      onChange={(e)=> setDescription(e.target.value)}
-
+                      onChange={(e) => setDescription(e.target.value)}
                     />
                   </Form.Group>
                 </Col>
@@ -191,8 +190,7 @@ const ModalCropper = (props) => {
                         id="inputPassword5"
                         aria-describedby="passwordHelpBlock"
                         placeholder="Seo"
-                        onChange={(e)=> setSeo(e.target.value)}
-
+                        onChange={(e) => setSeo(e.target.value)}
                       />
                     </span>
                   </p>

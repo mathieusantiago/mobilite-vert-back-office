@@ -1,18 +1,17 @@
-.modalPreview{
-    z-index: 100000000 !important;
+.modalPreview {
+  z-index: 100000000 !important;
 }
 
-.imgMainArticle{
-    width: 1260px;
-    height: 521px;
-    object-fit: cover;
+.imgMainArticle {
+  width: 1260px;
+  height: 521px;
+  object-fit: cover;
 }
 
-.previewModalBody{
-    background-color: #dfdfdf;
+.previewModalBody {
+  background-color: #dfdfdf;
 }
 
-.previewModalHeader{
-    background-color: #dfdfdf;
-
+.previewModalHeader {
+  background-color: #dfdfdf;
 }

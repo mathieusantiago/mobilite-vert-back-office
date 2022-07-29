@@ -24,13 +24,13 @@
   font-size: 20px;
   cursor: pointer;
 }
-.bordered-bleu{
-    border-color: var(--bleu) !important;
-    background-color:#fff !important;
-    color: var(--bleu) !important;
+.bordered-bleu {
+  border-color: var(--bleu) !important;
+  background-color: #fff !important;
+  color: var(--bleu) !important;
 }
-.bordered-bleu:hover{
-    border-color: var(--bleu) !important;
-    color: #fff !important;
-    background-color: var(--bleu) !important;
+.bordered-bleu:hover {
+  border-color: var(--bleu) !important;
+  color: #fff !important;
+  background-color: var(--bleu) !important;
 }

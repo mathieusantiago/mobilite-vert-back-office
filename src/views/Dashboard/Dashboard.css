@@ -1,7 +1,7 @@
-.contentListe{
-    width: 650px;
-    height: 548px;
-    overflow: scroll;
-    display: flex;
-    overflow-x: hidden;
+.contentListe {
+  width: 650px;
+  height: 548px;
+  overflow: scroll;
+  display: flex;
+  overflow-x: hidden;
 }

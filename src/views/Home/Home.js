@@ -14,7 +14,7 @@ const Home = (props) => {
               Welcome to your admin dashboard
             </h1>
             <Col className="fromConnect" md={{ span: 6, offset: 3 }}>
-              <FormConnect/>
+              <FormConnect />
             </Col>
           </Row>
         </Container>

@@ -17,7 +17,7 @@ const btnEdit = (props) => {
         onClick={() => {
           props.SetSubmitted(true);
           props.setStatus("Publish");
-          props.toggleShowToasts()
+          props.toggleShowToasts();
         }}
         className=" btn-edit-circle "
       >

@@ -10,16 +10,20 @@ const TextEditor = (props) => {
         cloudChannel="dev"
         init={{
           selector: "textarea",
-          plugins: "link image textpattern lists ",
           height: 180,
-          statusbar: false,
+          statusbar: true,
           menubar: false,
+          plugins: [
+            "advlist autolink lists link image charmap print preview anchor",
+            "searchreplace visualblocks code fullscreen",
+            "insertdatetime media table paste code help wordcount",
+          ],
         }}
-        value={props.value}
         onEditorChange={handleEditorChange}
+        initialValue={props?.value}
       />
     </div>
   );
-}
+};
 
 export default TextEditor;

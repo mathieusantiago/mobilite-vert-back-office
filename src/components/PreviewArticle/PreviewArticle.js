@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Carousel } from "react-bootstrap";
+import { Carousel } from "react-bootstrap";
 import "./PreviewArticle.css";
 const PreviewArticle = (props) => {
   const date = new Date(props.updatedAt);
@@ -15,14 +15,12 @@ const PreviewArticle = (props) => {
           />
         </Carousel.Item>
         {props.galleryPicture.map((picture) => {
-          console.log(picture.urlPicture);
           return (
-            <Carousel.Item   key={picture.urlPicture}>
+            <Carousel.Item key={picture.urlPicture}>
               <img
                 className="imgMainArticle"
                 src={picture.urlPicture}
                 alt="First slide"
-              
               />
             </Carousel.Item>
           );
@@ -42,7 +40,7 @@ const PreviewArticle = (props) => {
             __html: props.chapo,
           }}
         ></div>
-        {props && props.galleryPicture && props.galleryPicture.length !== 0? (
+        {props && props.galleryPicture && props.galleryPicture.length !== 0 ? (
           <UncontrolledExample />
         ) : (
           <img

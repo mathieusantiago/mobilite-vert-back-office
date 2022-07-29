@@ -4,8 +4,8 @@
 .bg-green {
   background-color: var(--green);
 }
-.borderGreen{
-    border: 2px solid var(--green);
-    padding: 0 !important;
-    border-radius: 5px;
+.borderGreen {
+  border: 2px solid var(--green);
+  padding: 0 !important;
+  border-radius: 5px;
 }

@@ -1,11 +1,10 @@
 import React from "react";
-import { Modal, Card, CardGroup, Container, Row, Col } from "react-bootstrap";
+import { Modal, Container, Row, Col } from "react-bootstrap";
 import CardMainPreveiw from "../Cards/CardMainPreveiw/CardMainPreveiw";
 import CardSharePreveiw from "../Cards/CardSharePreveiw/CardSharePreveiw";
 import PreviewArticle from "../PreviewArticle/PreviewArticle";
 import "./index.css";
 const ModalPreview = (props) => {
-  console.log(props.dataArticleById)
   return (
     <div>
       <Modal

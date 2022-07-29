@@ -1,9 +1,9 @@
-.imgMainArticle{
-    width: 1260px;
-    height: 521px;
-    object-fit: cover;
+.imgMainArticle {
+  width: 1260px;
+  height: 521px;
+  object-fit: cover;
 }
 
-.previewArticle{
-    background-color: #fff;
+.previewArticle {
+  background-color: #fff;
 }

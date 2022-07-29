@@ -43,7 +43,7 @@ const ListeArticle = (props) => {
       props.setNewState(false);
     };
     fetchArticle();
-  }, [props.newState]);
+  }, [props]);
 
   const paginate = (pageNumbre) => {
     const maxPage = Math.ceil(dataArticle.length / articlePerPage);
@@ -67,7 +67,7 @@ const ListeArticle = (props) => {
         <div className="bg-light">
           {currentArticle.map((data) => {
             return (
-              <div className="text-dark ms-2 border" key={data.profil_name}>
+              <div className="text-dark ms-2 border" key={data._id}>
                 <Row>
                   <Col>
                     <Button variant="secondary" size="sm">

@@ -16,9 +16,10 @@ const ArticleTable = (props) => {
   const [dataArticle, setDataArticle] = useState([]);
   const [dataArticleById, setDataArticleById] = useState([]);
   const [showModalDelete, setShowModalDelete] = useState(false);
-  const [setArticleId] = useState("");
+  const [articleId, setArticleId] = useState("");
   const handleShowDelete = () => setShowModalDelete(true);
   const [showModalPreview, setShowModalPreview] = useState(false);
+  const [deleteState, setDeleteState] = useState("");
 
   useEffect(() => {
     const fetchArticle = async () => {
@@ -35,7 +36,7 @@ const ArticleTable = (props) => {
         });
     };
     fetchArticle();
-  }, []);
+  }, [deleteState]);
 
   const getArticleById = async (id) => {
     await axios({
@@ -58,7 +59,6 @@ const ArticleTable = (props) => {
       center: true,
       sortable: false,
       width: "100px",
-
     },
     {
       name: "",
@@ -85,14 +85,12 @@ const ArticleTable = (props) => {
       },
       center: true,
       sortable: true,
-
     },
     {
       name: "Catégorie",
       selector: (row) => row.categories,
       center: true,
       sortable: true,
-
     },
     {
       name: "createDate",
@@ -146,7 +144,7 @@ const ArticleTable = (props) => {
               variant="light"
               className="btnTable"
               onClick={() => {
-                navigate("/editarticle?scope=edit");
+                navigate(`/editarticle?state=edit&id=${row._id}`);
               }}
             >
               <PencilSquare />
@@ -195,9 +193,11 @@ const ArticleTable = (props) => {
       </Container>
 
       <ModalDelete
-        scope="article"
+        scope="contentArticle"
         showModalDelete={showModalDelete}
         setShowModalDelete={setShowModalDelete}
+        id={articleId}
+        setDeleteState={setDeleteState}
       />
       <ModlaPreview
         setShowModalPreview={setShowModalPreview}

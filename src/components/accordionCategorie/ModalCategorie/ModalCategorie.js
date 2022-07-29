@@ -28,14 +28,12 @@ const ModalCategorie = (props) => {
           categorie_type: [],
           description: DataDescription,
           state,
-          order:0
-
+          order: 0,
         },
         withCredentials: true,
-      })
-        .catch((err) => {
-          console.log(err);
-        });
+      }).catch((err) => {
+        console.log(err);
+      });
       props.setContentToasts(
         "Enregistrement de la nouvelle catégorie effectué"
       );
@@ -50,10 +48,9 @@ const ModalCategorie = (props) => {
           state,
         },
         withCredentials: true,
-      })
-        .catch((err) => {
-          console.log(err);
-        });
+      }).catch((err) => {
+        console.log(err);
+      });
       props.setContentToasts(
         "Enregistrement de la nouvelle catégorie effectué"
       );
@@ -65,7 +62,6 @@ const ModalCategorie = (props) => {
     setState(null);
     setData(null);
   };
-
 
   return (
     <div>
@@ -101,7 +97,10 @@ const ModalCategorie = (props) => {
             </Form>
 
             <div className="mt-4">
-              <FloatingLabel controlId="floatingTextareadescription" label="Description*">
+              <FloatingLabel
+                controlId="floatingTextareadescription"
+                label="Description*"
+              >
                 <Form.Control
                   as="textarea"
                   style={{ height: "100px" }}
