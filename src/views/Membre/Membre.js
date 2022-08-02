@@ -1,7 +1,10 @@
 import React from "react";
+import UserTable from "../../components/Tables/UserTable/UserTable";
 
 const Membre = () => {
-  return <div>Membre</div>;
+  return (
+    <UserTable/>
+  );
 };
 
 export default Membre;

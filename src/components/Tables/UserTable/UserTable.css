@@ -1,0 +1,6 @@
+.toastsPosition {
+  position: absolute !important;
+  display: flex;
+  z-index: 1;
+  right: 40%;
+}

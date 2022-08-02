@@ -15,6 +15,8 @@ const ModalDelete = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     event.stopPropagation();
+    console.log("props.scope", props.scope)
+    console.log("props.id", props.id)
     switch (props.scope) {
       case "subArticle":
         url = `${process.env.REACT_APP_API_URL}api/subcategorie/${id}/${subId}`;

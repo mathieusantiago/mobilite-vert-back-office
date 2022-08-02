@@ -223,6 +223,7 @@ const FormEditArticle = (props) => {
                     author={author}
                     storeDataArticle={storeDataArticle}
                     mainPicture={mainPicture}
+                    toggleShowToasts={toggleShowToasts}
                   />
                 </Tab>
                 <Tab eventKey="PRESENTATION" title="PRÉSENTATION">
@@ -258,6 +259,7 @@ const FormEditArticle = (props) => {
                   <Galerie
                     storeDataArticle={storeDataArticle}
                     galleryPicture={galleryPicture}
+                    toggleShowToasts={toggleShowToasts}
                   />
                 </Tab>
               </Tabs>

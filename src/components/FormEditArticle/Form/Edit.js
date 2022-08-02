@@ -7,7 +7,6 @@ import RichEdit from "../../RichEdit/RichEdit";
 
 const Edit = (props) => {
   useEffect(() => {
-    console.log("test");
     const getCategory = async () => {
       await axios({
         method: "get",
@@ -41,9 +40,7 @@ const Edit = (props) => {
                 value={props.selectedCategorie}
               >
                 <option>""Select category""</option>;
-                {new URL(window.location.href).searchParams.get("state") ===
-                "edit"
-                  ? props.categorie.map((element) => {
+                {props.categorie.map((element) => {
                       return (
                         <option
                           value={element.categorie_name}
@@ -53,7 +50,7 @@ const Edit = (props) => {
                         </option>
                       );
                     })
-                  : ""}
+                }
               </Form.Select>
             </FloatingLabel>
           </div>
