@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Row } from "react-bootstrap";
-import axios from "axios";
 import "./FormEditArticle.css";
 import Edit from "./Form/Edit";
 import Presentation from "./Form/Presentation";
@@ -9,6 +8,7 @@ import BtnEdit from "../BtnEdit/BtnEdit";
 import Seo from "./Form/Seo";
 import Galerie from "./Form/Galerie";
 import Toasts from "../Toasts/Toasts";
+import _get from "../../utils/dataUtils";
 
 const FormEditArticle = (props) => {
   const [key, setKey] = useState("EDITER");
@@ -78,11 +78,7 @@ const FormEditArticle = (props) => {
   };
 
   const fetchArticle = async (_id) => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/article/${_id}`,
-      withCredentials: true,
-    })
+    _get("get", "api/article", "", _id, "")
       .then((res) => {
         sortData(res.data);
       })
@@ -107,36 +103,33 @@ const FormEditArticle = (props) => {
 
   const posteArticle = () => {
     if (submitted) {
-      axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/article`,
-        data: {
-          profil_name: selectedCategorie,
-          article_title: article_title || "",
-          status: status || "",
-          editing_id: "62aadd63ebc163f0d6e9c69e" || "",
-          chapo: chapo || "",
-          content_article: content_article || "",
-          categories: selectedSubCategorie || "",
-          content_subarticle: content_subarticle || "",
-          tags: tags || "",
-          signatur: author || "",
-          putInOne: putInOne || false,
-          presCategorie: presCategorie || "",
-          notDisplayHomepage: notDisplayHomepage || false,
-          withoutPub: withoutPub || false,
-          presTitle: presTitle || "",
-          presChapo: presChapo || "",
-          presArticle: presArticle || "",
-          tilteSeo: tilteSeo || "",
-          contentSeo: contentSeo || "",
-          mainPicture: sessionStorage.getItem("mainPicture") || "",
-          secondaryPicture: sessionStorage.getItem("secondaryPicture") || "",
-          galleryPicture:
-            JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
-        },
-        withCredentials: true,
-      })
+      let data = {
+        profil_name: selectedCategorie,
+        article_title: article_title || "",
+        status: status || "",
+        editing_id: "62aadd63ebc163f0d6e9c69e" || "",
+        chapo: chapo || "",
+        content_article: content_article || "",
+        categories: selectedSubCategorie || "",
+        content_subarticle: content_subarticle || "",
+        tags: tags || "",
+        signatur: author || "",
+        putInOne: putInOne || false,
+        presCategorie: presCategorie || "",
+        notDisplayHomepage: notDisplayHomepage || false,
+        withoutPub: withoutPub || false,
+        presTitle: presTitle || "",
+        presChapo: presChapo || "",
+        presArticle: presArticle || "",
+        tilteSeo: tilteSeo || "",
+        contentSeo: contentSeo || "",
+        mainPicture: sessionStorage.getItem("mainPicture") || "",
+        secondaryPicture: sessionStorage.getItem("secondaryPicture") || "",
+        galleryPicture:
+          JSON.parse(sessionStorage.getItem("galleryPicture")) || [],
+      };
+
+      _get("post", "api/article", data, "", "")
         .then((res) => {
           setContentToasts("Enregistrement de la nouvelle catégorie effectué");
           toggleShowToasts();
@@ -185,6 +178,7 @@ const FormEditArticle = (props) => {
           showToasts={showToasts}
           toggleshowToasts={toggleShowToasts}
           contentToasts={contentToasts}
+          styles="info"
         />
       </div>
       <Container>

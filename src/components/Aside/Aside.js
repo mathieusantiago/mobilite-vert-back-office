@@ -43,67 +43,44 @@ const Aside = (props) => {
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
+            <Link className="ms-3" to="/categories">
               <CardImage className="me-2" />
-              Lexique
-            </Link>
-          </p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <CardImage className="me-2" />
-              Newsletters
+              Tags
             </Link>
           </p>
           <p>Référentiel produit</p>
           <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
+            <Link className="ms-3" to="/energy">
               <CardHeading className="me-2" />
-              Marques
+              Fiches Enérgie
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <CardHeading className="me-2" />
-              Modèles
+              Fiches Marque
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <CardHeading className="me-2" />
-              Véhicules
+              Fiches Model
             </Link>
           </p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <CardHeading className="me-2" />
-              Catégories
-            </Link>
-          </p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <CardHeading className="me-2" />
-              Fiches Occasion
-            </Link>
-          </p>
+          <p>Média</p>
           <p className="list-group" onClick={handleClose}>
             <Link to="/medialibrary" className="ms-3">
               <Images className="me-2" />
               Librairie des médias
             </Link>
           </p>
+          <p>Média</p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <Calendar3 className="me-2" />
               Événements
             </Link>
           </p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <List className="me-2" />
-              Navigation
-            </Link>
-          </p>
-
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/dashboard">
               <ExclamationSquareFill className="me-2" />

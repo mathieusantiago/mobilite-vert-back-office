@@ -11,10 +11,10 @@ import "./AccordionCategorie.css";
 import ModalCategorie from "./ModalCategorie/ModalCategorie";
 import ModalSubCategorie from "./ModalCategorie/ModalSubCategorie";
 import ModalDelete from "../modal/ModalDelete";
-import axios from "axios";
 import Toasts from "../Toasts/Toasts";
 import { ReactSortable } from "react-sortablejs";
 import AddBtn from "../AddBtn/AddBtn";
+import _get from "../../utils/dataUtils";
 const AccordionCategorie = (props) => {
   const [categorieId, setCategorieId] = useState("");
   const [subCategorieId, setSubCategorieId] = useState(null);
@@ -36,11 +36,8 @@ const AccordionCategorie = (props) => {
   const toggleShowToasts = () => setShowToasts(!showToasts);
   useEffect(() => {
     const fetchCategorie = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/categorie`,
-        withCredentials: true,
-      })
+      
+      _get("get", "api/categorie", "", "", "")
         .then((res) => {
           setDataCategorie(res.data);
         })
@@ -79,6 +76,8 @@ const AccordionCategorie = (props) => {
           showToasts={showToasts}
           toggleshowToasts={toggleShowToasts}
           contentToasts={contentToasts}
+          styles="info"
+
         />
       </div>
       {props.index === "dashBoard" ? (

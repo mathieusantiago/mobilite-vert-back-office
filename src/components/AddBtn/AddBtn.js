@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusLg } from "react-bootstrap-icons";
-import Axios from "axios";
 import "./AddBtn.css";
 import Toasts from "../Toasts/Toasts";
+import _get from "../../utils/dataUtils";
 const AddBtn = (props) => {
   const navigate = useNavigate();
 
@@ -38,20 +38,17 @@ const AddBtn = (props) => {
     }
   };
 
-  const updateCategorie = async (dataCat, id, toastContent) => {
-    await Axios({
-      method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/categorie/${id}`,
-      data: {
-        categorie_name: dataCat.categorie_name,
-        creating_id: dataCat.creating_id,
-        categorie_type: dataCat.categorie_type,
-        description: dataCat.description,
-        state: dataCat.state,
-        order: dataCat.order,
-      },
-      withCredentials: true,
-    })
+  const updateCategorie = (dataCat, id, toastContent) => {
+    let data = {
+      categorie_name: dataCat.categorie_name,
+      creating_id: dataCat.creating_id,
+      categorie_type: dataCat.categorie_type,
+      description: dataCat.description,
+      state: dataCat.state,
+      order: dataCat.order,
+    }
+
+    _get('put', 'api/categorie', data, id , "")
       .then((res) => {
         props.setContentToasts(toastContent);
         props.toggleShowOrderoasts();

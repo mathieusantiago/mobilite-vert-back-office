@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 //fake data for the dev
-import axios from "axios";
 import "./ArticleTable.css";
 import ModalDelete from "../../modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
@@ -10,6 +9,7 @@ import ModlaPreview from "../../modal/ModalPreview";
 
 import { useNavigate } from "react-router-dom";
 import AddBtn from "../../AddBtn/AddBtn";
+import _get from "../../../utils/dataUtils.js";
 
 const ArticleTable = (props) => {
   const navigate = useNavigate();
@@ -20,14 +20,17 @@ const ArticleTable = (props) => {
   const handleShowDelete = () => setShowModalDelete(true);
   const [showModalPreview, setShowModalPreview] = useState(false);
   const [deleteState, setDeleteState] = useState("");
+  
+  const paginationComponentOptions = {
+    rowsPerPageText: "Select nombre par page",
+    rangeSeparatorText: "sur",
+    selectAllRowsItem: false,
+    selectAllRowsItemText: "Todos",
+  };
 
   useEffect(() => {
-    const fetchArticle = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/article`,
-        withCredentials: true,
-      })
+    const fetchArticle = () => {
+      _get("get", "api/article", "", "", "")
         .then((res) => {
           setDataArticle(res.data);
         })
@@ -38,12 +41,8 @@ const ArticleTable = (props) => {
     fetchArticle();
   }, [deleteState]);
 
-  const getArticleById = async (id) => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/article/${id}`,
-      withCredentials: true,
-    })
+  const getArticleById = (id) => {
+    _get("get", "api/article", "", id, "")
       .then((res) => {
         setDataArticleById(res.data);
       })
@@ -58,7 +57,7 @@ const ArticleTable = (props) => {
       selector: (row) => row._id,
       center: true,
       sortable: false,
-      width: "100px",
+      wrap: true,
     },
     {
       name: "",
@@ -73,6 +72,7 @@ const ArticleTable = (props) => {
       },
       center: true,
       sortable: false,
+      wrap: true,
     },
     {
       name: "Titre",
@@ -85,6 +85,7 @@ const ArticleTable = (props) => {
       },
       center: true,
       sortable: true,
+      wrap: true,
     },
     {
       name: "Catégorie",
@@ -169,6 +170,7 @@ const ArticleTable = (props) => {
       center: true,
     },
   ];
+
   return (
     <>
       <Container>
@@ -188,6 +190,7 @@ const ArticleTable = (props) => {
             dense={false}
             responsive={true}
             striped
+            paginationComponentOptions={paginationComponentOptions}
           />
         </div>
       </Container>
@@ -198,6 +201,8 @@ const ArticleTable = (props) => {
         setShowModalDelete={setShowModalDelete}
         id={articleId}
         setDeleteState={setDeleteState}
+        styles="info"
+
       />
       <ModlaPreview
         setShowModalPreview={setShowModalPreview}

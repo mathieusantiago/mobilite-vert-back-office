@@ -1,18 +1,15 @@
 import React, { useEffect } from "react";
 import { Row, Col, FloatingLabel, Form, Button } from "react-bootstrap";
 import "./index.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import RichEdit from "../../RichEdit/RichEdit";
+import _get from "../../../utils/dataUtils";
 
 const Edit = (props) => {
   useEffect(() => {
-    const getCategory = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/categorie`,
-        withCredentials: true,
-      })
+    const getCategory = () => {
+
+      _get("get", "api/categorie", "", "", "")
         .then((res) => {
           props.setCategorie(res.data);
         })

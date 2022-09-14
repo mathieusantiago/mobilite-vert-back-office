@@ -11,6 +11,7 @@ import "cropperjs/dist/cropper.css";
 //Import React-BootStrap
 import { Button, Col, Container, Form, Row, Modal } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
+import _get from "../../utils/dataUtils";
 
 const ModalCropper = (props) => {
   const [image, setImage] = useState("");
@@ -60,18 +61,14 @@ const ModalCropper = (props) => {
           console.log("err", err); // Error!
         }
       );
+    let data = {
+      urlPicture: urlPicture,
+      seo: seo,
+      description: description,
+      nom: nom,
+    };
 
-    await axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/gallery`,
-      data: {
-        urlPicture: urlPicture,
-        seo: seo,
-        description: description,
-        nom: nom,
-      },
-      withCredentials: true,
-    })
+    _get("post", "api/gallery", data, "", "")
       .then((res) => {
         setImage("");
         setCropData("");

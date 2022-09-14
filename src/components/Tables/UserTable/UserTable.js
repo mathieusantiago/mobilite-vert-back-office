@@ -1,28 +1,139 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 //fake data for the dev
-import axios from "axios";
 import ModalDelete from "../../modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
-import { Check2Circle, Trash } from "react-bootstrap-icons";
+import { PencilFill, Trash } from "react-bootstrap-icons";
 import Toasts from "../../Toasts/Toasts";
+import _get from "../../../utils/dataUtils.js";
 import "./UserTable.css";
 
 const UserTable = (props) => {
   const [showModalDelete, setShowModalDelete] = useState(false);
   const [dataRole, setDataRole] = useState([]);
+  const [dataUsers, setDataUsers] = useState([]);
   const [change, setChange] = useState(false);
-  const [onChange, setOnChange] = useState(false);
   const [showToasts, setShowToasts] = useState(false);
   const [contentToasts, setContentToasts] = useState("");
-  const [randomPassword, setRandomPassword] = useState('');
+
+  const [randomPassword, setRandomPassword] = useState("");
+  const [pseudo, setPseudo] = useState("");
+  const [email, setEmail] = useState("");
+  const [selectRole, setSelectRole] = useState("");
+  const [selectId, setSelectId] = useState("");
+  const [selectRoleId, setSelectRoleId] = useState("");
+  const [isActive, setIsActive] = useState();
+
+  const [isUpdated, setIsUpdated] = useState(false);
+
+  const [reload, setReload] = useState(false);
 
   const toggleShowToasts = () => setShowToasts(!showToasts);
   const handleShowDelete = () => setShowModalDelete(true);
 
+  const resPseudo = document.querySelector("#pseudo");
+  const resPassword = document.querySelector("#password");
+  const resEmail = document.querySelector("#email");
+  const resRole = document.querySelector("#role");
+  const resStatus = document.querySelector("#status");
+
   useEffect(() => {
-    
-  }, [change]);
+    const getRole = async () => {
+      _get("get", "api/role", "", "", "")
+        .then((res) => {
+          setDataRole(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    const getUsers = () => {
+      _get("get", "api/user", "", "", "")
+        .then((res) => {
+          setDataUsers(res.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    };
+
+    getRole();
+    getUsers();
+  }, [change, reload]);
+
+  const getUserById = (_id) => {
+    setSelectId(_id);
+    setIsUpdated(true);
+    const role = document.querySelector("#role");
+
+    if (_id === "") {
+      return null;
+    }
+
+    _get("get", "api/user", "", _id, "")
+      .then((res) => {
+        setPseudo(res.data.pseudo);
+        setEmail(res.data.email);
+        setIsActive(res.data.status);
+        role.value = res.data.role;
+        //test
+
+
+
+        setSelectRoleId(res.data.role)
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const updateUser = () => {
+    let data = {
+      pseudo: pseudo,
+      email: email,
+      status: isActive,
+      role: selectRole,
+    };
+    _get("put", "api/user", data, selectId, "")
+      .then(() => {
+        emptyField();
+        setReload(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const postNewUser = () => {
+    console.log("pass", randomPassword);
+    let data = {
+      pseudo: pseudo,
+      email: email,
+      password: randomPassword,
+      role: selectRole === "" ? selectRoleId : selectRole,
+      status: isActive,
+    };
+    _get("post", "api/user/register", data, "", "")
+      .then(() => {
+        emptyField();
+        setContentToasts("Nouvelle utilisateur enregistrer");
+        toggleShowToasts();
+        setReload(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+  const emptyField = () => {
+    resPseudo.value = "";
+    resPassword.value = "";
+    resEmail.value = "";
+    resRole.value = "1";
+    resStatus.checked = false;
+    setIsUpdated(false);
+  };
 
   const generatPassword = () => {
     const password_length = 16;
@@ -32,8 +143,8 @@ const UserTable = (props) => {
       let i = Math.floor(Math.random() * chars.length);
       pass += chars.charAt(i);
     }
-    setRandomPassword(pass)
-  }
+    setRandomPassword(pass);
+  };
 
   const columns = [
     {
@@ -46,12 +157,12 @@ const UserTable = (props) => {
       width: "100px",
     },
     {
-      name: "Nom du role  ",
+      name: "Nom",
       selector: (row) => {
         return (
           <div>
-            <Button className="bordered-bleu" size="sm">
-              {row.roleName}
+            <Button className="bordered-bleu pseudo" size="sm">
+              {row.pseudo}
             </Button>
           </div>
         );
@@ -60,85 +171,28 @@ const UserTable = (props) => {
       sortable: false,
     },
     {
-      name: "Lecture",
+      name: "Email",
       selector: (row) => {
-        return (
-          <Form.Check
-            className="mt-2"
-            type="checkbox"
-            id="read"
-            defaultChecked={row.read}
-            onChange={(r) => {
-              setOnChange(true);
-            }}
-          />
-        );
+        return <div>{row.email}</div>;
       },
       center: true,
-      sortable: true,
-      width: "100px",
+      sortable: false,
     },
     {
-      name: "Écriture",
+      name: "Role",
       selector: (row) => {
-        return (
-          <Form.Check
-            className="mt-2"
-            type="checkbox"
-            id="write"
-            defaultChecked={row.write}
-            onChange={(r) => {
-              setOnChange(true);
-            }}
-          />
-        );
+        // eslint-disable-next-line
+        return dataRole.map((data) => {
+          if (row.role === data._id) {
+            return `
+                    ${data.roleName} 
+                    ${data.admin ? "| A " : ""} 
+                    ${data.read ? "| L " : ""}
+                    ${data.write ? "| E " : ""}
+                    ${data.upDate ? "| M " : ""} `;
+          }
+        });
       },
-      center: true,
-      sortable: true,
-      width: "100px",
-    },
-    {
-      name: "Modification",
-      selector: (row) => {
-        return (
-          <Form.Check
-            className="mt-2"
-            type="checkbox"
-            id="update"
-            defaultChecked={row.upDate}
-            onChange={(r) => {
-              setOnChange(true);
-            }}
-          />
-        );
-      },
-      center: true,
-      sortable: true,
-      width: "100px",
-    },
-    {
-      name: "Administrateur",
-      selector: (row) => {
-        return (
-          <Form.Check
-            className="mt-2"
-            type="checkbox"
-            id="admin"
-            defaultChecked={row.admin}
-            onChange={(r) => {
-              setOnChange(true);
-            }}
-          />
-        );
-      },
-      center: true,
-      sortable: true,
-      width: "100px",
-    },
-
-    {
-      name: "createDate",
-      selector: (row) => row.createdAt.split("T")[0],
       center: true,
       sortable: true,
     },
@@ -150,8 +204,8 @@ const UserTable = (props) => {
             className="mt-2"
             type="switch"
             defaultChecked={row.status}
-            onChange={(r) => {
-              setOnChange(true);
+            onChange={(e) => {
+              setIsActive(e.target.checked);
             }}
           />
         );
@@ -163,18 +217,20 @@ const UserTable = (props) => {
       selector: (row) => (
         <div>
           <Row>
-            {onhashchange ? (
-              <Col variant="light" className="btnTable pe-3" onClick={() => {}}>
-                <Check2Circle />
-              </Col>
-            ) : (
-              ""
-            )}
+            <Col
+              variant="light"
+              className="btnTable pe-3"
+              onClick={() => getUserById(row._id)}
+            >
+              <PencilFill />
+            </Col>
+
             <Col
               variant="light"
               className="btnTable pe-3"
               onClick={() => {
                 handleShowDelete();
+                setSelectId(row._id);
               }}
             >
               <Trash />
@@ -195,42 +251,119 @@ const UserTable = (props) => {
           showToasts={showToasts}
           toggleshowToasts={toggleShowToasts}
           contentToasts={contentToasts}
+          styles="info"
+
         />
       </div>
       <Container>
         <div className="borderGreen text-light p-2">
           <Row>
             <Col sm={5}>
-              <Form.Control className="mt-3" placeholder="Nom" type="text"/>
+              <Form.Control
+                id="pseudo"
+                className="mt-3"
+                placeholder="Nom"
+                type="text"
+                onChange={(e) => {
+                  setPseudo(e.target.value);
+                }}
+                defaultValue={pseudo}
+              />
 
               <InputGroup className="mb-3 mt-3">
                 <Form.Control
+                  id="password"
                   type="password"
                   placeholder="Mots de passe"
                   aria-label="Recipient's username"
                   aria-describedby="basic-addon2"
                   defaultValue={randomPassword}
+                  onChange={(e) => {
+                    setRandomPassword(e.target.value);
+                  }}
                 />
-                <Button variant="outline-secondary" id="button-addon2" onClick={generatPassword}>
+                <Button
+                  variant="outline-secondary"
+                  id="button-addon2"
+                  onClick={generatPassword}
+                >
                   Générer PassWord
                 </Button>
               </InputGroup>
             </Col>
             <Col sm={5}>
-              <Form.Control className="mt-3" placeholder="Email" type="email"/>
-              <Form.Control className="mt-3" placeholder="Role" type="text"/>
-            </Col>
-  
-            <Col>
-              <Form.Check className="mt-5" type="switch" label={`Status`} />
-            </Col>
-            <Col>
-              <Button
-                className="bordered-bleu mt-5"
-                size="sm"
+              <Form.Control
+                id="email"
+                className="mt-3"
+                placeholder="Email"
+                type="email"
+                defaultValue={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
+              <Form.Select
+                className="mt-3"
+                aria-label="Selecte Role"
+                onChange={(e) => {
+                  setSelectRole(e.target.value);
+                }}
+                id="role"
+                defaultValue={selectRole}
               >
-                Créer
-              </Button>
+                <option value="1">Selecte Role</option>
+                {dataRole.map((role) => {
+                  return (
+                    <option key={role._id} value={role._id}>{`
+                   ${role.roleName} 
+                    ${role.admin ? "| A " : ""} 
+                    ${role.read ? "| L " : ""}
+                    ${role.write ? "| E " : ""}
+                    ${role.upDate ? "| M " : ""}`}</option>
+                  );
+                })}
+              </Form.Select>
+            </Col>
+
+            <Col>
+              <Form.Check
+                id="status"
+                className="mt-5"
+                type="switch"
+                label={`Status`}
+                defaultChecked={isActive}
+                onChange={(e) => {
+                  setIsActive(e.target.checked);
+                }}
+              />
+            </Col>
+            <Col>
+              {isUpdated ? (
+                <>
+                  <Button
+                    className="bordered-bleu mt-5"
+                    size="sm"
+                    onClick={updateUser}
+                  >
+                    Update
+                  </Button>
+                  <Button
+                    className="bordered-bleu"
+                    size="sm"
+                    onClick={emptyField}
+                  >
+                    Annuler
+                  </Button>
+                </>
+              ) : (
+                <Button
+                  className="bordered-bleu mt-5"
+                  size="sm"
+                  onClick={postNewUser}
+                >
+                  Créer
+                </Button>
+              )}
             </Col>
           </Row>
         </div>
@@ -240,7 +373,7 @@ const UserTable = (props) => {
             pagination
             columns={columns}
             dense={false}
-            data={dataRole}
+            data={dataUsers}
             responsive={true}
             striped
           />
@@ -248,10 +381,12 @@ const UserTable = (props) => {
       </Container>
 
       <ModalDelete
-        scope="deleteRole"
+        scope="deleteUser"
         setDeleteState={setChange}
         showModalDelete={showModalDelete}
         setShowModalDelete={setShowModalDelete}
+        id={selectId}
+        styles="info"
       />
     </>
   );

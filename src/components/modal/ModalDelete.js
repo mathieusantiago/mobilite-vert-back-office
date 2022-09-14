@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
+import _get from "../../utils/dataUtils";
 
 const ModalDelete = (props) => {
   const [id, setId] = useState(null);
@@ -15,27 +16,42 @@ const ModalDelete = (props) => {
   const handleDelete = (event) => {
     event.preventDefault();
     event.stopPropagation();
-    console.log("props.scope", props.scope)
-    console.log("props.id", props.id)
+    
     switch (props.scope) {
-      case "subArticle":
+      case "subArticle":     
+        props.setContentToasts('La sous catégorie a bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/subcategorie/${id}/${subId}`;
         method = "patch";
         break;
       case "article":
+        props.setContentToasts('La nouvelle catégorie a bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/categorie/${id}`;
         method = "delete";
         break;
       case "picture":
+        props.setContentToasts('La photo a bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/gallery/${id}`;
         method = "delete";
         break;
       case "contentArticle":
+        props.setContentToasts('L\'article a bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/article/${id}`;
         method = "delete";
         break;
       case "deleteRole":
+        props.setContentToasts('Le role a bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/role/${id}`;
+        method = "delete";
+        break;
+      case "deleteUser":
+        props.setContentToasts('L\'utilisateur a bien été supprimé')
+        url = `${process.env.REACT_APP_API_URL}api/user/${id}`;
+        method = "delete";
+        break;
+      case "deleteRefEnergy":
+        props.setContentToasts('La référence a bien été supprimé')
+        console.log("trololo")
+        url = `${process.env.REACT_APP_API_URL}api/fieldEnergy/${id}`;
         method = "delete";
         break;
       default:
@@ -48,6 +64,8 @@ const ModalDelete = (props) => {
     })
       .then((res) => {
         props.setDeleteState("update");
+        props.setToastsStyles('danger')
+        props.toggleshowToasts()
       })
       .catch((err) => {
         console.log(err);
@@ -70,7 +88,7 @@ const ModalDelete = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="secondary"
+            variant="secondary"styles
             onClick={() => props.setShowModalDelete(false)}
           >
             Non

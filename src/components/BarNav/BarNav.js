@@ -4,9 +4,9 @@ import { PersonCircle } from "react-bootstrap-icons";
 import NavLogo from "../../assets/Logo_Greenmove.png";
 import { List } from "react-bootstrap-icons";
 import cookie from "js-cookie";
-import axios from "axios";
 import { UidContext } from "../AppContext";
 import "./BarNav.css";
+import _get from "../../utils/dataUtils";
 
 const BarNav = (props) => {
   const uid = useContext(UidContext);
@@ -21,12 +21,8 @@ const BarNav = (props) => {
     }
   };
 
-  const logout = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/user/logout`,
-      withCredentials: true,
-    })
+  const logout = () => {
+    _get("get", "api/user/logout", "", "", "")
       .then(() => removeCookie("jwt"))
       .catch((err) => console.log(err));
 

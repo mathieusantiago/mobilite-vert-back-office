@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, FloatingLabel, Form, Modal, Row } from "react-bootstrap";
-import axios from "axios";
 import { UidContext } from "../../AppContext";
+import _get from "../../../utils/dataUtils";
 
 const ModalCategorie = (props) => {
   const [DataCategorie_name, setCategorie_name] = useState("");
@@ -19,36 +19,29 @@ const ModalCategorie = (props) => {
     event.preventDefault();
     event.stopPropagation();
     if (data === null) {
-      axios({
-        method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/categorie`,
-        data: {
-          categorie_name: DataCategorie_name,
-          creating_id: uid,
-          categorie_type: [],
-          description: DataDescription,
-          state,
-          order: 0,
-        },
-        withCredentials: true,
-      }).catch((err) => {
+      let datas = {
+        categorie_name: DataCategorie_name,
+        creating_id: uid,
+        categorie_type: [],
+        description: DataDescription,
+        state,
+        order: 0,
+      };
+
+      _get("post", "api/categorie", datas, "", "").catch((err) => {
         console.log(err);
       });
       props.setContentToasts(
         "Enregistrement de la nouvelle catégorie effectué"
       );
     } else {
-      axios({
-        method: "put",
-        url: `${process.env.REACT_APP_API_URL}api/categorie/${id}`,
-        data: {
-          categorie_name: DataCategorie_name,
-          categorie_type: data?.categorie_type,
-          description: DataDescription,
-          state,
-        },
-        withCredentials: true,
-      }).catch((err) => {
+      let datas = {
+        categorie_name: DataCategorie_name,
+        categorie_type: data?.categorie_type,
+        description: DataDescription,
+        state,
+      };
+      _get("put", "api/categorie", datas, id, "").catch((err) => {
         console.log(err);
       });
       props.setContentToasts(

@@ -3,8 +3,8 @@ import { Button, Col, Row } from "react-bootstrap";
 import { ChevronLeft } from "react-bootstrap-icons";
 import { useNavigate } from "react-router-dom";
 import Piging from "./Paging";
-import axios from "axios";
 import "./ListeArticle.css";
+import _get from "../../utils/dataUtils";
 
 const ListeArticle = (props) => {
   const navigate = useNavigate();
@@ -26,14 +26,11 @@ const ListeArticle = (props) => {
     indexOfFirstArticle,
     indexOfLastArticle
   );
-
+    
   useEffect(() => {
     const fetchArticle = async () => {
-      await axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/article`,
-        withCredentials: true,
-      })
+
+      _get("get", "api/article", "", "", "")
         .then((res) => {
           setDataArticle(res.data);
         })

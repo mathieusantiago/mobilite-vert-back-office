@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Button, FloatingLabel, Form, Modal, Row } from "react-bootstrap";
-import axios from "axios";
+import _get from "../../../utils/dataUtils";
 
 const ModalCategorie = (props) => {
   const [id, setId] = useState(null);
@@ -21,16 +21,13 @@ const ModalCategorie = (props) => {
     event.stopPropagation();
 
     if (data == null) {
-      axios({
-        method: "patch",
-        url: `${process.env.REACT_APP_API_URL}api/subcategorie/${id}`,
-        data: {
-          name_type: DataCategorie_name,
-          description: DataDescription,
-          status: state,
-        },
-        withCredentials: true,
-      })
+      let datas = {
+        name_type: DataCategorie_name,
+        description: DataDescription,
+        status: state,
+      };
+
+      _get("patch", "api/subcategorie", datas, id, "")
         .then((res) => {
           props.showModalCategorie("update");
         })
@@ -41,16 +38,12 @@ const ModalCategorie = (props) => {
         "Enregistrement de la nouvelle sous-catégorie effectué"
       );
     } else {
-      axios({
-        method: "patch",
-        url: `${process.env.REACT_APP_API_URL}api/subcategorie/sub/${id}/${subCategorieId}`,
-        data: {
-          name_type: DataCategorie_name,
-          description: DataDescription,
-          status: state,
-        },
-        withCredentials: true,
-      })
+      let datas = {
+        name_type: DataCategorie_name,
+        description: DataDescription,
+        status: state,
+      };
+      _get("patch", "api/subcategorie/sub/", datas, id, subCategorieId)
         .then((res) => {
           props.showModalCategorie("update");
         })

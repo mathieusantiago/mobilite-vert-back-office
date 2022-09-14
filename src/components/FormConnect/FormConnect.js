@@ -1,41 +1,40 @@
 import React, { useState, useContext, useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { UidContext } from "../AppContext";
+import _get from "../../utils/dataUtils";
 
 const FormComent = (props) => {
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
   const navigate = useNavigate();
   const uid = useContext(UidContext);
-
+  
   useEffect(() => {
+    console.log("e",uid)
+
     if (uid !== null) {
-      window.location = "/dashboard";
+      console.log(uid)
+      window.location = "/";
     }
-  });
+  },[uid]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const emailError = document.querySelector(".email.error");
     const passWordError = document.querySelector(".password.error");
 
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/user/login`,
-      data: {
-        password,
-        email,
-      },
-      withCredentials: true,
-    })
+    let data = {
+      password,
+      email,
+    }
+
+    _get("post", "api/user/login", data, "", "")
       .then((res) => {
         if (res.data.errors) {
           emailError.innerHTML = res.data.errors.email;
           passWordError.innerHTML = res.data.errors.password;
         } else {
-          navigate("/dashboard");
-          //window.location = "/dashboard";
+          window.location = "/dashboard";
         }
       })
       .catch((err) => {

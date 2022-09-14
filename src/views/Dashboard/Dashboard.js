@@ -9,6 +9,7 @@ const Dashboard = () => {
   const uid = useContext(UidContext);
   const [index, setIndex] = useState("");
   useEffect(() => {
+    console.log('uid', uid)
     setIndex("dashBoard");
   });
   return (

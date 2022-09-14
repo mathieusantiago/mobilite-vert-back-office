@@ -11,7 +11,7 @@ const Toasts = (props) => {
             show={props.showToasts}
             onClose={props.toggleshowToasts}
             delay={3000}
-            bg="info"
+            bg={props.styles}
             autohide
           >
             <Toast.Header>

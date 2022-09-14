@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 //fake data for the dev
-import axios from "axios";
 import "./RoleTable.css";
 import ModalDelete from "../../modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
 import { Check2Circle, Trash } from "react-bootstrap-icons";
+import _get from "../../../utils/dataUtils.js";
 
 import Toasts from "../../Toasts/Toasts";
 import "./RoleTable.css";
@@ -27,14 +27,10 @@ const RoleTable = (props) => {
 
   const toggleShowToasts = () => setShowToasts(!showToasts);
   const handleShowDelete = () => setShowModalDelete(true);
-
+ 
   useEffect(() => {
     const getRole = () => {
-      axios({
-        method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/role`,
-        withCredentials: true,
-      })
+      _get("get", "api/role", "", "", "")
         .then((res) => {
           setDataRole(res.data);
         })
@@ -46,19 +42,16 @@ const RoleTable = (props) => {
   }, [change]);
 
   const postRole = () => {
-    axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/role`,
-      data: {
-        roleName: roleName,
-        read: read,
-        write: write,
-        upDate: upDate,
-        admin: admin,
-        status: status,
-      },
-      withCredentials: true,
-    })
+    let data = {
+      roleName: roleName,
+      read: read,
+      write: write,
+      upDate: upDate,
+      admin: admin,
+      status: status,
+    }
+
+    _get("post", "api/role", data, "", "")
       .then(() => {
         setContentToasts("Nouveau role créer");
         toggleShowToasts(true);
@@ -76,19 +69,16 @@ const RoleTable = (props) => {
   };
 
   const updateRole = (id) => {
-    axios({
-      method: "put",
-      url: `${process.env.REACT_APP_API_URL}api/role/${id}`,
-      data: {
-        roleName: roleName,
-        read: read,
-        write: write,
-        upDate: upDate,
-        admin: admin,
-        status: status,
-      },
-      withCredentials: true,
-    })
+    let data = {
+      roleName: roleName,
+      read: read,
+      write: write,
+      upDate: upDate,
+      admin: admin,
+      status: status,
+    };
+
+    _get("put", "api/role", data, id, "")
       .then(() => {
         setContentToasts("Mise a jour du role");
         toggleShowToasts(true);
@@ -276,6 +266,7 @@ const RoleTable = (props) => {
           showToasts={showToasts}
           toggleshowToasts={toggleShowToasts}
           contentToasts={contentToasts}
+          styles="info"
         />
       </div>
       <Container>
@@ -366,6 +357,8 @@ const RoleTable = (props) => {
         setDeleteState={setChange}
         showModalDelete={showModalDelete}
         setShowModalDelete={setShowModalDelete}
+        styles="info"
+
       />
     </>
   );

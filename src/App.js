@@ -12,21 +12,18 @@ import MediaLibrary from "./views/MediaLibrary/MediaLibrary";
 import Roles from "./views/Roles/Roles";
 
 import { UidContext } from "./components/AppContext";
-import axios from "axios";
 
 import "./App.css";
 import Membre from "./views/Membre/Membre";
+import _get from "./utils/dataUtils";
+import EnergySheets from "./views/Sheets/EnergySheets";
 
 function App() {
   const [uid, setUid] = useState(null);
   const [asideState, setAsideState] = useState(false);
 
   const fetchToken = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}jwtid`,
-      withCredentials: true,
-    })
+    _get('get', 'jwtid', "", "", "")
       .then((res) => {
         setUid(res.data);
       })
@@ -51,6 +48,7 @@ function App() {
         <Route path="/medialibrary" element={<MediaLibrary />} />
         <Route path="/role" element={<Roles />} />
         <Route path="/membre" element={<Membre />} />
+        <Route path="/energy" element={<EnergySheets />} />
       </Routes>
     </UidContext.Provider>
   );

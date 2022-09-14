@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { Container, Row, Card, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { Trash, Check2Circle, AspectRatio } from "react-bootstrap-icons";
@@ -7,6 +6,7 @@ import "./Gallery.css";
 import ModalDelete from "../modal/ModalDelete";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import _get from "../../utils/dataUtils";
 const Gallery = (props) => {
   const navigate = useNavigate();
   const [dataPicture, setDataPicture] = useState([]);
@@ -19,18 +19,15 @@ const Gallery = (props) => {
   const handleShowDelete = () => setShowModalDelete(true);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-
+  
   useEffect(() => {
     setScope(params.get("scope"));
     getPictureInfo();
   }, [props.state, deleteState]);
 
   const getPictureInfo = async () => {
-    await axios({
-      method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/gallery`,
-      withCredentials: true,
-    })
+
+    _get("get", "api/gallery", "", "", "")
       .then((res) => {
         setDataPicture(res.data);
       })
@@ -210,6 +207,7 @@ const Gallery = (props) => {
         id={pictureId}
         scope="picture"
         setDeleteState={setDeleteState}
+
       />
     </Container>
   );
