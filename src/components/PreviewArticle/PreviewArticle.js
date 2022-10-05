@@ -1,8 +1,11 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
+import  dompurify from "../../utils/dompurify";
 import "./PreviewArticle.css";
+
 const PreviewArticle = (props) => {
   const date = new Date(props.updatedAt);
+
   function UncontrolledExample() {
     return (
       <Carousel>
@@ -36,9 +39,7 @@ const PreviewArticle = (props) => {
         <br />
         <div
           className="pb-3"
-          dangerouslySetInnerHTML={{
-            __html: props.chapo,
-          }}
+          dangerouslySetInnerHTML={{ __html: dompurify(props.chapo) }}
         ></div>
         {props && props.galleryPicture && props.galleryPicture.length !== 0 ? (
           <UncontrolledExample />
@@ -53,13 +54,13 @@ const PreviewArticle = (props) => {
         <div
           className="pb-5"
           dangerouslySetInnerHTML={{
-            __html: props.content_article,
+            __html: dompurify(props.content_article),
           }}
         ></div>
         <div
           className="pb-5"
           dangerouslySetInnerHTML={{
-            __html: props.content_subarticle,
+            __html: dompurify(props.content_subarticle),
           }}
         ></div>
       </div>

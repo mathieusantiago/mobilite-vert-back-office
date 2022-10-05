@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 //fake data for the dev
 import "./RoleTable.css";
-import ModalDelete from "../../modal/ModalDelete.js";
+import ModalDelete from "../../Modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
 import { Check2Circle, Trash } from "react-bootstrap-icons";
 import _get from "../../../utils/dataUtils.js";

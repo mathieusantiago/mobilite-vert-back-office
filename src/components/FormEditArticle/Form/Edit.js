@@ -4,11 +4,11 @@ import "./index.css";
 import { Link } from "react-router-dom";
 import RichEdit from "../../RichEdit/RichEdit";
 import _get from "../../../utils/dataUtils";
+import { XCircle } from "react-bootstrap-icons";
 
 const Edit = (props) => {
   useEffect(() => {
     const getCategory = () => {
-
       _get("get", "api/categorie", "", "", "")
         .then((res) => {
           props.setCategorie(res.data);
@@ -17,10 +17,34 @@ const Edit = (props) => {
           console.log("No data article", err);
         });
     };
+    const getTags = () => {
+      _get("get", "api/tags", "", "", "")
+        .then((res) => {
+          props.setTags(res.data);
+        })
+        .catch((err) => {
+          console.log("No data article", err);
+        });
+    };
+    const getUser = () => {
+      _get("get", "api/user", "", "", "")
+        .then((res) => {
+          props.setAuthor(res.data);
+        })
+        .catch((err) => {
+          console.log("No data article", err);
+        });
+    };
+    getUser();
+    getTags();
     getCategory();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props.selectedCategorie]);
+  }, [props, props.selectedCategorie]);
 
+  const removeTags = (indexToRemove) => {
+    props.setSelectedTags([
+      ...props.selectedTags.filter((_, index) => index !== indexToRemove),
+    ]);
+  };
   const getStoreMainPicture = () => {
     const data = sessionStorage.getItem("mainPicture") || props.mainPicture;
     return data;
@@ -38,16 +62,12 @@ const Edit = (props) => {
               >
                 <option>""Select category""</option>;
                 {props.categorie.map((element) => {
-                      return (
-                        <option
-                          value={element.categorie_name}
-                          key={element._id}
-                        >
-                          {element.categorie_name}
-                        </option>
-                      );
-                    })
-                }
+                  return (
+                    <option value={element.categorie_name} key={element._id}>
+                      {element.categorie_name}
+                    </option>
+                  );
+                })}
               </Form.Select>
             </FloatingLabel>
           </div>
@@ -123,31 +143,54 @@ const Edit = (props) => {
               setValue={props.setContent_subarticle}
             />
           </div>
-          <div className="ms-5 mt-4">
-            <Form.Floating className="mb-3">
-              <Form.Control
-                id="floatingInputCustom"
-                type="text"
-                placeholder="name@example.com"
-                onChange={(e) => props.setTags(e.target.value)}
-                defaultValue={props.tags}
-              />
-              <label htmlFor="floatingInputCustom">Tags</label>
-            </Form.Floating>
+          <div className="ms-5 mt-4  mb-5">
+            <div className="tags-input">
+              <ul id="tags">
+                {props.selectedTags
+                  ? props.selectedTags.map((tag, index) => {
+                      return (
+                        <li key={index} className="tag">
+                          <span className="tag-title text">{tag}</span>
+                          <XCircle
+                            className="tag-close-icon"
+                            onClick={() => removeTags(index)}
+                          />
+                        </li>
+                      );
+                    })
+                  : props.tags.map((tag, index) => {
+                      return (
+                        <li key={index} className="tag">
+                          <span className="tag-title text">{tag}</span>
+                          <XCircle
+                            className="tag-close-icon"
+                            onClick={() => removeTags(index)}
+                          />
+                        </li>
+                      );
+                    })}
+              </ul>
+              <Form.Floating>
+                <Form.Select
+                  aria-label="Floating label select example"
+                  onChange={(e) =>
+                    props.setSelectedTags([
+                      ...props.selectedTags,
+                      e.target.value,
+                    ])
+                  }
+                >
+                  <option>""Select tags""</option>;
+                  {props.tags.map((e) => {
+                    return <option key={e.tags_name}>{e.tags_name}</option>;
+                  })}
+                </Form.Select>
+                <label htmlFor="floatingInputCustom">Signature</label>
+              </Form.Floating>
+            </div>
           </div>
 
-          <div className="ms-5 mt-4 mb-5">
-            <Form.Floating>
-              <Form.Control
-                id="floatingInputCustom"
-                type="text"
-                placeholder="name@example.com"
-                onChange={(e) => props.setAuthor(e.target.value)}
-                defaultValue={props.author}
-              />
-              <label htmlFor="floatingInputCustom">Signature</label>
-            </Form.Floating>
-          </div>
+
         </Col>
       </Row>
     </div>

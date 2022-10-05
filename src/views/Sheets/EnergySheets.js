@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
-import EnergyComponent from '../../components/sheetComponent/EnergyComponent';
+import EnergyComponent from '../../components/SheetComponent/EnergyComponent';
 
 const EnergySheets = (props) => {
 

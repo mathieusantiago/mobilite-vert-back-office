@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Button, Col, Container, Row } from "react-bootstrap";
 //fake data for the dev
 import "./ArticleTable.css";
-import ModalDelete from "../../modal/ModalDelete.js";
+import ModalDelete from "../../Modal/ModalDelete.js";
 import DataTable from "react-data-table-component";
 import { Trash, PencilSquare, Eye } from "react-bootstrap-icons";
-import ModlaPreview from "../../modal/ModalPreview";
+import ModlaPreview from "../../Modal/ModalPreview";
 
 import { useNavigate } from "react-router-dom";
 import AddBtn from "../../AddBtn/AddBtn";
 import _get from "../../../utils/dataUtils.js";
+import Toasts from "../../Toasts/Toasts";
 
 const ArticleTable = (props) => {
   const navigate = useNavigate();
@@ -20,7 +21,13 @@ const ArticleTable = (props) => {
   const handleShowDelete = () => setShowModalDelete(true);
   const [showModalPreview, setShowModalPreview] = useState(false);
   const [deleteState, setDeleteState] = useState("");
-  
+  const [toastsStyles, setToastsStyles] = useState("");
+
+  const [showToasts, setShowToasts] = useState(false);
+  const [contentToasts, setContentToasts] = useState("");
+
+  const toggleShowToasts = () => setShowToasts(!showToasts);
+
   const paginationComponentOptions = {
     rowsPerPageText: "Select nombre par page",
     rangeSeparatorText: "sur",
@@ -173,6 +180,14 @@ const ArticleTable = (props) => {
 
   return (
     <>
+      <div className="toastsPosition">
+        <Toasts
+          showToasts={showToasts}
+          toggleshowToasts={toggleShowToasts}
+          contentToasts={contentToasts}
+          styles={toastsStyles}
+        />
+      </div>
       <Container>
         {props.index === "dashBoard" ? (
           ""
@@ -201,8 +216,9 @@ const ArticleTable = (props) => {
         setShowModalDelete={setShowModalDelete}
         id={articleId}
         setDeleteState={setDeleteState}
-        styles="info"
-
+        setToastsStyles={setToastsStyles}
+        setContentToasts={setContentToasts}
+        toggleshowToasts={toggleShowToasts}
       />
       <ModlaPreview
         setShowModalPreview={setShowModalPreview}

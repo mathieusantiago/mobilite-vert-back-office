@@ -7,11 +7,8 @@ import {
   CardImage,
   CardHeading,
   Images,
-  Calendar3,
-  List,
   PersonRolodex,
-  ExclamationSquareFill,
-} from "react-bootstrap-icons";
+} from "react-bootstrap-icons"; 
 
 const Aside = (props) => {
   const handleClose = () => props.setAsideState(false);
@@ -43,7 +40,7 @@ const Aside = (props) => {
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/categories">
+            <Link className="ms-3" to="/tags">
               <CardImage className="me-2" />
               Tags
             </Link>
@@ -56,13 +53,13 @@ const Aside = (props) => {
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
+            <Link className="ms-3" to="/brand">
               <CardHeading className="me-2" />
               Fiches Marque
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
+            <Link className="ms-3" to="/Model">
               <CardHeading className="me-2" />
               Fiches Model
             </Link>
@@ -72,19 +69,6 @@ const Aside = (props) => {
             <Link to="/medialibrary" className="ms-3">
               <Images className="me-2" />
               Librairie des médias
-            </Link>
-          </p>
-          <p>Média</p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <Calendar3 className="me-2" />
-              Événements
-            </Link>
-          </p>
-          <p className="list-group" onClick={handleClose}>
-            <Link className="ms-3" to="/dashboard">
-              <ExclamationSquareFill className="me-2" />
-              Commentaire
             </Link>
           </p>
           <p>Administrateur</p>

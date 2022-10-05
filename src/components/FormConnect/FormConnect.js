@@ -7,7 +7,6 @@ import _get from "../../utils/dataUtils";
 const FormComent = (props) => {
   const [password, setpassword] = useState("");
   const [email, setemail] = useState("");
-  const navigate = useNavigate();
   const uid = useContext(UidContext);
   
   useEffect(() => {

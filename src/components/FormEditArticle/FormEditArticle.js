@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Container, Tab, Tabs } from "react-bootstrap";
 import { Row } from "react-bootstrap";
 import "./FormEditArticle.css";
@@ -9,22 +9,27 @@ import Seo from "./Form/Seo";
 import Galerie from "./Form/Galerie";
 import Toasts from "../Toasts/Toasts";
 import _get from "../../utils/dataUtils";
-
+import { UidContext } from "../AppContext";
 const FormEditArticle = (props) => {
+  const uid = useContext(UidContext);
+
+
   const [key, setKey] = useState("EDITER");
   const [submitted, SetSubmitted] = useState(false);
   //edit
   const [categorie, setCategorie] = useState([]);
   const [selectedCategorie, setSelectedCategorie] = useState("");
   const [selectedSubCategorie, setSelectedSubCategorie] = useState("");
-  const [article_title, setArticle_title] = useState();
+  const [article_title, setArticle_title] = useState("");
   const [chapo, setChapo] = useState();
   const [content_article, setContent_article] = useState();
   const [content_subarticle, setContent_subarticle] = useState();
-  const [tags, setTags] = useState();
+  const [tags, setTags] = useState([]);
   const [author, setAuthor] = useState();
   const [status, setStatus] = useState("");
   const [mainPicture, setMainPicture] = useState("");
+  const [selectedTags, setSelectedTags] = useState([]);
+
   //pres
   const [putInOne, setPutInOne] = useState(false);
   const [notDisplayHomepage, setNotDisplayHomepage] = useState(false);
@@ -53,6 +58,16 @@ const FormEditArticle = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [submitted, props.categorie, galleryPicture]);
 
+  const fetchArticle = async (_id) => {
+    _get("get", "api/article", "", _id, "")
+      .then((res) => {
+        sortData(res.data);
+      })
+      .catch((err) => {
+        console.log("No data article", err);
+      });
+  };
+
   const sortData = (data) => {
     setSelectedCategorie(data.profil_name);
     setSelectedSubCategorie(data.categories);
@@ -60,7 +75,7 @@ const FormEditArticle = (props) => {
     setChapo(data.chapo);
     setContent_article(data.content_article);
     setContent_subarticle(data.content_subarticle);
-    setTags(data.tags);
+    setSelectedTags(data.tags);
     setAuthor(data.author);
     setStatus(data.status);
     setPutInOne(data.putInOne);
@@ -77,15 +92,7 @@ const FormEditArticle = (props) => {
     setGalleryPicture(data.galleryPicture);
   };
 
-  const fetchArticle = async (_id) => {
-    _get("get", "api/article", "", _id, "")
-      .then((res) => {
-        sortData(res.data);
-      })
-      .catch((err) => {
-        console.log("No data article", err);
-      });
-  };
+
 
   const getDataStore = () => {
     if (new URL(window.location.href).searchParams.get("state")) {
@@ -107,13 +114,13 @@ const FormEditArticle = (props) => {
         profil_name: selectedCategorie,
         article_title: article_title || "",
         status: status || "",
-        editing_id: "62aadd63ebc163f0d6e9c69e" || "",
+        editing_id: uid || "",
         chapo: chapo || "",
         content_article: content_article || "",
         categories: selectedSubCategorie || "",
         content_subarticle: content_subarticle || "",
-        tags: tags || "",
-        signatur: author || "",
+        tags: selectedTags || "",
+        author: author || "",
         putInOne: putInOne || false,
         presCategorie: presCategorie || "",
         notDisplayHomepage: notDisplayHomepage || false,
@@ -156,7 +163,7 @@ const FormEditArticle = (props) => {
       chapo,
       content_article,
       content_subarticle,
-      tags,
+      tags: selectedTags,
       author,
       status,
       putInOne,
@@ -211,6 +218,8 @@ const FormEditArticle = (props) => {
                     content_article={content_article}
                     setContent_subarticle={setContent_subarticle}
                     content_subarticle={content_subarticle}
+                    selectedTags={selectedTags}
+                    setSelectedTags={setSelectedTags}
                     setTags={setTags}
                     tags={tags}
                     setAuthor={setAuthor}

@@ -3,11 +3,12 @@ import { Accordion, Row, Col, Button } from "react-bootstrap";
 import _get from "../../utils/dataUtils";
 import Toasts from "../Toasts/Toasts";
 
-import "./energyComponent.css";
+import "./index.css";
+import  dompurify from "../../utils/dompurify";
 
-import ModalField from "../modal/ModalField";
+import ModalField from "../Modal/ModalFieldEnergy";
 import { PencilFill, PlusLg, Trash3Fill } from "react-bootstrap-icons";
-import ModalDelete from "../modal/ModalDelete";
+import ModalDelete from "../Modal/ModalDelete";
 
 const EnergyComponent = () => {
   //data
@@ -82,7 +83,7 @@ const EnergyComponent = () => {
       <div className="bg-green  pt-2 pb-2 ps-2">
         <p className="fs-3 m-2 pt-1 text-light chevron-left">
           <Row>
-            <Col md={4}>Référentiel Energy</Col>
+            <Col md={4}>Référentiel Energies</Col>
             <Col md={{ span: 2, offset: 5 }}>
               <Button
                 className="btn-header"
@@ -134,7 +135,7 @@ const EnergyComponent = () => {
                         </div>
                         <div
                           dangerouslySetInnerHTML={{
-                            __html: res.content_field,
+                            __html: dompurify(res.content_field),
                           }}
                         ></div>
                       </Col>

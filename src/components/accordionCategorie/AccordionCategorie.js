@@ -10,7 +10,7 @@ import {
 import "./AccordionCategorie.css";
 import ModalCategorie from "./ModalCategorie/ModalCategorie";
 import ModalSubCategorie from "./ModalCategorie/ModalSubCategorie";
-import ModalDelete from "../modal/ModalDelete";
+import ModalDelete from "../Modal/ModalDelete";
 import Toasts from "../Toasts/Toasts";
 import { ReactSortable } from "react-sortablejs";
 import AddBtn from "../AddBtn/AddBtn";
@@ -26,7 +26,7 @@ const AccordionCategorie = (props) => {
   const [dataCategorie, setDataCategorie] = useState([]);
   const [scope, setScope] = useState(null);
   const [save, setSave] = useState(false);
-
+  
   const [showToasts, setShowToasts] = useState(false);
   const [contentToasts, setContentToasts] = useState("");
 
@@ -71,15 +71,7 @@ const AccordionCategorie = (props) => {
   };
   return (
     <div className="borderGreen">
-      <div className="toastsPosition">
-        <Toasts
-          showToasts={showToasts}
-          toggleshowToasts={toggleShowToasts}
-          contentToasts={contentToasts}
-          styles="info"
 
-        />
-      </div>
       {props.index === "dashBoard" ? (
         ""
       ) : (

@@ -50,8 +50,17 @@ const ModalDelete = (props) => {
         break;
       case "deleteRefEnergy":
         props.setContentToasts('La référence a bien été supprimé')
-        console.log("trololo")
         url = `${process.env.REACT_APP_API_URL}api/fieldEnergy/${id}`;
+        method = "delete";
+        break;
+      case "deleteRefBrand":
+        props.setContentToasts('La référence a bien été supprimé')
+        url = `${process.env.REACT_APP_API_URL}api/fieldBrand/${id}`;
+        method = "delete";
+        break;
+      case "deleteRefModel":
+        props.setContentToasts('La référence a bien été supprimé')
+        url = `${process.env.REACT_APP_API_URL}api/fieldModel/${id}`;
         method = "delete";
         break;
       default:

@@ -3,10 +3,11 @@ import { Container, Row, Card, Form, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import { Trash, Check2Circle, AspectRatio } from "react-bootstrap-icons";
 import "./Gallery.css";
-import ModalDelete from "../modal/ModalDelete";
+import ModalDelete from "../Modal/ModalDelete";
 import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import _get from "../../utils/dataUtils";
+import Toasts from "../Toasts/Toasts";
 const Gallery = (props) => {
   const navigate = useNavigate();
   const [dataPicture, setDataPicture] = useState([]);
@@ -16,17 +17,21 @@ const Gallery = (props) => {
   const [scope, setScope] = useState("");
   const [dataGalleryPicture, setDataGalleryPicture] = useState([]);
 
+  const [contentToasts, setContentToasts] = useState([]);
+  const [showToasts, setShowToasts] = useState(false);
+  const [toastsStyles, setToastsStyles] = useState(false);
+  const toggleShowToasts = () => setShowToasts(!showToasts);
+
   const handleShowDelete = () => setShowModalDelete(true);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  
+
   useEffect(() => {
     setScope(params.get("scope"));
     getPictureInfo();
   }, [props.state, deleteState]);
 
   const getPictureInfo = async () => {
-
     _get("get", "api/gallery", "", "", "")
       .then((res) => {
         setDataPicture(res.data);
@@ -165,6 +170,14 @@ const Gallery = (props) => {
 
   return (
     <Container fluid>
+      <div className="toastsPosition">
+        <Toasts
+          showToasts={showToasts}
+          toggleshowToasts={toggleShowToasts}
+          contentToasts={contentToasts}
+          styles={toastsStyles}
+        />
+      </div>
       <Row className="mt-4">
         {dataGalleryPicture.length === 0 ? (
           ""
@@ -206,8 +219,9 @@ const Gallery = (props) => {
         setShowModalDelete={setShowModalDelete}
         id={pictureId}
         scope="picture"
+        style="danger"
         setDeleteState={setDeleteState}
-
+        setContentToasts={setContentToasts}
       />
     </Container>
   );

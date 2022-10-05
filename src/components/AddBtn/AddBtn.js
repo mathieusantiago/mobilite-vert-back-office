@@ -1,8 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import { PlusLg } from "react-bootstrap-icons";
 import "./AddBtn.css";
-import Toasts from "../Toasts/Toasts";
 import _get from "../../utils/dataUtils";
 const AddBtn = (props) => {
   const navigate = useNavigate();
@@ -37,7 +36,7 @@ const AddBtn = (props) => {
         break;
     }
   };
-
+ 
   const updateCategorie = (dataCat, id, toastContent) => {
     let data = {
       categorie_name: dataCat.categorie_name,
