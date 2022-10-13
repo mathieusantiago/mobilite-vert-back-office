@@ -6,7 +6,7 @@ import "./PreviewArticle.css";
 const PreviewArticle = (props) => {
   const date = new Date(props.updatedAt);
 
-  function UncontrolledExample() {
+  const UncontrolledExample = () => {
     return (
       <Carousel>
         <Carousel.Item>

@@ -2,7 +2,10 @@ import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 
 const TextEditor = (props) => {
-  const handleEditorChange = (editor) => props.setUpdateValue(editor);
+  const handleEditorChange1 = (editor) =>{
+    props.setUpdateValue(editor)
+    props.setValue(editor)
+  };
   return (
     <p>
       <Editor
@@ -21,7 +24,7 @@ const TextEditor = (props) => {
           ],
         }}
 
-        onEditorChange={handleEditorChange}
+        onEditorChange={handleEditorChange1}
         initialValue={props?.value}
       />
     </p>

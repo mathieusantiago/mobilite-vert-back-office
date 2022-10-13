@@ -13,7 +13,7 @@ import { UidContext } from "../AppContext";
 const FormEditArticle = (props) => {
   const uid = useContext(UidContext);
 
-
+  const [updateValue, setUpdateValue] = useState()
   const [key, setKey] = useState("EDITER");
   const [submitted, SetSubmitted] = useState(false);
   //edit
@@ -109,6 +109,8 @@ const FormEditArticle = (props) => {
   };
 
   const posteArticle = () => {
+    console.log('posteArticle', presChapo)
+
     if (submitted) {
       let data = {
         profil_name: selectedCategorie,
@@ -138,7 +140,7 @@ const FormEditArticle = (props) => {
 
       _get("post", "api/article", data, "", "")
         .then((res) => {
-          setContentToasts("Enregistrement de la nouvelle catégorie effectué");
+          setContentToasts("Enregistrement de la nouveau article  effectué");
           toggleShowToasts();
           props.setNewState(true);
           SetSubmitted(false);
@@ -203,6 +205,7 @@ const FormEditArticle = (props) => {
               >
                 <Tab eventKey="EDITER" title="ÉDITER">
                   <Edit
+                    setUpdateValue={setUpdateValue}
                     SetSubmitted={SetSubmitted}
                     selectedCategorie={selectedCategorie}
                     setSelectedCategorie={setSelectedCategorie}
@@ -231,6 +234,7 @@ const FormEditArticle = (props) => {
                 </Tab>
                 <Tab eventKey="PRESENTATION" title="PRÉSENTATION">
                   <Presentation
+                    setUpdateValue={setUpdateValue}
                     categorie={categorie}
                     setPresCategorie={setPresCategorie}
                     presCategorie={presCategorie}
@@ -269,7 +273,7 @@ const FormEditArticle = (props) => {
             </div>
           </div>
         </Row>
-        <BtnEdit SetSubmitted={SetSubmitted} setStatus={setStatus} />
+        <BtnEdit toggleShowToasts={toggleShowToasts} SetSubmitted={SetSubmitted} setStatus={setStatus}/>
       </Container>
     </div>
   );

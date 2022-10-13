@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import axios from "axios";
-import _get from "../../utils/dataUtils";
 
 const ModalDelete = (props) => {
   const [id, setId] = useState(null);
@@ -14,6 +13,7 @@ const ModalDelete = (props) => {
   });
 
   const handleDelete = (event) => {
+    console.log(props)
     event.preventDefault();
     event.stopPropagation();
     
@@ -66,6 +66,10 @@ const ModalDelete = (props) => {
       default:
         break;
     }
+    console.log('url')
+    console.log(url)
+    console.log(method)
+
     axios({
       url: url,
       method: method,
@@ -97,7 +101,7 @@ const ModalDelete = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button
-            variant="secondary"styles
+            variant="secondary"
             onClick={() => props.setShowModalDelete(false)}
           >
             Non

@@ -122,6 +122,7 @@ const Presentation = (props) => {
           </div>
           <div className="ms-5 mt-4 mb-5">
             <RichEdit
+              setUpdateValue={props.setUpdateValue}
               value={props.presArticle}
               setValue={props.setPresArticle}
             />

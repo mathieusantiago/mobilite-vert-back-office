@@ -5,3 +5,32 @@
   display: flex;
   overflow-x: hidden;
 }
+
+.dashIcons{
+  fill: rgba(155, 155, 155, 0.479);
+  height: 80px;
+  width: 80px;
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%); 
+}
+
+.cardsDash{
+  height: 250px;
+}
+.tinyCardsDash{
+  height: 250px;
+}
+
+.countElement{
+  font-size: 40px;
+  color: rgb(58, 58, 58);
+}
+
+.dashContent{
+  background-color: rgb(223, 223, 223);
+}
+
+.dashTextColor{
+  color: rgb(77, 77, 77);
+}

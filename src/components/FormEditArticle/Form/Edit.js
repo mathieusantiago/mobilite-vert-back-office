@@ -110,7 +110,7 @@ const Edit = (props) => {
           </div>
 
           <div className="ms-5 mt-4">
-            <RichEdit value={props.chapo} setValue={props.setChapo} />
+            <RichEdit value={props.chapo} setValue={props.setChapo} setUpdateValue={props.setUpdateValue}/>
           </div>
         </Col>
         <Col sm={5}>
@@ -135,12 +135,14 @@ const Edit = (props) => {
             <RichEdit
               value={props.content_article}
               setValue={props.setContent_article}
+              setUpdateValue={props.setUpdateValue}
             />
           </div>
           <div className="ms-5 mt-4 me-5">
             <RichEdit
               value={props.content_subarticle}
               setValue={props.setContent_subarticle}
+              setUpdateValue={props.setUpdateValue}
             />
           </div>
           <div className="ms-5 mt-4  mb-5">

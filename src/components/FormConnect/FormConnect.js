@@ -16,7 +16,7 @@ const FormComent = (props) => {
       console.log(uid)
       window.location = "/";
     }
-  },[uid]);
+  },[]);
   const handleSubmit = (event) => {
     event.preventDefault();
     const emailError = document.querySelector(".email.error");

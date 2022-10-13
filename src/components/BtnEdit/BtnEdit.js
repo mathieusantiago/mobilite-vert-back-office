@@ -8,6 +8,8 @@ const btnEdit = (props) => {
         onClick={() => {
           props.SetSubmitted(true);
           props.setStatus("Draft");
+          props.toggleShowToasts();
+
         }}
         className=" btn-edit-circle  mb-3"
       >
