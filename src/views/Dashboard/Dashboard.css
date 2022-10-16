@@ -14,16 +14,20 @@
   top: 50%; left: 50%;
   transform: translate(-50%, -50%); 
 }
+.dashIcons{
+  z-index: -1000000000000000000000;
 
+}
 .cardsDash{
   height: 250px;
+
 }
 .tinyCardsDash{
   height: 250px;
 }
 
 .countElement{
-  font-size: 40px;
+  font-size: 45px;
   color: rgb(58, 58, 58);
 }
 
@@ -33,4 +37,24 @@
 
 .dashTextColor{
   color: rgb(77, 77, 77);
+}
+
+.card-body{
+  z-index: 10;
+}
+
+.dateChange{
+  margin: 1px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 6px;
+  border: solid #b6b6b6 2px;
+  background: #ffffff;
+}
+
+
+.dateChange:hover{
+  padding: 5px;
+  border: solid #757575 2px;
+  background: #b3b3b3;
 }

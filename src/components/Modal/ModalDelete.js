@@ -13,7 +13,6 @@ const ModalDelete = (props) => {
   });
 
   const handleDelete = (event) => {
-    console.log(props)
     event.preventDefault();
     event.stopPropagation();
     
@@ -66,11 +65,7 @@ const ModalDelete = (props) => {
       default:
         break;
     }
-    console.log('url')
-    console.log(url)
-    console.log(method)
-
-    axios({
+     axios({
       url: url,
       method: method,
       withCredentials: true,

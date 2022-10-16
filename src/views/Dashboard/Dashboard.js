@@ -4,7 +4,7 @@ import Spinner from "../../components/Spinner/Spinner";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import "./Dashboard.css";
 import _get from "../../utils/dataUtils";
-import {FileRichtext, ListUl, Images, Files, Hash, PersonLinesFill} from "react-bootstrap-icons";
+import {FileRichtext, ListUl, Images, Files, Hash, PersonLinesFill, PeopleFill, EyeFill, Boxes, JournalArrowUp} from "react-bootstrap-icons";
 const Dashboard = () => {
   const uid = useContext(UidContext);
   const [countArticle, setCountArticle] = useState()
@@ -16,7 +16,40 @@ const Dashboard = () => {
   const [countFieldModel, setCountFieldModel] = useState()
   const [countTags, setCountTags] = useState()
   const [countRole, setCountRole] = useState()
+  const [anayticsUser, setAnayticsUser] = useState()
+  const [anayticsTotalEvents, setAnayticsTotalEvents] = useState()
+  const [anayticsSessions, setAnayticsSessions] = useState()
+  const [anayticsPageViews, setAnayticsPageViews] = useState()
+
+  const [selectedDate, setSelectedDate] = useState("")
+
+  let getDate = ()=>{
+    let toDay = new Date()
+    let removeTimesTemps 
+    switch (selectedDate) {
+      case "1d":
+          removeTimesTemps = toDay.getTime() - (24 * 60 * 60 * 1000) * 1
+        break;
+      case "7d":
+          removeTimesTemps = toDay.getTime() - (24 * 60 * 60 * 1000) * 6
+        break;
+      case "1m":
+          removeTimesTemps = toDay.getTime() - (24 * 60 * 60 * 1000) * 31
+        break;
+      default:
+          removeTimesTemps = toDay.getTime() - (24 * 60 * 60 * 1000) * 31
+        break;
+    }
+
+    let oneMonthAgo = new Date(removeTimesTemps)
+    return {
+      toDay: toDay.toISOString().split('T')[0],
+      oneMonthAgo: oneMonthAgo.toISOString().split('T')[0]
+    }
+  }
+
   const getAllAnalytics = ()=>{
+    console.log("getAllAnalytics")
     _get('get', 'api/article/count', '', '', '')
     .then((e)=>{setCountArticle(e.data)})
 
@@ -43,25 +76,106 @@ const Dashboard = () => {
 
     _get('get', 'api/role/count', '', '', '')
     .then((e)=>{setCountRole(e.data)})
+
+    _get('get', `api/analytics?metrics=users&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsUser(e.data.data['ga:users'].value)})
+
+    _get('get', `api/analytics?metrics=sessions&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsSessions(e.data.data['ga:sessions'].value)})
+
+    _get('get', `api/analytics?metrics=pageviews&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsPageViews(e.data.data['ga:pageviews'].value)})
+
+    _get('get', `api/analytics?metrics=totalevents&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsTotalEvents(e.data.data['ga:totalevents'].value)})
+
   }
   useEffect(() => {
-    console.log(countPublishDraftArticle.publishCount)
     getAllAnalytics()
-  },[]);
+  },[selectedDate]);
 
   return (
     <div>
       {uid ? (
+        <>
         <div className="text-center">
-          <h1 className="mb-5 mt-5 dashTextColor">Dashbord</h1>
+          <h1 className="mb-2 mt-5 dashTextColor">Dashbord</h1>
+        </div>
+        <br/>
+        <br/>
+        <div className="text-center">
           <Container className="border p-3 dashContent">
-            <Row>
-              <h3 className='dashTextColor'>Données analytique</h3>
+          <Row>
+              <h3 className='dashTextColor'>Analytiques</h3>
+              <p className="text-start"> Filtre Analitique Client: </p>
+              <p className="text-start">
+                <span className="dateChange" onClick={()=>setSelectedDate('1d')}>1D </span>
+                <span className="dateChange" onClick={()=>setSelectedDate('17')}> 7D </span>
+                <span className="dateChange" onClick={()=>setSelectedDate('1m')}> 1M </span>
+                </p>
+              <p className='text-start mt-2'>Analitique Client</p>
+              <Col>
+                <Row>
+                  <Col>
+                  
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      <Card.Text>
+                        <PeopleFill className='dashIcons'/>
+                        <p className='h5 dashTextColor'>Nombre de visiteurs</p>
+                        <span className='countElement'>{anayticsUser}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      <Card.Text>
+                        <EyeFill className='dashIcons'/>
+                        <p className='h5 dashTextColor'>Nombre de pages vue</p>
+                        <span className='countElement'>{anayticsPageViews}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                </Row>
+              </Col>
+              <Col>
+                <Row>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      <Card.Text>
+                        <Boxes className='dashIcons'/>
+                          <p className='h5 dashTextColor'>Nombre de sessions active</p>
+                        <span className='countElement'>{anayticsSessions}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      <Card.Text>
+                        <JournalArrowUp className='dashIcons'/>
+                        <p className='h5 dashTextColor'>Nombre d'evenement</p>
+                        <span className='countElement'>{anayticsTotalEvents}</span>
+                      </Card.Text>
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row className='mt-4'>
+            <p className='text-start'>Analitique BackOffice :</p>
+
               <Col>
                 <Card style={{ width: '98%' }}>
                   <Card.Body>
                     <Card.Text>
-                      <FileRichtext className='dashIcons'></FileRichtext>
+                      <FileRichtext className='dashIcons'/>
                       <p className='h5 dashTextColor'>Nombre d'article</p>
                       <span className='countElement'>{countArticle?.count}</span>
                       <Row>
@@ -84,8 +198,8 @@ const Dashboard = () => {
                   <Card style={{ width: '98%' }}>
                     <Card.Body>
                       <Card.Text>
-                        <Files className='dashIcons'></Files>
-                        <p className='h5 dashTextColor'>N° de fiches types d'energies</p>
+                        <Files className='dashIcons'/>
+                        <p className='h5 dashTextColor'>Nb de fiches types d'energies</p>
                         <span className='countElement'>{countFieldEnergy?.count}</span>
                         <Row>
                           <Col>
@@ -93,7 +207,7 @@ const Dashboard = () => {
                           <span className='countElement'>{countFieldBrand?.count}</span>
                           </Col>
                           <Col>
-                            <p className='h5 dashTextColor'>N° de fiches model de vehicul</p>
+                            <p className='h5 dashTextColor'>Nb de fiches model de vehicul</p>
                             <span className='countElement'>{countFieldModel?.count}</span>
                           </Col>
                         </Row>
@@ -112,7 +226,7 @@ const Dashboard = () => {
                   <Card className='mt-5' style={{ width: '18rem' }}>
                     <Card.Body>
                       <Card.Text>
-                        <ListUl className='dashIcons'></ListUl>
+                        <ListUl className='dashIcons'/>
                         <p className='h5 dashTextColor'>Nombre de catégorie</p>
                         <span className='countElement'>{countCategorie?.count}</span>
                       </Card.Text>
@@ -123,7 +237,7 @@ const Dashboard = () => {
                   <Card className='mt-5' style={{ width: '18rem' }}>
                     <Card.Body>
                       <Card.Text>
-                        <Images className='dashIcons'></Images>
+                        <Images className='dashIcons'/>
                         <p className='h5 dashTextColor'>Nombre d'image importer</p>
                         <span className='countElement'>{countGallery?.count}</span>
                       </Card.Text>
@@ -138,7 +252,7 @@ const Dashboard = () => {
                   <Card className='mt-5' style={{ width: '18rem' }}>
                     <Card.Body>
                       <Card.Text>
-                        <Hash className='dashIcons'></Hash>
+                        <Hash className='dashIcons'/>
                           <p className='h5 dashTextColor'>Nombre de tags créer</p>
                         <span className='countElement'>{countTags?.count}</span>
                       </Card.Text>
@@ -149,7 +263,7 @@ const Dashboard = () => {
                   <Card className='mt-5' style={{ width: '18rem' }}>
                     <Card.Body>
                       <Card.Text>
-                        <PersonLinesFill className='dashIcons'></PersonLinesFill>
+                        <PersonLinesFill className='dashIcons'/>
                         <p className='h5 dashTextColor'>Nombre de role</p>
                         <span className='countElement'>{countRole?.count}</span>
                       </Card.Text>
@@ -160,7 +274,12 @@ const Dashboard = () => {
               </Col>
             </Row>
           </Container>
+          <br/>
+          <br/>
+          <br/>
+          <br/>
         </div>
+        </>
       ) : (
         <div>
           <Spinner titleSpinner="Patienter nous vous connectons a votre DashBoard" />

@@ -10,10 +10,8 @@ const FormComent = (props) => {
   const uid = useContext(UidContext);
   
   useEffect(() => {
-    console.log("e",uid)
 
     if (uid !== null) {
-      console.log(uid)
       window.location = "/";
     }
   },[]);

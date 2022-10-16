@@ -17,8 +17,7 @@ const ModalField = (props) => {
         props.dataFieldModel.find((e) => e._id === props.selectedId)
       );
     }
-    console.log("test", rowUpdateData);
-  });
+  },[]);
 
   const upDateRefModel = () => {
     let data = {

@@ -109,7 +109,6 @@ const FormEditArticle = (props) => {
   };
 
   const posteArticle = () => {
-    console.log('posteArticle', presChapo)
 
     if (submitted) {
       let data = {

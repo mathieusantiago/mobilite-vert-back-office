@@ -4,7 +4,6 @@ import _get from "../../utils/dataUtils";
 import RichEdit from "../RichEdit/RichEdit";
 
 const ModalField = (props) => {
-  const [value, setValue] = useState();
   const [titleRef, setTitleRef] = useState();
   const [headerVal, setHeaderVal] = useState();
 
@@ -18,8 +17,7 @@ const ModalField = (props) => {
         props.dataFieldEnergy.find((e) => e._id === props.selectedId)
       );
     }
-    console.log("test", rowUpdateData);
-  });
+  },[]);
 
   const upDateRefEnergy = () => {
     let data = {

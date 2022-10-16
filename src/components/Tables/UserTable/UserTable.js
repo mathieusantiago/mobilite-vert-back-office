@@ -106,7 +106,6 @@ const UserTable = (props) => {
   };
 
   const postNewUser = () => {
-    console.log("pass", randomPassword);
     let data = {
       pseudo: pseudo,
       email: email,
