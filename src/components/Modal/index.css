@@ -19,3 +19,8 @@
 .test{
   width: 100%;
 }
+
+.logoBrand:hover{
+  scale:110%;
+  cursor: pointer;
+}

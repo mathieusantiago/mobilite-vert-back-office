@@ -104,6 +104,7 @@ const BrandComponent = () => {
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey={index}>
                   <Accordion.Header>
+                    <img src={res.brandFlag} alt="" width='45'/>
                     {res.filed_name}
                     <div className="btnSubCat text-center">
                       <PencilFill
