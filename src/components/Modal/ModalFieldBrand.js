@@ -12,31 +12,46 @@ const ModalField = (props) => {
 
   const [rowUpdateData, setRowUpdateData] = useState();
   const [flags, setFlags] = useState([]);
+  const [cars, setCars] = useState([]);
   const [selectedFlags, setSelectedFlags] = useState();
   const [counter, setCounter] = useState(0);
+  const [filterModel, setFilterModel] = useState([]);
+  const [selectedModel, setSelectedModel] = useState([]);
+  const [render, setRender] = useState(false);
  
 
   useEffect(() => {
-    console.log(selectedFlags)
+    setRender(false)
     if (props.scope === "update") {
       setRowUpdateData(
         props.dataFieldBrand.find((e) => e._id === props.selectedId)
       );
     }
-  },[selectedFlags]);
+    getAllCars()
+  },[selectedFlags, selectedModel, render]);
 
   const countKeybord = (e)=> {
     setCounter(count => count + 1);
-    if(counter > 3){
+    if(counter > 1){
       getFlag(e.target.value)
     }
   }
 
   const getFlag = (flag)=> {
-    axios.get(`https://api.brandfetch.io/v2/search/${flag}`)
+    if(flag !== ""){
+      axios.get(`https://api.brandfetch.io/v2/search/${flag}`)
+      .then((res)=>{
+        setFlags(res.data)
+      })
+    }
+  }
+
+  const getAllCars = ()=>{
+    _get('get', 'api/fieldModel', '', '', '')
     .then((res)=>{
-      setFlags(res.data)
+      setCars(res.data)
     })
+
   }
 
   const upDateRefBrand = () => {
@@ -62,12 +77,23 @@ const ModalField = (props) => {
       });
   };
 
+  const fillterCarsToOnArray = (text)=> {
+    const car = cars.filter((e)=>{
+      if(e.model.includes(text.target.value)){
+        return e
+      }
+    })
+    setFilterModel(car)
+  }
+
   const postRefBrand = async () => {
+    console.log("test",selectedModel)
     let data = {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
-      brandFlag: selectedFlags
+      brandFlag: selectedFlags,
+      model: selectedModel
     };
 
     _get("post", "api/fieldBrand", data, "", "")
@@ -147,6 +173,44 @@ const ModalField = (props) => {
                     flag.icon?(<img className="m-1 logoBrand" src={flag.icon?flag.icon:""} key={flag.icon} alt="logo marque" width="55" onClick={()=>setSelectedFlags(flag.icon)}/>):(<p></p>)
                   )
                 }))}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <FloatingLabel
+                  controlId="floatingInput"
+                  label="rechercher le models"
+                  className="mb-3"
+                >
+                  <Form.Control 
+                    type="email"  
+                    placeholder="name@example.com" 
+                    onChange={fillterCarsToOnArray}
+                  />
+                </FloatingLabel>
+              </Col>
+            </Row>
+            <Row> 
+              <Col>
+                {filterModel.map((e)=>{
+                  if(e.isSelected === undefined){
+                    Object.assign(e,{isSelected: false})
+                  }
+                  if(!e.isSelected){
+
+                    return <img 
+                      className='mb-2' 
+                      src={e.imgCar} 
+                      alt='logo marque' 
+                      width="200"
+                      onClick={()=>{
+                      setRender(true)
+                      e.isSelected = true
+                      selectedModel.push(e)
+
+                    }}/>
+                  }
+                })}
               </Col>
             </Row>
 

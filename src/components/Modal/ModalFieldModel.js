@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { FloatingLabel, Button, Row, Col, Modal, Form } from "react-bootstrap";
 import _get from "../../utils/dataUtils";
@@ -11,19 +12,57 @@ const ModalField = (props) => {
 
   const [rowUpdateData, setRowUpdateData] = useState();
 
+  const [modelsCars, setModelsCars] = useState([]);
+  const [selectedCar, setSelectedCar] = useState("");
+  const [selectedCarTitle, setSelectedCarTitle] = useState();
+  const [counter, setCounter] = useState(0);
+
   useEffect(() => {
     if (props.scope === "update") {
       setRowUpdateData(
         props.dataFieldModel.find((e) => e._id === props.selectedId)
       );
     }
-  },[]);
+  },[selectedCar]);
+
+
+  const countKeybord = (e)=> {
+    setCounter(count => count + 1);
+    if(counter > 3){
+      getCarsModel(e.target.value)
+    }
+  }
+
+  const getCarsModel = (brand)=> {
+    if(brand !== ""){
+      
+    }
+    const options = {
+      method: 'GET',
+      url: `https://all-cars.p.rapidapi.com/cars/${brand}`,
+      headers: {
+        'X-RapidAPI-Key': '7074615ad6msh83b9727f16d8ae0p139d97jsn68dfffaf8589',
+        'X-RapidAPI-Host': 'all-cars.p.rapidapi.com'
+      }
+    };
+    if(brand !== ""){
+      console.log("request")
+
+      axios(options)
+      .then((res)=>{
+        setModelsCars(res.data)
+      })
+    }
+
+  }
 
   const upDateRefModel = () => {
     let data = {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
+      model:selectedCarTitle,
+      imgCar:selectedCar
     };
 
     _get("put", "api/fieldModel", data, props.selectedId, "")
@@ -33,6 +72,11 @@ const ModalField = (props) => {
         props.toggleShowToasts();
         props.setContentToasts("La référence a bien été mise a jour");
         props.setToastsStyles("info");
+        setSelectedCarTitle('')
+        setSelectedCar('')
+        setCounter('')
+        setModelsCars([])
+        
       })
       .catch((err) => {
         console.log(err);
@@ -44,6 +88,8 @@ const ModalField = (props) => {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
+      model:selectedCarTitle,
+      imgCar:selectedCar
     };  
 
     _get("post", "api/fieldModel", data, "", "")
@@ -53,6 +99,11 @@ const ModalField = (props) => {
         props.toggleShowToasts();
         props.setContentToasts("La référence a bien été enregistrer");
         props.setToastsStyles("info");
+        setSelectedCarTitle('')
+        setSelectedCar('')
+        setCounter('')
+        setModelsCars([])
+
       })
       .catch((err) => {
         console.log(err);
@@ -92,19 +143,71 @@ const ModalField = (props) => {
                   controlId="floatingInput"
                   label="Entête de la référence"
                   className="mb-3"
+                  
                   onChange={(e) => setHeaderVal(e.target.value)}
                 >
                   <Form.Control
                     type="text"
+                    disabled
                     defaultValue={rowUpdateData?.chapo_field}
                   />
                 </FloatingLabel>
               </div>
             </Col>
-            <RichEdit
-              setUpdateValue={setUpdateValue}
-              value={rowUpdateData?.content_field}
-            />
+            <Row>
+              <Col>
+                <FloatingLabel
+                  controlId="floatingInput"
+                  label="rechercher model par marques"
+                  className="mb-3"
+                >
+                  <Form.Control 
+                    type="email"  
+                    placeholder="name@example.com" 
+                    onChange={countKeybord}
+                  />
+                </FloatingLabel>
+              </Col>
+              <Col>
+                  {selectedCar !== ""?(
+                    <div className='mb-2 ms-3'>
+                        <div>
+                          <p>{selectedCarTitle}</p>
+                          <img className='mb-3' src={selectedCar} alt='logo marque' width="200" />
+                        </div>
+                    </div>
+                    ):""
+                  }
+                  {selectedCar !== ""? "":                 
+                    <div className='modelScrollDiv mb-2'>
+                      {selectedCar !== "" ? " ffds":(modelsCars.map((model)=>{
+                          return (
+                            model.img?(
+                              <div className='logoModel border border-dark'>
+                                <p className='ms-1 m-0'>{model.title}</p>
+                                <img className="m-1 " 
+                                src={model.img?model.img:""} 
+                                key={model.title} alt="logo marque" 
+                                width="155" 
+                                onClick={()=>{
+                                  setSelectedCar(model.img) 
+                                  setSelectedCarTitle(model.title)
+                                }}/>
+                              </div>
+                              ):(<p></p>)
+                          )
+                        }))}
+                  </div>}
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <RichEdit
+                  setUpdateValue={setUpdateValue}
+                  value={rowUpdateData?.content_field}
+                />
+              </Col>
+            </Row>
           </Row>
         </Modal.Body>
         <Modal.Footer>
@@ -112,6 +215,10 @@ const ModalField = (props) => {
             variant="secondary"
             onClick={() => {
               setRowUpdateData("");
+              setSelectedCarTitle('')
+              setSelectedCar('')
+              setModelsCars([])
+              setCounter('')
               props.setShowModalField(false);
             }}
           >

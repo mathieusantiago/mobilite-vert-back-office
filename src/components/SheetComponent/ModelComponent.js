@@ -105,6 +105,7 @@ const ModelComponent = () => {
               <Accordion defaultActiveKey="0">
                 <Accordion.Item eventKey={index}>
                   <Accordion.Header>
+                  <img className='me-2' src={res.imgCar} alt="" width='85'/>
                     {res.filed_name}
                     <div className="btnSubCat text-center">
                       <PencilFill

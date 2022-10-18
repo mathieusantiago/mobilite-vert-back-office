@@ -24,3 +24,26 @@
   scale:110%;
   cursor: pointer;
 }
+
+.logoModel:hover{
+  background-color: #cacaca;
+  cursor: pointer;
+}
+
+
+.modelScrollDiv {
+  padding: 4px;
+  width: 553px;
+  height: 190px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify;
+  z-index: 1000000;
+  background: #e4e4e4;
+  border: solid #cacaca 1px;
+  border-radius: px;
+}
+
+.grayscale {
+  filter: grayscale(100%);
+}

@@ -3,6 +3,7 @@ import { FloatingLabel, Button, Row, Col, Modal, Form } from "react-bootstrap";
 import _get from "../../utils/dataUtils";
 import RichEdit from "../RichEdit/RichEdit";
 
+
 const ModalField = (props) => {
   const [titleRef, setTitleRef] = useState();
   const [headerVal, setHeaderVal] = useState();
@@ -10,7 +11,7 @@ const ModalField = (props) => {
   const [updateValue, setUpdateValue] = useState();
 
   const [rowUpdateData, setRowUpdateData] = useState();
-
+  
   useEffect(() => {
     if (props.scope === "update") {
       setRowUpdateData(
@@ -101,6 +102,8 @@ const ModalField = (props) => {
                 </FloatingLabel>
               </div>
             </Col>
+          </Row>
+          <Row>
             <RichEdit
               setUpdateValue={setUpdateValue}
               value={rowUpdateData?.content_field}
