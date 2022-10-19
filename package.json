@@ -2,7 +2,6 @@
   "name": "mobilite-verte-save",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://mathieusantiago.github.io/mobilite-vert-back-office.git",
   "dependencies": {
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
@@ -37,12 +36,10 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "node --max_old_space_size=2560 node_modules/.bin/react-scripts start",
+    "start": "react-scripts start",
     "build": "node --max_old_space_size=2560 node_modules/.bin/react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [
@@ -64,8 +61,7 @@
   },
   "devDependencies": {
     "@types/dompurify": "^2.3.4",
-    "@types/react-beautiful-dnd": "^13.1.2",
-    "gh-pages": "^4.0.0"
+    "@types/react-beautiful-dnd": "^13.1.2"
   },
   "engines": {
     "node": "16.13.x",
