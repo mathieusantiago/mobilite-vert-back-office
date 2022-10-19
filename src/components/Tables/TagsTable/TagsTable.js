@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Accordion, Row, Col, Button } from "react-bootstrap";
+import {  Row, Col, Button } from "react-bootstrap";
 import DataTable from "react-data-table-component";
 import _get from "../../../utils/dataUtils";
 import ModalTags from "../../Modal/ModalTags";

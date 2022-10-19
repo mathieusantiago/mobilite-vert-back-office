@@ -8,7 +8,7 @@ const ModalField = (props) => {
   const [energy, setEnergy] = useState([]);
 
   const [tags_name, setTags_name] = useState();
-  const [link_field, setLink_field] = useState();
+  const [link_field, setLink_field] = useState([]);
 
   const [rowUpdateData, setRowUpdateData] = useState();
 
@@ -107,27 +107,30 @@ const ModalField = (props) => {
                   controlId="floatingInput"
                   label="Nom du Tag"
                   className="mb-3"
-                  onChange={(e) => setLink_field(e.target.value)}
+                  onChange={(e) =>{
+                    console.log(e.target.value)
+                    setLink_field(e.target.value)
+                  }}
                 >
                   <Form.Select aria-label="Default select example">
                     <option></option>
                     {brand.map((b) => {
                       return (
-                        <option key={b._id} value={b._id}>
+                        <option key={b._id} value={`sheet/brand/${b._id}`}>
                           {b.filed_name}
                         </option>
                       );
                     })}
                     {energy.map((b) => {
                       return (
-                        <option key={b._id} value={b.filed_name}>
+                        <option key={b._id} value={`sheet/engine/${b._id}`}>
                           {b.filed_name}
                         </option>
                       );
                     })}
                     {model.map((b) => {
                       return (
-                        <option key={b._id} value={b._id}>
+                        <option key={b._id} value={`sheet/model/${b._id}`}>
                           {b.filed_name}
                         </option>
                       );
