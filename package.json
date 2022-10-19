@@ -60,5 +60,9 @@
   "devDependencies": {
     "@types/dompurify": "^2.3.4",
     "@types/react-beautiful-dnd": "^13.1.2"
+  },
+  "engines": {
+    "node": "16.13.x",
+    "npm": "8.15.x"
   }
 }
