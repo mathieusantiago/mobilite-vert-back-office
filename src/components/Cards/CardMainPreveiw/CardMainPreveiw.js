@@ -2,6 +2,7 @@
 import React from "react";
 import { Card } from "react-bootstrap";
 import "./CardMainPreveiw.css";
+
 const CardMainPreveiw = (props) => {
   const date = new Date(props.updatedAt);
   return (
