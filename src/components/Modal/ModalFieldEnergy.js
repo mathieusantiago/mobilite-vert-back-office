@@ -7,24 +7,49 @@ import RichEdit from "../RichEdit/RichEdit";
 const ModalField = (props) => {
   const [titleRef, setTitleRef] = useState();
   const [headerVal, setHeaderVal] = useState();
-
+  const [cars, setCars] = useState([]);
+  const [selectedModel, setSelectedModel] = useState([]);
+  const [render, setRender] = useState(false);
+ 
   const [updateValue, setUpdateValue] = useState();
+  const [filterModel, setFilterModel] = useState([]);
 
   const [rowUpdateData, setRowUpdateData] = useState();
   
   useEffect(() => {
+    setRender(false)
     if (props.scope === "update") {
       setRowUpdateData(
         props.dataFieldEnergy.find((e) => e._id === props.selectedId)
       );
     }
-  },[]);
+    getAllCars()
+  },[selectedModel, render]);
+
+
+  const getAllCars = ()=>{
+    _get('get', 'api/fieldModel', '', '', '')
+    .then((res)=>{
+      setCars(res.data)
+    })
+
+  }
+
+  const fillterCarsToOnArray = (text)=> {
+    const car = cars.filter((e)=>{
+      if(e.model.includes(text.target.value)){
+        return e
+      }
+    })
+    setFilterModel(car)
+  }
 
   const upDateRefEnergy = () => {
     let data = {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
+      model: selectedModel,
     };
 
     _get("put", "api/fieldEnergy", data, props.selectedId, "")
@@ -45,6 +70,7 @@ const ModalField = (props) => {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
+      model: selectedModel,
     };
 
     _get("post", "api/fieldEnergy", data, "", "")
@@ -103,6 +129,44 @@ const ModalField = (props) => {
               </div>
             </Col>
           </Row>
+          <Row>
+              <Col>
+                <FloatingLabel
+                  controlId="floatingInput"
+                  label="rechercher le models"
+                  className="mb-3"
+                >
+                  <Form.Control 
+                    type="email"  
+                    placeholder="name@example.com" 
+                    onChange={fillterCarsToOnArray}
+                  />
+                </FloatingLabel>
+              </Col>
+            </Row>
+          <Row> 
+              <Col>
+                {filterModel.map((e)=>{
+                  if(e.isSelected === undefined){
+                    Object.assign(e,{isSelected: false})
+                  }
+                  if(!e.isSelected){
+
+                    return <img 
+                      className='mb-2' 
+                      src={e.imgCar} 
+                      alt='logo marque' 
+                      width="200"
+                      onClick={()=>{
+                      setRender(true)
+                      e.isSelected = true
+                      selectedModel.push(e)
+
+                    }}/>
+                  }
+                })}
+              </Col>
+            </Row>
           <Row>
             <RichEdit
               setUpdateValue={setUpdateValue}

@@ -59,7 +59,8 @@ const ModalField = (props) => {
       filed_name: titleRef,
       content_field: updateValue,
       chapo_field: headerVal,
-      brandFlag: selectedFlags
+      brandFlag: selectedFlags,
+      model: selectedModel,
     };
 
     _get("put", "api/fieldBrand", data, props.selectedId, "")
@@ -93,7 +94,7 @@ const ModalField = (props) => {
       content_field: updateValue,
       chapo_field: headerVal,
       brandFlag: selectedFlags,
-      model: selectedModel
+      model: selectedModel,
     };
 
     _get("post", "api/fieldBrand", data, "", "")
