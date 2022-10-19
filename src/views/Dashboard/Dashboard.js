@@ -20,7 +20,6 @@ const Dashboard = () => {
   const [anayticsTotalEvents, setAnayticsTotalEvents] = useState()
   const [anayticsSessions, setAnayticsSessions] = useState()
   const [anayticsPageViews, setAnayticsPageViews] = useState()
-
   const [selectedDate, setSelectedDate] = useState("")
 
   let getDate = ()=>{
