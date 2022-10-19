@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/mobilite-vert-back-office.git/static/css/main.e7858099.css",
+    "main.js": "/mobilite-vert-back-office.git/static/js/main.8f47d602.js",
+    "index.html": "/mobilite-vert-back-office.git/index.html",
+    "main.e7858099.css.map": "/mobilite-vert-back-office.git/static/css/main.e7858099.css.map",
+    "main.8f47d602.js.map": "/mobilite-vert-back-office.git/static/js/main.8f47d602.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.e7858099.css",
+    "static/js/main.8f47d602.js"
+  ]
+}
