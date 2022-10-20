@@ -7,6 +7,7 @@ const _get = async (method, url, data, _id, subId) => {
       subId ? `/${subId}` : ""
     }`,
     data: data,
+    crossDomain: true,
     withCredentials: true,
   })
     .then((res) => {
