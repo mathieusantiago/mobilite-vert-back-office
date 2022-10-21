@@ -46,8 +46,6 @@ const ModalField = (props) => {
       }
     };
     if(brand !== ""){
-      console.log("request")
-
       axios(options)
       .then((res)=>{
         setModelsCars(res.data)

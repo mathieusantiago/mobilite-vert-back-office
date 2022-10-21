@@ -88,7 +88,6 @@ const ModalField = (props) => {
   }
 
   const postRefBrand = async () => {
-    console.log("test",selectedModel)
     let data = {
       filed_name: titleRef,
       content_field: updateValue,

@@ -48,7 +48,6 @@ const Dashboard = () => {
   }
 
   const getAllAnalytics = ()=>{
-    console.log("getAllAnalytics")
     _get('get', 'api/article/count', '', '', '')
     .then((e)=>{setCountArticle(e.data)})
 
