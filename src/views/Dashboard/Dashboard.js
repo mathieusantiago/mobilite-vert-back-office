@@ -76,16 +76,28 @@ const Dashboard = () => {
     .then((e)=>{setCountRole(e.data)})
 
     _get('get', `api/analytics?metrics=users&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsUser(e.data.data['ga:users'].value)})
+    .then((e)=>{
+      console.log('ga:users', e) 
+      setAnayticsUser(e.data.data['ga:users'].value)
+    })
 
     _get('get', `api/analytics?metrics=sessions&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsSessions(e.data.data['ga:sessions'].value)})
+    .then((e)=>{
+      console.log('ga:sessions', e) 
+      setAnayticsSessions(e.data.data['ga:sessions'].value)
+    })
 
     _get('get', `api/analytics?metrics=pageviews&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsPageViews(e.data.data['ga:pageviews'].value)})
+    .then((e)=>{
+      console.log('ga:pageviews', e) 
+      setAnayticsPageViews(e.data.data['ga:pageviews'].value)
+    })
 
     _get('get', `api/analytics?metrics=totalevents&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsTotalEvents(e.data.data['ga:totalevents'].value)})
+    .then((e)=>{
+      console.log('ga:totalevents', e) 
+      setAnayticsTotalEvents(e.data.data['ga:totalevents'].value)
+    })
 
   }
   useEffect(() => {
