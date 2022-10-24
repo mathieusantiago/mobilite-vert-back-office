@@ -11,14 +11,14 @@ const TableAnalytics = (props) => {
 
     const columns = [
         {
-            name: "Url de la vue",
-            selector: (row) => `https://client-react.onrender.com${row[0]}`,
+            name: props.col1,
+            selector: (row) => `${row[0]}`,
             center: true,
             sortable: false,
             wrap: true,
         },
         {
-            name: "Nombre de vue",
+            name:  props.col2,
             selector: (row) => row[1],
             center: true,
             sortable: true,

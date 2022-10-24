@@ -7,7 +7,7 @@ import "./index.css";
 import  dompurify from "../../utils/dompurify";
 
 import ModalField from "../Modal/ModalFieldEnergy";
-import { PencilFill, PlusLg, Trash3Fill } from "react-bootstrap-icons";
+import { PencilFill, Trash3Fill } from "react-bootstrap-icons";
 import ModalDelete from "../Modal/ModalDelete";
 
 const EnergyComponent = () => {
