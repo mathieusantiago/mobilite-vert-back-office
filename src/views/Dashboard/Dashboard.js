@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../../components/AppContext";
-import Spinner from "../../components/Spinner/Spinner";
-import { Card, Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
 import "./Dashboard.css";
 import _get from "../../utils/dataUtils";
 import {FileRichtext, ListUl, Images, Files, Hash, PersonLinesFill, PeopleFill, EyeFill, Boxes, JournalArrowUp} from "react-bootstrap-icons";
+import AnaliticsPieChart from "../../components/charts/AnaliticsPieChart";
+import TableAnalytics from "../../components/charts/TableAnalytics";
 const Dashboard = () => {
   const uid = useContext(UidContext);
+  const [selectedDate, setSelectedDate] = useState("")
   const [countArticle, setCountArticle] = useState()
   const [countPublishDraftArticle, setCountPublishDraftArticle] = useState([])
   const [countCategorie, setCountCategorie] = useState()
@@ -16,11 +18,16 @@ const Dashboard = () => {
   const [countFieldModel, setCountFieldModel] = useState()
   const [countTags, setCountTags] = useState()
   const [countRole, setCountRole] = useState()
+
   const [anayticsUser, setAnayticsUser] = useState()
-  const [anayticsTotalEvents, setAnayticsTotalEvents] = useState()
+  const [anayticsTotalEvents, setAnayticsTotalEvents] = useState("0")
   const [anayticsSessions, setAnayticsSessions] = useState()
   const [anayticsPageViews, setAnayticsPageViews] = useState()
-  const [selectedDate, setSelectedDate] = useState("")
+  const [anayticsArrayPageViews, setAnayticsArrayPageViews] = useState()
+  const [anayticsBrowser, setAnayticsBrowser] = useState()
+  const [anayticsCountry, setAnayticsCountry] = useState()
+  const [anayticsDeviceCategory, setAnayticsDeviceCategory] = useState()
+  const [anayticsSource, setAnayticsSource] = useState()
 
   let getDate = ()=>{
     let toDay = new Date()
@@ -85,9 +92,24 @@ const Dashboard = () => {
     .then((e)=>{setAnayticsPageViews(e.data.data['ga:pageviews'].value)})
 
     _get('get', `api/analytics?metrics=totalevents&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsTotalEvents(e.data.data['ga:totalevents'].value)})
+    .then((e)=>{setAnayticsTotalEvents(e.data.data['ga:totalevents'].value || '0')})
 
+    _get('get', `api/analytics/rows?metrics=pageviews&&dimensions=pagePath&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsArrayPageViews(e.data.data['ga:pageviews'].value || '0')})
+
+    _get('get', `api/analytics/rows?metrics=users&&dimensions=browser&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsBrowser(e.data.data['ga:users'].value || '0')})
+
+    _get('get', `api/analytics/rows?metrics=users&&dimensions=country&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsCountry(e.data.data['ga:users'].value || '0')})
+
+    _get('get', `api/analytics/rows?metrics=users&&dimensions=deviceCategory&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsDeviceCategory(e.data.data['ga:users'].value || '0')})
+
+    _get('get', `api/analytics/rows?metrics=users&&dimensions=source&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsSource(e.data.data['ga:users'].value || '0')})
   }
+
   useEffect(() => {
     getAllAnalytics()
   },[selectedDate]);
@@ -103,7 +125,7 @@ const Dashboard = () => {
         <br/>
         <div className="text-center">
           <Container className="border p-3 dashContent">
-          <Row>
+          <Row className='mb-5'>
               <h3 className='dashTextColor'>Analytiques</h3>
               <p className="text-start"> Filtre Analitique Client: </p>
               <p className="text-start">
@@ -115,25 +137,25 @@ const Dashboard = () => {
               <Col>
                 <Row>
                   <Col>
-                  
                   <Card  style={{ width: '18rem' }}>
                     <Card.Body>
-                      <Card.Text>
-                        <PeopleFill className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre de visiteurs</p>
-                        <span className='countElement'>{anayticsUser}</span>
-                      </Card.Text>
+                      {anayticsBrowser?(
+                        <Card.Text>
+                            <AnaliticsPieChart anayticsBrowser={anayticsBrowser}/>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+                      
                     </Card.Body>
                   </Card>
                   </Col>
                   <Col>
                   <Card  style={{ width: '18rem' }}>
                     <Card.Body>
-                      <Card.Text>
-                        <EyeFill className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre de pages vue</p>
-                        <span className='countElement'>{anayticsPageViews}</span>
-                      </Card.Text>
+                      {anayticsCountry?(
+                        <Card.Text>
+                          <AnaliticsPieChart anayticsBrowser={anayticsCountry}/>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
                     </Card.Body>
                   </Card>
                   </Col>
@@ -144,26 +166,106 @@ const Dashboard = () => {
                   <Col>
                   <Card  style={{ width: '18rem' }}>
                     <Card.Body>
+                      {anayticsDeviceCategory?(
                       <Card.Text>
-                        <Boxes className='dashIcons'/>
-                          <p className='h5 dashTextColor'>Nombre de sessions active</p>
-                        <span className='countElement'>{anayticsSessions}</span>
+                        <AnaliticsPieChart anayticsBrowser={anayticsDeviceCategory}/>
                       </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body >
+                      {anayticsSource?(
+                        <Card.Text>
+                            <AnaliticsPieChart anayticsBrowser={anayticsSource}/>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+
+          <Row className='mb-5'>
+              <Col>
+                <Row>
+                  {/* <div>
+                    <AnaliticsPieChart anayticsBrowser={anayticsBrowser}/>
+                  </div>
+                  <div>
+                    <AnaliticsPieChart anayticsBrowser={anayticsCountry}/>
+                  </div>
+                  <div>
+                    <AnaliticsPieChart anayticsBrowser={anayticsDeviceCategory}/>
+                  </div> */}
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      {anayticsUser?(
+                        <Card.Text>
+                          <PeopleFill className='dashIcons'/>
+                          <p className='h5 dashTextColor'>Nombre de visiteurs</p>
+                          <span className='countElement'>{anayticsUser}</span>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+                      
                     </Card.Body>
                   </Card>
                   </Col>
                   <Col>
                   <Card  style={{ width: '18rem' }}>
                     <Card.Body>
-                      <Card.Text>
-                        <JournalArrowUp className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre d'evenement</p>
-                        <span className='countElement'>{anayticsTotalEvents}</span>
-                      </Card.Text>
+                      {anayticsPageViews?(
+                        <Card.Text>
+                          <EyeFill className='dashIcons'/>
+                          <p className='h5 dashTextColor'>Nombre de pages vue</p>
+                          <span className='countElement'>{anayticsPageViews}</span>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
                     </Card.Body>
                   </Card>
                   </Col>
                 </Row>
+              </Col>
+              <Col>
+                <Row>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      {anayticsSessions?(
+                      <Card.Text>
+                        <Boxes className='dashIcons'/>
+                          <p className='h5 dashTextColor'>Nombre de sessions active</p>
+                        <span className='countElement'>{anayticsSessions}</span>
+                      </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                  <Col>
+                  <Card  style={{ width: '18rem' }}>
+                    <Card.Body>
+                      {anayticsTotalEvents?(
+                        <Card.Text>
+                          <JournalArrowUp className='dashIcons'/>
+                          <p className='h5 dashTextColor'>Nombre d'evenement</p>
+                          <span className='countElement'>{anayticsTotalEvents}</span>
+                        </Card.Text>
+                      ):(<Spinner animation="border" variant="secondary" />)}
+                    </Card.Body>
+                  </Card>
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+              <TableAnalytics dataPageAnalitics={anayticsArrayPageViews}/>
               </Col>
             </Row>
             <Row className='mt-4'>
