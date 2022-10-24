@@ -14,7 +14,7 @@ const ModalCategorie = (props) => {
   useEffect(() => {
     setId(props.categorieId);
     setData(props.categorieData);
-  });
+  },[]);
   const handleCategorieSubmit = (event) => {
     event.preventDefault();
     event.stopPropagation();
