@@ -28,6 +28,7 @@ const Dashboard = () => {
   const [anayticsCountry, setAnayticsCountry] = useState()
   const [anayticsDeviceCategory, setAnayticsDeviceCategory] = useState()
   const [anayticsSource, setAnayticsSource] = useState()
+  const [anayticsEventArray, setAnayticsEventArray] = useState()
 
   let getDate = ()=>{
     let toDay = new Date()
@@ -108,6 +109,9 @@ const Dashboard = () => {
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=source&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
     .then((e)=>{setAnayticsSource(e.data.data['ga:users'].value || '0')})
+
+    _get('get', `api/analytics/rows?metrics=users&&dimensions=eventLabel&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
+    .then((e)=>{setAnayticsEventArray(e.data.data['ga:users'].value || '0')})
   }
 
   useEffect(() => {
@@ -193,15 +197,6 @@ const Dashboard = () => {
           <Row className='mb-5'>
               <Col>
                 <Row>
-                  {/* <div>
-                    <AnaliticsPieChart anayticsBrowser={anayticsBrowser}/>
-                  </div>
-                  <div>
-                    <AnaliticsPieChart anayticsBrowser={anayticsCountry}/>
-                  </div>
-                  <div>
-                    <AnaliticsPieChart anayticsBrowser={anayticsDeviceCategory}/>
-                  </div> */}
                   <Col>
                   <Card  style={{ width: '18rem' }}>
                     <Card.Body>
@@ -265,7 +260,10 @@ const Dashboard = () => {
             </Row>
             <Row>
               <Col>
-              <TableAnalytics dataPageAnalitics={anayticsArrayPageViews}/>
+              <TableAnalytics dataPageAnalitics={anayticsArrayPageViews} col1="Url pages" col2="Nombre de pages"/>
+              </Col>
+              <Col>
+              <TableAnalytics dataPageAnalitics={anayticsEventArray} col1="Label event" col2="Nombre d'eventement"/>
               </Col>
             </Row>
             <Row className='mt-4'>
