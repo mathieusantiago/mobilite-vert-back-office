@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { UidContext } from "../../components/AppContext";
-import { Card, Col, Container, Row, Spinner } from "react-bootstrap";
+import { Card, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import "./Dashboard.css";
 import _get from "../../utils/dataUtils";
 import {FileRichtext, ListUl, Images, Files, Hash, PersonLinesFill, PeopleFill, EyeFill, Boxes, JournalArrowUp} from "react-bootstrap-icons";
@@ -132,11 +132,35 @@ const Dashboard = () => {
           <Row className='mb-5'>
               <h3 className='dashTextColor'>Analytiques</h3>
               <p className="text-start"> Filtre Analitique Client: </p>
-              <p className="text-start">
-                <span className="dateChange" onClick={()=>setSelectedDate('1d')}>1D </span>
-                <span className="dateChange" onClick={()=>setSelectedDate('17')}> 7D </span>
-                <span className="dateChange" onClick={()=>setSelectedDate('1m')}> 1M </span>
-                </p>
+          
+              <Form className="text-start">
+                  <div key={`inline-radio`} className="mb-3">
+                    <Form.Check
+                      inline
+                      label="1 joure"
+                      name="group1"
+                      type="radio"
+                      id={`inline-radio-1`}
+                      onClick={()=>setSelectedDate('1d')}
+                    />
+                    <Form.Check
+                      inline
+                      label="7 joures"
+                      name="group1"
+                      type="radio"
+                      id={`inline-radio-2`}
+                      onClick={()=>setSelectedDate('7d')}
+                    />
+                    <Form.Check
+                      inline
+                      label="1 mois"
+                      name="group1"
+                      type="radio"
+                      id={`inline-radio-2`}
+                      onClick={()=>setSelectedDate('1m')}
+                    />
+                  </div>
+              </Form>
               <p className='text-start mt-2'>Analitique Client</p>
               <Col>
                 <Row>
