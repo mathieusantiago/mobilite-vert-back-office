@@ -26,18 +26,18 @@ function App() {
   const [uid, setUid] = useState(null);
   const [asideState, setAsideState] = useState(false);
 
-  const fetchToken = async () => {
-    _get('get', 'jwtid', "", "", "")
-      .then((res) => {
-        setUid(res.data);
-      })
-      .catch((err) => {
-        console.log("No token", err);
-      });
-  };
   useEffect(() => {
+    const fetchToken = async () => {
+      await _get('get', 'jwtid', "", "", "")
+        .then((res) => {
+          setUid(res.data);
+        })
+        .catch((err) => {
+          console.log("No token", err);
+        });
+    };
     fetchToken();
-  }, [uid, fetchToken()]); 
+  }, [uid]); 
 
   return (
     <UidContext.Provider value={uid}>

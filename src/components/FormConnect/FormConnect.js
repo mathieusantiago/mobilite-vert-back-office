@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
-import { Button, Form } from "react-bootstrap";
 import { UidContext } from "../AppContext";
+import { Button, Form } from "react-bootstrap";
 import _get from "../../utils/dataUtils";
 
 const FormComent = (props) => {
@@ -26,9 +26,9 @@ const FormComent = (props) => {
 
     _get("post", "api/user/login", data, "", "")
       .then((res) => {
-        if (res.data.errors) {
-          emailError.innerHTML = res.data.errors.email;
-          passWordError.innerHTML = res.data.errors.password;
+        if (res?.response?.data?.errors) {
+          emailError.innerHTML = res.response.data.errors.email;
+          passWordError.innerHTML = res.response.data.errors.password;
         } else {
           window.location = "/dashboard";
         }
