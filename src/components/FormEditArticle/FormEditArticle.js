@@ -52,11 +52,7 @@ const FormEditArticle = (props) => {
     setShowToasts(!showToasts);
   };
 
-  useEffect(() => {
-    getDataStore();
-    posteArticle();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [submitted, props.categorie, galleryPicture]);
+
 
   const fetchArticle = async (_id) => {
     _get("get", "api/article", "", _id, "")
@@ -109,7 +105,6 @@ const FormEditArticle = (props) => {
   };
 
   const posteArticle = () => {
-
     if (submitted) {
       let data = {
         profil_name: selectedCategorie,
@@ -179,6 +174,13 @@ const FormEditArticle = (props) => {
     };
     sessionStorage.setItem("dataArticle", JSON.stringify(data));
   };
+
+  useEffect(() => {
+    getDataStore();
+    posteArticle();
+  }, [submitted, props.categorie, galleryPicture]);
+
+
   return (
     <div>
       <div className="toastsPosition">

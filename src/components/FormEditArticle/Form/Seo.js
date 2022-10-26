@@ -11,8 +11,8 @@ const Seo = (props) => {
               <Form.Control
                 id="floatingInputCustom"
                 type="text"
-                onChange={(e) => props.setTilteSeo(e.target.value)}
-                value={props.tilteSeo}
+                onChange={(e) => props?.setTilteSeo(e.target.value)}
+                value={props?.tilteSeo}
 
 
               />
@@ -30,8 +30,8 @@ const Seo = (props) => {
                 as="textarea"
                 placeholder="Leave a comment here"
                 style={{ height: "150px" }}
-                onChange={(e)=> props.setContentSeo(e.target.value)}
-                value={props.contentSeo}
+                onChange={(e)=> props?.setContentSeo(e.target.value)}
+                value={props?.contentSeo}
 
 
               />

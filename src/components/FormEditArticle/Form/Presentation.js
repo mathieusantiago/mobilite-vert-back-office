@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 const Presentation = (props) => {
   const getStoreSecondaryPicture = () => {
     const data =
-      sessionStorage.getItem("secondaryPicture") || props.secondaryPicture;
+      sessionStorage.getItem("secondaryPicture") || props?.secondaryPicture;
     return data;
   };
   return (
@@ -22,12 +22,12 @@ const Presentation = (props) => {
               <Form.Select
                 aria-label="Floating label select example"
                 onChange={(e) => {
-                  props.setPresCategorie(e.target.value);
+                  props?.setPresCategorie(e.target.value);
                 }}
-                value={props.presCategorie}
+                value={props?.presCategorie}
               >
                 <option>""Select category""</option>;
-                {props.categorie.map((element) => {
+                {props?.categorie?.map((element) => {
                   return (
                     <option key={element._id}>{element.categorie_name}</option>
                   );
@@ -50,7 +50,7 @@ const Presentation = (props) => {
               <Button
                 className="btnGalerie"
                 variant="primary"
-                onClick={() => props.storeDataArticle()}
+                onClick={() => props?.storeDataArticle()}
               >
                 Librairie de médias
               </Button>
@@ -64,27 +64,27 @@ const Presentation = (props) => {
               id="checkbox"
               label="Mettre en une"
               onChange={(e) => {
-                props.setPutInOne(e.target.checked);
+                props?.setPutInOne(e.target.checked);
               }}
-              checked={props.putInOne}
+              checked={props?.putInOne}
             />
             <Form.Check
               type="checkbox"
               id="checkbox"
               label="Ne pas afficher sur la home"
               onChange={(e) => {
-                props.setNotDisplayHomepage(e.target.checked);
+                props?.setNotDisplayHomepage(e.target.checked);
               }}
-              checked={props.notDisplayHomepage}
+              checked={props?.notDisplayHomepage}
             />
             <Form.Check
               type="checkbox"
               id="checkbox"
               label="Sans publicité"
               onChange={(e) => {
-                props.setWithoutPub(e.target.checked);
+                props?.setWithoutPub(e.target.checked);
               }}
-              checked={props.withoutPub}
+              checked={props?.withoutPub}
             />
           </div>
           <div className="ms-5 mt-4">
@@ -94,9 +94,9 @@ const Presentation = (props) => {
                 type="text"
                 placeholder="name@example.com"
                 onChange={(e) => {
-                  props.setPresTitle(e.target.value);
+                  props?.setPresTitle(e.target.value);
                 }}
-                value={props.presTitle}
+                value={props?.presTitle}
               />
               <label htmlFor="floatingInputCustom">
                 Titre star (environ 10 mots)
@@ -111,9 +111,9 @@ const Presentation = (props) => {
                 type="text"
                 placeholder="name@example.com"
                 onChange={(e) => {
-                  props.setPresChapo(e.target.value);
+                  props?.setPresChapo(e.target.value);
                 }}
-                value={props.presChapo}
+                value={props?.presChapo}
               />
               <label htmlFor="floatingInputCustom">
                 Titre court (environ 3 mots)
@@ -122,9 +122,9 @@ const Presentation = (props) => {
           </div>
           <div className="ms-5 mt-4 mb-5">
             <RichEdit
-              setUpdateValue={props.setUpdateValue}
-              value={props.presArticle}
-              setValue={props.setPresArticle}
+              setUpdateValue={props?.setUpdateValue}
+              value={props?.presArticle}
+              setValue={props?.setPresArticle}
             />
 
             {/* <FloatingLabel
@@ -136,9 +136,9 @@ const Presentation = (props) => {
                 placeholder="Leave a comment here"
                 style={{ height: "150px" }}
                 onChange={(e) => {
-                  props.setPresArticle(e.target.value);
+                  props?.setPresArticle(e.target.value);
                 }}
-                value={props.presArticle}
+                value={props?.presArticle}
               />
             </FloatingLabel> */}
           </div>
