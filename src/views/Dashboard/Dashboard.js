@@ -57,70 +57,69 @@ const Dashboard = () => {
 
   const getAllAnalytics = ()=>{
     _get('get', 'api/article/count', '', '', '')
-    .then((e)=>{setCountArticle(e.data)})
+    .then((e)=>{setCountArticle(e?.data)})
 
     _get('get', 'api/article/publishCount', '', '', '')
-    .then((e)=>{setCountPublishDraftArticle(e.data)})
+    .then((e)=>{setCountPublishDraftArticle(e?.data)})
 
     _get('get', 'api/categorie/count', '', '', '')
-    .then((e)=>{setCountCategorie(e.data)})
+    .then((e)=>{setCountCategorie(e?.data)})
 
     _get('get', 'api/gallery/count', '', '', '')
-    .then((e)=>{setCountGallery(e.data)})
+    .then((e)=>{setCountGallery(e?.data)})
 
     _get('get', 'api/fieldEnergy/count', '', '', '')
-    .then((e)=>{setCountFieldEnergy(e.data)})
+    .then((e)=>{setCountFieldEnergy(e?.data)})
 
     _get('get', 'api/fieldBrand/count', '', '', '')
-    .then((e)=>{setCountFieldBrand(e.data)})
+    .then((e)=>{setCountFieldBrand(e?.data)})
 
     _get('get', 'api/fieldModel/count', '', '', '')
-    .then((e)=>{setCountFieldModel(e.data)})
+    .then((e)=>{setCountFieldModel(e?.data)})
 
     _get('get', 'api/tags/count', '', '', '')
-    .then((e)=>{setCountTags(e.data)})
+    .then((e)=>{setCountTags(e?.data)})
 
     _get('get', 'api/role/count', '', '', '')
-    .then((e)=>{setCountRole(e.data)})
+    .then((e)=>{setCountRole(e?.data)})
 
     _get('get', `api/analytics?metrics=users&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
     .then((e)=>{
-      console.log('ga:users', e) 
-      setAnayticsUser(e.data.data['ga:users'].value)
+      setAnayticsUser(e?.data?.data['ga:users']?.value)
     })
 
     _get('get', `api/analytics?metrics=sessions&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
     .then((e)=>{
       console.log('ga:sessions', e) 
-      setAnayticsSessions(e.data.data['ga:sessions'].value)
+      setAnayticsSessions(e?.data?.data['ga:sessions']?.value)
     })
 
     _get('get', `api/analytics?metrics=pageviews&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
     .then((e)=>{
       console.log('ga:pageviews', e) 
-      setAnayticsPageViews(e.data.data['ga:pageviews'].value)
+      setAnayticsPageViews(e?.data?.data['ga:pageviews']?.value)
     })
 
     _get('get', `api/analytics?metrics=totalevents&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsTotalEvents(e.data.data['ga:totalevents'].value || '0')})
+    .then((e)=>{setAnayticsTotalEvents(e?.data?.data['ga:totalevents']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=pageviews&&dimensions=pagePath&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsArrayPageViews(e.data.data['ga:pageviews'].value || '0')})
+    .then((e)=>{setAnayticsArrayPageViews(e?.data?.data['ga:pageviews']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=browser&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsBrowser(e.data.data['ga:users'].value || '0')})
+    .then((e)=>{setAnayticsBrowser(e?.data?.data['ga:users']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=country&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsCountry(e.data.data['ga:users'].value || '0')})
+    .then((e)=>{setAnayticsCountry(e?.data?.data['ga:users']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=deviceCategory&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsDeviceCategory(e.data.data['ga:users'].value || '0')})
+    .then((e)=>{setAnayticsDeviceCategory(e?.data?.data['ga:users']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=source&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsSource(e.data.data['ga:users'].value || '0')})
+    .then((e)=>{setAnayticsSource(e?.data?.data['ga:users']?.value || '0')})
 
     _get('get', `api/analytics/rows?metrics=users&&dimensions=eventLabel&&startDate=${getDate().oneMonthAgo}&&endDate=${getDate().toDay}`, '', '', '')
-    .then((e)=>{setAnayticsEventArray(e.data.data['ga:users'].value || '0')})
+    .then((e)=>{setAnayticsEventArray(e?.data?.data['ga:users']?.value || '0')})
   }
 
   useEffect(() => {

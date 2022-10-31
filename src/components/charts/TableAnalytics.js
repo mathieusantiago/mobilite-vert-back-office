@@ -30,7 +30,7 @@ const TableAnalytics = (props) => {
             <DataTable
                 pagination
                 columns={columns}
-                data={props.dataPageAnalitics}
+                data={props?.dataPageAnalitics}
                 dense={false}
                 responsive={true}
                 striped
