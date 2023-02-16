@@ -161,7 +161,7 @@ const Dashboard = () => {
                     />
                   </div>
               </Form>
-              <p className='text-start mt-2'>Analitique Client</p>
+              <p className='text-start mt-2'>Analytiques Clients</p>
               <Col>
                 <Row>
                   <Col>
@@ -241,7 +241,7 @@ const Dashboard = () => {
                       {anayticsPageViews?(
                         <Card.Text>
                           <EyeFill className='dashIcons'/>
-                          <p className='h5 dashTextColor'>Nombre de pages vue</p>
+                          <p className='h5 dashTextColor'>Nombre de pages vues</p>
                           <span className='countElement'>{anayticsPageViews}</span>
                         </Card.Text>
                       ):(<Spinner animation="border" variant="secondary" />)}
@@ -258,7 +258,7 @@ const Dashboard = () => {
                       {anayticsSessions?(
                       <Card.Text>
                         <Boxes className='dashIcons'/>
-                          <p className='h5 dashTextColor'>Nombre de sessions active</p>
+                          <p className='h5 dashTextColor'>Nombre de sessions actives</p>
                         <span className='countElement'>{anayticsSessions}</span>
                       </Card.Text>
                       ):(<Spinner animation="border" variant="secondary" />)}
@@ -272,7 +272,7 @@ const Dashboard = () => {
                       {anayticsTotalEvents?(
                         <Card.Text>
                           <JournalArrowUp className='dashIcons'/>
-                          <p className='h5 dashTextColor'>Nombre d'evenement</p>
+                          <p className='h5 dashTextColor'>Nombre d'evenements</p>
                           <span className='countElement'>{anayticsTotalEvents}</span>
                         </Card.Text>
                       ):(<Spinner animation="border" variant="secondary" />)}
@@ -291,18 +291,18 @@ const Dashboard = () => {
               </Col>
             </Row>
             <Row className='mt-4'>
-            <p className='text-start'>Analitique BackOffice :</p>
+            <p className='text-start'>Analytique BackOffice :</p>
 
               <Col>
                 <Card style={{ width: '98%' }}>
                   <Card.Body>
                     <Card.Text>
                       <FileRichtext className='dashIcons'/>
-                      <p className='h5 dashTextColor'>Nombre d'article</p>
+                      <p className='h5 dashTextColor'>Nombre d'articles</p>
                       <span className='countElement'>{countArticle?.count}</span>
                       <Row>
                         <Col>
-                        <p className='h5 dashTextColor'>Publier</p>
+                        <p className='h5 dashTextColor'>Publiés</p>
                         <span className='countElement'>{countPublishDraftArticle?.publishCount}</span>
                         </Col>
                         <Col>
@@ -321,7 +321,7 @@ const Dashboard = () => {
                     <Card.Body>
                       <Card.Text>
                         <Files className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nb de fiches types d'energies</p>
+                        <p className='h5 dashTextColor'>Nb de fiches types d'énergies</p>
                         <span className='countElement'>{countFieldEnergy?.count}</span>
                         <Row>
                           <Col>
@@ -329,7 +329,7 @@ const Dashboard = () => {
                           <span className='countElement'>{countFieldBrand?.count}</span>
                           </Col>
                           <Col>
-                            <p className='h5 dashTextColor'>Nb de fiches model de vehicul</p>
+                            <p className='h5 dashTextColor'>Nb de fiches modeles de vehicules</p>
                             <span className='countElement'>{countFieldModel?.count}</span>
                           </Col>
                         </Row>
@@ -349,7 +349,7 @@ const Dashboard = () => {
                     <Card.Body>
                       <Card.Text>
                         <ListUl className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre de catégorie</p>
+                        <p className='h5 dashTextColor'>Nombre de catégories</p>
                         <span className='countElement'>{countCategorie?.count}</span>
                       </Card.Text>
                     </Card.Body>
@@ -360,7 +360,7 @@ const Dashboard = () => {
                     <Card.Body>
                       <Card.Text>
                         <Images className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre d'image importer</p>
+                        <p className='h5 dashTextColor'>Nombre d'images importés</p>
                         <span className='countElement'>{countGallery?.count}</span>
                       </Card.Text>
                     </Card.Body>
@@ -375,7 +375,7 @@ const Dashboard = () => {
                     <Card.Body>
                       <Card.Text>
                         <Hash className='dashIcons'/>
-                          <p className='h5 dashTextColor'>Nombre de tags créer</p>
+                          <p className='h5 dashTextColor'>Nombre de tags créés</p>
                         <span className='countElement'>{countTags?.count}</span>
                       </Card.Text>
                     </Card.Body>
@@ -386,7 +386,7 @@ const Dashboard = () => {
                     <Card.Body>
                       <Card.Text>
                         <PersonLinesFill className='dashIcons'/>
-                        <p className='h5 dashTextColor'>Nombre de role</p>
+                        <p className='h5 dashTextColor'>Nombre de rôle</p>
                         <span className='countElement'>{countRole?.count}</span>
                       </Card.Text>
                     </Card.Body>
@@ -404,7 +404,7 @@ const Dashboard = () => {
         </>
       ) : (
         <div>
-          <Spinner titleSpinner="Patienter nous vous connectons a votre DashBoard" />
+          <Spinner titleSpinner="Patienter nous vous connectons à votre DashBoard" />
         </div>
       )}
     </div>

@@ -18,47 +18,47 @@ const ModalDelete = (props) => {
     
     switch (props.scope) {
       case "subArticle":     
-        props.setContentToasts('La sous catégorie a bien été supprimé')
+        props.setContentToasts('La sous catégorie à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/subcategorie/${id}/${subId}`;
         method = "patch";
         break;
       case "article":
-        props.setContentToasts('La nouvelle catégorie a bien été supprimé')
+        props.setContentToasts('La nouvelle catégorie à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/categorie/${id}`;
         method = "delete";
         break;
       case "picture":
-        props.setContentToasts('La photo a bien été supprimé')
+        props.setContentToasts('La photo à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/gallery/${id}`;
         method = "delete";
         break;
       case "contentArticle":
-        props.setContentToasts('L\'article a bien été supprimé')
+        props.setContentToasts('L\'article à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/article/${id}`;
         method = "delete";
         break;
       case "deleteRole":
-        props.setContentToasts('Le role a bien été supprimé')
+        props.setContentToasts('Le rôle à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/role/${id}`;
         method = "delete";
         break;
       case "deleteUser":
-        props.setContentToasts('L\'utilisateur a bien été supprimé')
+        props.setContentToasts('L\'utilisateur à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/user/${id}`;
         method = "delete";
         break;
       case "deleteRefEnergy":
-        props.setContentToasts('La référence a bien été supprimé')
+        props.setContentToasts('La référence à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/fieldEnergy/${id}`;
         method = "delete";
         break;
       case "deleteRefBrand":
-        props.setContentToasts('La référence a bien été supprimé')
+        props.setContentToasts('La référence à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/fieldBrand/${id}`;
         method = "delete";
         break;
       case "deleteRefModel":
-        props.setContentToasts('La référence a bien été supprimé')
+        props.setContentToasts('La référence à bien été supprimé')
         url = `${process.env.REACT_APP_API_URL}api/fieldModel/${id}`;
         method = "delete";
         break;

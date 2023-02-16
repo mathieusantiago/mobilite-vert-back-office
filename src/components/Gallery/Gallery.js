@@ -184,7 +184,7 @@ const Gallery = (props) => {
         ) : (
           <div className="d-flex justify-content-end">
             <Button variant="outline-primary" onClick={storeGallery}>
-              Ajouter la selection
+              Ajouter la sélection
             </Button>
           </div>
         )}

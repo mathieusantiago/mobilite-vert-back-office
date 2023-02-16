@@ -116,10 +116,10 @@ const ModalCategorie = (props) => {
             variant="secondary"
             onClick={() => props.setShowModalSubCategorie(false)}
           >
-            Close
+            annuler
           </Button>
           <Button variant="primary" onClick={handleCategorieSubmit}>
-            Save Chadddnges
+            enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

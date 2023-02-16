@@ -26,7 +26,7 @@ const Presentation = (props) => {
                 }}
                 value={props?.presCategorie}
               >
-                <option>""Select category""</option>;
+                <option>""Sélectionner une categorie""</option>;
                 {props?.categorie?.map((element) => {
                   return (
                     <option key={element._id}>{element.categorie_name}</option>
@@ -52,7 +52,7 @@ const Presentation = (props) => {
                 variant="primary"
                 onClick={() => props?.storeDataArticle()}
               >
-                Librairie de médias
+                Librairie des médias
               </Button>
             </Link>
           </div>
@@ -62,7 +62,7 @@ const Presentation = (props) => {
             <Form.Check
               type="checkbox"
               id="checkbox"
-              label="Mettre en une"
+              label="Mettre à la une"
               onChange={(e) => {
                 props?.setPutInOne(e.target.checked);
               }}
@@ -71,7 +71,7 @@ const Presentation = (props) => {
             <Form.Check
               type="checkbox"
               id="checkbox"
-              label="Ne pas afficher sur la home"
+              label="Ne pas afficher sur la homepage"
               onChange={(e) => {
                 props?.setNotDisplayHomepage(e.target.checked);
               }}

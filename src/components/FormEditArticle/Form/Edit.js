@@ -60,7 +60,7 @@ const Edit = (props) => {
                 aria-label="Floating label select example"
                 value={props?.selectedCategorie}
               >
-                <option>""Select category""</option>;
+                <option>""Sélectionner une catégorie""</option>;
                 {props?.categorie?.map((element) => {
                   return (
                     <option value={element.categorie_name} key={element._id}>
@@ -82,7 +82,7 @@ const Edit = (props) => {
                 aria-label="Floating label select example"
                 value={props?.selectedSubCategorie}
               >
-                <option>""Select category""</option>;
+                <option>""Sélectionner une sous catégorie""</option>;
                 {props?.categorie
                   ?.filter((e) => e.categorie_name === props?.selectedCategorie)
                   ?.map((res) => {
@@ -125,7 +125,7 @@ const Edit = (props) => {
                 variant="primary"
                 onClick={() => props?.storeDataArticle()}
               >
-                Librairie de médias
+                Librairie des médias
               </Button>
             </Link>
           </div>
@@ -182,7 +182,7 @@ const Edit = (props) => {
                     ])
                   }
                 >
-                  <option>""Select tags""</option>;
+                  <option>""Sélectionner un tag""</option>;
                   {props?.tags?.map((e) => {
                     return <option key={e?.tags_name}>{e?.tags_name}</option>;
                   })}

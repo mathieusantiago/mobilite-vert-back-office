@@ -95,7 +95,7 @@ const ModalCropper = (props) => {
         <Modal.Body>
           <Container fluid="md">
             <div className="mt-3">
-              <h5 className="text-center">Select your picture</h5>
+              <h5 className="text-center">Sélectionner votre image</h5>
             </div>
             <Form.Group
               controlId="formFileLg"
@@ -108,7 +108,7 @@ const ModalCropper = (props) => {
                 <h1>
                   {cropData === "" ? (
                     <Button variant="primary" onClick={getCropData}>
-                      Crop Image
+                      Recadrer l'image
                     </Button>
                   ) : (
                     ""
@@ -194,7 +194,7 @@ const ModalCropper = (props) => {
                 </Col>
                 <div className="d-flex justify-content-center mt-3">
                   <Button variant="primary" onClick={uploadImage}>
-                    upload
+                    Enregistrer
                   </Button>
                 </div>
               </Row>

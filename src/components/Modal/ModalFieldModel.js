@@ -49,6 +49,8 @@ const ModalField = (props) => {
       axios(options)
       .then((res)=>{
         setModelsCars(res.data)
+      }).catch((err)=>{
+        console.log(err)
       })
     }
 
@@ -116,7 +118,7 @@ const ModalField = (props) => {
         size="xl"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Créer une nouvelles référence</Modal.Title>
+          <Modal.Title>Créer une nouvelle référence</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -156,7 +158,7 @@ const ModalField = (props) => {
               <Col>
                 <FloatingLabel
                   controlId="floatingInput"
-                  label="rechercher model par marques"
+                  label="rechercher modéle par marques"
                   className="mb-3"
                 >
                   <Form.Control 
@@ -228,7 +230,7 @@ const ModalField = (props) => {
               props.scope === "add" ? postRefModel() : upDateRefModel();
             }}
           >
-            Enregistré
+            Enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

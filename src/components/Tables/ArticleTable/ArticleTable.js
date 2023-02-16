@@ -101,20 +101,20 @@ const ArticleTable = (props) => {
       sortable: true,
     },
     {
-      name: "createDate",
+      name: "date de création",
       selector: (row) => row.createdAt.split("T")[0],
       center: true,
       sortable: true,
     },
     {
-      name: "updateDate",
+      name: "date de mise a jour",
       selector: (row) => row.updatedAt.split("T")[0],
       center: true,
       sortable: true,
       width: "100px",
     },
     {
-      name: "status",
+      name: "statut",
       selector: (row) => {
         return (
           <div>

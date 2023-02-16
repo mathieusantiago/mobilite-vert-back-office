@@ -30,13 +30,13 @@ const Aside = (props) => {
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/article">
               <CardImage className="me-2" />
-              Article
+              Articles
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/categories">
               <CardImage className="me-2" />
-              Categories
+              Catégories
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
@@ -49,19 +49,19 @@ const Aside = (props) => {
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/energy">
               <CardHeading className="me-2" />
-              Fiches Enérgie
+              Fiches énérgies
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/brand">
               <CardHeading className="me-2" />
-              Fiches Marque
+              Fiches marques
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/Model">
               <CardHeading className="me-2" />
-              Fiches Model
+              Fiches modèles
             </Link>
           </p>
           <p>Média</p>
@@ -75,13 +75,13 @@ const Aside = (props) => {
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/membre">
               <PersonRolodex className="me-2" />
-              Membre
+              Membres
             </Link>
           </p>
           <p className="list-group" onClick={handleClose}>
             <Link className="ms-3" to="/role">
               <PersonRolodex className="me-2" />
-              Role
+              Rôles
             </Link>
           </p>
         </Offcanvas.Body>

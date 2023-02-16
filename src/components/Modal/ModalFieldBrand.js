@@ -119,7 +119,7 @@ const ModalField = (props) => {
         size="xl"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Créer une nouvelles référence</Modal.Title>
+          <Modal.Title>Créer une nouvelle référence</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Row>
@@ -179,7 +179,7 @@ const ModalField = (props) => {
               <Col>
                 <FloatingLabel
                   controlId="floatingInput"
-                  label="rechercher le models"
+                  label="rechercher le modéle"
                   className="mb-3"
                 >
                   <Form.Control 
@@ -238,7 +238,7 @@ const ModalField = (props) => {
               props.scope === "add" ? postRefBrand() : upDateRefBrand();
             }}
           >
-            Enregistré
+            Enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

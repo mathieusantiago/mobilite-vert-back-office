@@ -8,7 +8,7 @@ const CardMainPreveiw = (props) => {
   return (
     <div>
       <p className="text-center bold">
-        Prévisualisation de la miniatur de l'article
+        Prévisualisation de la miniature de l'article
       </p>
       <Card className="m-2 mainCards">
         <Card.Img
@@ -27,7 +27,7 @@ const CardMainPreveiw = (props) => {
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">
-            Publillé le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
+            Publié le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
           </small>
         </Card.Footer>
       </Card>

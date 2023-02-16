@@ -46,7 +46,7 @@ const TagsTable = () => {
       sortable: false,
     },
     {
-      name: "status",
+      name: "statut",
       selector: (row) => {
         return row.status_tags?'active':'désactive'
       },

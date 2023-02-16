@@ -178,7 +178,7 @@ const UserTable = (props) => {
       sortable: false,
     },
     {
-      name: "Role",
+      name: "Rôle",
       selector: (row) => {
         // eslint-disable-next-line
         return dataRole.map((data) => {
@@ -286,7 +286,7 @@ const UserTable = (props) => {
                   id="button-addon2"
                   onClick={generatPassword}
                 >
-                  Générer PassWord
+                  Générer mot de passe
                 </Button>
               </InputGroup>
             </Col>
@@ -303,14 +303,14 @@ const UserTable = (props) => {
               />
               <Form.Select
                 className="mt-3"
-                aria-label="Selecte Role"
+                aria-label="Sélectionner un Rôle"
                 onChange={(e) => {
                   setSelectRole(e.target.value);
                 }}
                 id="role"
                 defaultValue={selectRole}
               >
-                <option value="1">Selecte Role</option>
+                <option value="1">Sélectionner un Rôle</option>
                 {dataRole.map((role) => {
                   return (
                     <option key={role._id} value={role._id}>{`
@@ -329,7 +329,7 @@ const UserTable = (props) => {
                 id="status"
                 className="mt-5"
                 type="switch"
-                label={`Status`}
+                label={`Statut`}
                 defaultChecked={isActive}
                 onChange={(e) => {
                   setIsActive(e.target.checked);
@@ -344,7 +344,7 @@ const UserTable = (props) => {
                     size="sm"
                     onClick={updateUser}
                   >
-                    Update
+                    Mettre a jour
                   </Button>
                   <Button
                     className="bordered-bleu"

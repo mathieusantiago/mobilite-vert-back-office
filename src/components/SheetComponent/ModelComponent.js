@@ -83,7 +83,7 @@ const ModelComponent = () => {
       <div className="bg-green  pt-2 pb-2 ps-2">
         <p className="fs-3 m-2 pt-1 text-light chevron-left">
           <Row>
-            <Col md={4}>Référentiel Models</Col>
+            <Col md={4}>Référentiel des Modéles</Col>
             <Col md={{ span: 2, offset: 5 }}>
               <Button
                 className="btn-header"

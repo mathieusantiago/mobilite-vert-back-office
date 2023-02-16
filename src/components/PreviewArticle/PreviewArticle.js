@@ -70,7 +70,7 @@ const PreviewArticle = (props) => {
         </div>
         <div>
           <small className="text-muted ">
-            Publillé le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
+            Publié le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
           </small>
         </div>
       </div>

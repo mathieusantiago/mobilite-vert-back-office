@@ -106,10 +106,10 @@ const ModalCategorie = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.closeModal}>
-            Close
+            annuler
           </Button>
           <Button variant="primary" onClick={handleCategorieSubmit}>
-            Save Chadddnges
+            enregistrer
           </Button>
         </Modal.Footer>
       </Modal>

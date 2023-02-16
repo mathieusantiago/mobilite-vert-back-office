@@ -8,7 +8,7 @@ const CardSharePreveiw = (props) => {
   return (
     <div>
       <p className="text-center bold">
-        Prévisualisation de la Miniatur de l'article l'or d'un partage
+        Prévisualisation de la Miniature de l'article lors d'un partage
       </p>
 
       <Card className="m-2 shareCards">
@@ -30,7 +30,7 @@ const CardSharePreveiw = (props) => {
         </Card.Body>
         <Card.Footer>
           <small className="text-muted">
-            Publillé le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
+            Publié le : {date.toLocaleDateString("fr-FR").substring(0, 10)}
           </small>
         </Card.Footer>
       </Card>
